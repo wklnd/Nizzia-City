@@ -1,0 +1,44 @@
+{
+  "hot_tub": {
+    "id": "hot_tub",
+    "name": "Hot Tub",
+    "costPerLevel": 250000,
+    "happyMaxPerLevel": 25
+  },
+  "home_theater": {
+    "id": "home_theater",
+    "name": "Home Theater",
+    "costPerLevel": 500000,
+    "happyMaxPerLevel": 40
+  },
+  "garden": {
+    "id": "garden",
+    "name": "Zen Garden",
+    "costPerLevel": 150000,
+    "happyMaxPerLevel": 15
+  },
+  "balcony_garden": {
+    "id": "balcony_garden",
+    "name": "Balcony Garden",
+    "costPerLevel": 200000,
+    "happyMaxPerLevel": 16
+  },
+  "vault": {
+    "id": "vault",
+    "name": "Secure Vault",
+    "costPerLevel": 1000000,
+    "happyMaxPerLevel": 2500
+  },
+  "airstrip": {
+    "id": "airstrip",
+    "name": "Airstrip",
+    "costPerLevel": 90000000,
+    "happyMaxPerLevel": 5500
+  },
+  "security_system": {
+    "id": "security_system",
+    "name": "Security System",
+    "costPerLevel": 7500000,
+    "happyMaxPerLevel": 100
+  }
+}

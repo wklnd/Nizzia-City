@@ -1,0 +1,134 @@
+{
+  "businesses": {
+    "laundromat": {
+      "id": "laundromat",
+      "name": "Laundromat",
+      "category": "legit",
+      "cost": 100000,
+      "baseIncome": 500,
+      "upkeep": 200,
+      "baseRaidChance": 0,
+      "maxStaff": 3,
+      "description": "A humble coin-op laundromat. Clean money from dirty clothes."
+    },
+    "mechanic": {
+      "id": "mechanic",
+      "name": "Mechanic Shop",
+      "category": "legit",
+      "cost": 250000,
+      "baseIncome": 1200,
+      "upkeep": 450,
+      "baseRaidChance": 0,
+      "maxStaff": 4,
+      "description": "Fix cars, fix problems. Honest work with grease-stained hands."
+    },
+    "restaurant": {
+      "id": "restaurant",
+      "name": "Restaurant",
+      "category": "legit",
+      "cost": 500000,
+      "baseIncome": 2500,
+      "upkeep": 1000,
+      "baseRaidChance": 0,
+      "maxStaff": 6,
+      "description": "Fine dining or fast food - either way, people gotta eat."
+    },
+    "gym_biz": {
+      "id": "gym_biz",
+      "name": "Fitness Center",
+      "category": "legit",
+      "cost": 750000,
+      "baseIncome": 3200,
+      "upkeep": 1200,
+      "baseRaidChance": 0,
+      "maxStaff": 5,
+      "description": "Memberships, protein shakes, and questionable supplements."
+    },
+    "bar": {
+      "id": "bar",
+      "name": "Dive Bar",
+      "category": "vice",
+      "cost": 400000,
+      "baseIncome": 2000,
+      "upkeep": 600,
+      "baseRaidChance": 0.05,
+      "maxStaff": 4,
+      "description": "Cheap booze, loud music, and people who mind their own business."
+    },
+    "nightclub": {
+      "id": "nightclub",
+      "name": "Nightclub",
+      "category": "vice",
+      "cost": 1500000,
+      "baseIncome": 6000,
+      "upkeep": 2500,
+      "baseRaidChance": 0.08,
+      "maxStaff": 8,
+      "description": "VIP tables, bottle service, and the occasional incident."
+    },
+    "strip_club": {
+      "id": "strip_club",
+      "name": "Strip Club",
+      "category": "vice",
+      "cost": 2000000,
+      "baseIncome": 8500,
+      "upkeep": 3000,
+      "baseRaidChance": 0.1,
+      "maxStaff": 10,
+      "description": "Entertainment for the distinguished criminal entrepreneur."
+    },
+    "dispensary": {
+      "id": "dispensary",
+      "name": "Dispensary",
+      "category": "vice",
+      "cost": 3000000,
+      "baseIncome": 12000,
+      "upkeep": 4000,
+      "baseRaidChance": 0.12,
+      "maxStaff": 6,
+      "description": "Totally legal. Well, mostly. The paperwork is... around here somewhere."
+    },
+    "gun_shop": {
+      "id": "gun_shop",
+      "name": "Gun Shop",
+      "category": "vice",
+      "cost": 5000000,
+      "baseIncome": 18000,
+      "upkeep": 6000,
+      "baseRaidChance": 0.15,
+      "maxStaff": 5,
+      "description": "Second amendment enthusiasts and no-questions-asked clientele."
+    },
+    "casino_biz": {
+      "id": "casino_biz",
+      "name": "Underground Casino",
+      "category": "vice",
+      "cost": 10000000,
+      "baseIncome": 35000,
+      "upkeep": 12000,
+      "baseRaidChance": 0.2,
+      "maxStaff": 12,
+      "description": "High stakes, higher risk. The house always wins - unless they get raided."
+    }
+  },
+  "upgradeTiers": {
+    "1": { "name": "Basic", "cost_mult": 0.25, "income_mult": 1.2, "raid_reduction": 0.02 },
+    "2": { "name": "Improved", "cost_mult": 0.5, "income_mult": 1.4, "raid_reduction": 0.04 },
+    "3": { "name": "Advanced", "cost_mult": 1, "income_mult": 1.65, "raid_reduction": 0.06 },
+    "4": { "name": "Premium", "cost_mult": 2, "income_mult": 1.95, "raid_reduction": 0.08 },
+    "5": { "name": "Elite", "cost_mult": 4, "income_mult": 2.3, "raid_reduction": 0.1 }
+  },
+  "staff": {
+    "salary": 250,
+    "incomeBoost": 0.08
+  },
+  "risk": {
+    "multiBizRaidPenalty": 0.05,
+    "raidIncomeLoss": 1,
+    "raidShutdownTicks": 3
+  },
+  "timing": {
+    "incomeIntervalHours": 1,
+    "maxPendingHours": 24
+  }
+}

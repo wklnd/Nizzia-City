@@ -1,0 +1,117 @@
+{
+  "trailer": {
+    "id": "trailer",
+    "name": "Trailer",
+    "cost": 0,
+    "upkeep": 250,
+    "baseHappyMax": 150,
+    "upgradeLimits": {
+      "hot_tub": 1,
+      "home_theater": 1,
+      "garden": 1
+    }
+  },
+  "apartment": {
+    "id": "apartment",
+    "name": "City Apartment",
+    "cost": 250000,
+    "upkeep": 2500,
+    "baseHappyMax": 200,
+    "upgradeLimits": {
+      "hot_tub": 1,
+      "home_theater": 1,
+      "balcony_garden": 1
+    }
+  },
+  "house": {
+    "id": "house",
+    "name": "Suburban House",
+    "cost": 2500000,
+    "upkeep": 10000,
+    "baseHappyMax": 300,
+    "upgradeLimits": {
+      "hot_tub": 1,
+      "home_theater": 1,
+      "garden": 1
+    }
+  },
+  "villa": {
+    "id": "villa",
+    "name": "Luxury Villa",
+    "cost": 50000000,
+    "upkeep": 50000,
+    "baseHappyMax": 500,
+    "upgradeLimits": {
+      "hot_tub": 1,
+      "home_theater": 1,
+      "garden": 1
+    }
+  },
+  "private_island": {
+    "id": "private_island",
+    "name": "Private Island",
+    "cost": 500000000,
+    "upkeep": 100000,
+    "baseHappyMax": 2000,
+    "upgradeLimits": {
+      "hot_tub": 1,
+      "home_theater": 1,
+      "garden": 1,
+      "vault": 1
+    }
+  },
+  "castle": {
+    "id": "castle",
+    "name": "Castle",
+    "cost": 415788000,
+    "upkeep": 10000,
+    "baseHappyMax": 2725,
+    "upgradeLimits": {
+      "hot_tub": 1,
+      "home_theater": 1,
+      "garden": 1
+    }
+  },
+  "silo": {
+    "id": "silo",
+    "name": "Silo",
+    "cost": 5000000000,
+    "upkeep": 1000000,
+    "baseHappyMax": 8000,
+    "market": false,
+    "upgradeLimits": {
+      "hot_tub": 1,
+      "home_theater": 1,
+      "garden": 1,
+      "security_system": 3,
+      "vault": 1
+    }
+  },
+  "boat": {
+    "id": "boat",
+    "name": "Legend of the Seas",
+    "cost": 12000000000,
+    "upkeep": 1000000,
+    "baseHappyMax": 7975,
+    "market": false,
+    "upgradeLimits": {
+      "hot_tub": 1,
+      "home_theater": 1,
+      "garden": 1
+    }
+  },
+  "castle_lux": {
+    "id": "castle_lux",
+    "name": "Chateau de Luxe au Nizzia",
+    "cost": 52000000000,
+    "upkeep": 1000000,
+    "baseHappyMax": 8175,
+    "market": false,
+    "upgradeLimits": {
+      "hot_tub": 1,
+      "home_theater": 1,
+      "garden": 1,
+      "vault": 1
+    }
+  }
+}

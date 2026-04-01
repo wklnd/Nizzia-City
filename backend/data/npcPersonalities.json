@@ -1,0 +1,161 @@
+{
+  "PERSONALITIES": {
+    "hustler": {
+      "id": "hustler",
+      "name": "Street Hustler",
+      "description": "Lives for crime and quick cash. Always burning nerve.",
+      "weights": {
+        "crime":      0.95,
+        "drugs":      0.80,
+        "stocks":     0.15,
+        "gym":        0.30,
+        "bank":       0.10,
+        "work":       0.40,
+        "education":  0.10,
+        "casino":     0.05,
+        "realEstate": 0.20,
+        "business":   0.15,
+        "pets":       0.10,
+        "market":     0.40,
+        "cartel":     0.70,
+        "items":      0.50
+      }
+    },
+    "businessman": {
+      "id": "businessman",
+      "name": "Business Mogul",
+      "description": "All about investments, properties, and passive income.",
+      "weights": {
+        "crime":      0.10,
+        "drugs":      0.10,
+        "stocks":     0.80,
+        "gym":        0.20,
+        "bank":       0.60,
+        "work":       0.90,
+        "education":  0.70,
+        "casino":     0.05,
+        "realEstate": 0.90,
+        "business":   0.95,
+        "pets":       0.30,
+        "market":     0.50,
+        "cartel":     0.10,
+        "items":      0.20
+      }
+    },
+    "gambler": {
+      "id": "gambler",
+      "name": "High Roller",
+      "description": "Loves risk. Spins every wheel, plays the market.",
+      "weights": {
+        "crime":      0.30,
+        "drugs":      0.20,
+        "stocks":     0.70,
+        "gym":        0.15,
+        "bank":       0.20,
+        "work":       0.50,
+        "education":  0.20,
+        "casino":     0.90,
+        "realEstate": 0.40,
+        "business":   0.30,
+        "pets":       0.20,
+        "market":     0.60,
+        "cartel":     0.20,
+        "items":      0.30
+      }
+    },
+    "soldier": {
+      "id": "soldier",
+      "name": "Enforcer",
+      "description": "Gym rat and cartel muscle. Fights and trains.",
+      "weights": {
+        "crime":      0.60,
+        "drugs":      0.40,
+        "stocks":     0.10,
+        "gym":        0.95,
+        "bank":       0.15,
+        "work":       0.60,
+        "education":  0.40,
+        "casino":     0.05,
+        "realEstate": 0.30,
+        "business":   0.10,
+        "pets":       0.40,
+        "market":     0.30,
+        "cartel":     0.85,
+        "items":      0.70
+      }
+    },
+    "academic": {
+      "id": "academic",
+      "name": "Scholar",
+      "description": "Pursues education and steady career advancement.",
+      "weights": {
+        "crime":      0.05,
+        "drugs":      0.05,
+        "stocks":     0.40,
+        "gym":        0.25,
+        "bank":       0.50,
+        "work":       0.95,
+        "education":  0.95,
+        "casino":     0.02,
+        "realEstate": 0.50,
+        "business":   0.40,
+        "pets":       0.30,
+        "market":     0.20,
+        "cartel":     0.05,
+        "items":      0.15
+      }
+    },
+    "dealer": {
+      "id": "dealer",
+      "name": "Drug Lord",
+      "description": "Runs the grow operation and cartel empire.",
+      "weights": {
+        "crime":      0.50,
+        "drugs":      0.95,
+        "stocks":     0.20,
+        "gym":        0.20,
+        "bank":       0.30,
+        "work":       0.30,
+        "education":  0.15,
+        "casino":     0.10,
+        "realEstate": 0.40,
+        "business":   0.20,
+        "pets":       0.15,
+        "market":     0.60,
+        "cartel":     0.90,
+        "items":      0.40
+      }
+    },
+    "allrounder": {
+      "id": "allrounder",
+      "name": "Jack of All Trades",
+      "description": "Does a bit of everything. No specialization.",
+      "weights": {
+        "crime":      0.50,
+        "drugs":      0.40,
+        "stocks":     0.35,
+        "gym":        0.35,
+        "bank":       0.25,
+        "work":       0.70,
+        "education":  0.40,
+        "casino":     0.15,
+        "realEstate": 0.40,
+        "business":   0.35,
+        "pets":       0.25,
+        "market":     0.35,
+        "cartel":     0.35,
+        "items":      0.35
+      }
+    }
+  },
+
+  "DISTRIBUTION": {
+    "hustler":     25,
+    "businessman": 15,
+    "gambler":      8,
+    "soldier":     20,
+    "academic":    10,
+    "dealer":      12,
+    "allrounder":  10
+  }
+}

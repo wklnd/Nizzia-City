@@ -1,0 +1,6 @@
+{
+  "transferFeeRate": 0,
+  "transferDailyCap": 2000000000,
+  "transferMin": 1,
+  "transactionPageSize": 50
+}

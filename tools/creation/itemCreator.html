@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Item Creator</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #1a1a1a;
+    color: #ddd;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  header {
+    background: #111;
+    border-bottom: 1px solid #333;
+    padding: 10px 16px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .workspace {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  /* FORM PANEL */
+  .form-panel {
+    background: #1a1a1a;
+    border-right: 1px solid #333;
+    overflow-y: auto;
+    padding: 14px;
+  }
+  .section-label {
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #888;
+    letter-spacing: 1px;
+    padding: 10px 0 5px;
+    border-bottom: 1px solid #2a2a2a;
+    margin-bottom: 8px;
+  }
+  .section-label:first-child { padding-top: 0; }
+  .field { margin-bottom: 8px; }
+  .field label {
+    display: block;
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 3px;
+  }
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    background: #252525;
+    border: 1px solid #3a3a3a;
+    color: #ddd;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    padding: 6px 8px;
+    outline: none;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus { border-color: #555; }
+  .field textarea { resize: vertical; min-height: 50px; }
+  .field select option { background: #252525; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+
+  /* TYPE BUTTONS */
+  .type-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 12px;
+  }
+  .type-btn {
+    background: #252525;
+    border: 1px solid #3a3a3a;
+    color: #aaa;
+    font-size: 12px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  .type-btn:hover { background: #2e2e2e; color: #ddd; }
+  .type-btn.active { background: #333; border-color: #666; color: #fff; font-weight: bold; }
+
+  /* EFFECT GRID */
+  .effect-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+
+  /* CACHE BUILDER */
+  .cache-builder {
+    background: #212121;
+    border: 1px solid #333;
+    padding: 10px;
+    margin-bottom: 8px;
+  }
+  .cache-builder .money-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 10px;
+    align-items: end;
+  }
+  .cache-builder label {
+    font-size: 11px;
+    color: #888;
+    display: block;
+    margin-bottom: 3px;
+  }
+  .cache-builder input {
+    width: 100%;
+    background: #1a1a1a;
+    border: 1px solid #3a3a3a;
+    color: #ddd;
+    font-size: 13px;
+    padding: 5px 7px;
+    outline: none;
+  }
+  .cache-builder input:focus { border-color: #555; }
+  .loot-table-header {
+    display: grid;
+    grid-template-columns: 70px 60px 60px 70px 28px;
+    gap: 5px;
+    font-size: 11px;
+    color: #666;
+    text-transform: uppercase;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #2a2a2a;
+    margin-bottom: 5px;
+  }
+  .loot-row {
+    display: grid;
+    grid-template-columns: 70px 60px 60px 70px 28px;
+    gap: 5px;
+    margin-bottom: 4px;
+    align-items: center;
+  }
+  .loot-row input {
+    background: #1a1a1a;
+    border: 1px solid #3a3a3a;
+    color: #ddd;
+    font-size: 13px;
+    padding: 4px 6px;
+    width: 100%;
+    outline: none;
+  }
+  .loot-row input:focus { border-color: #555; }
+  .loot-remove {
+    background: #2a1a1a;
+    border: 1px solid #5a2a2a;
+    color: #c44;
+    font-size: 14px;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+  .loot-remove:hover { background: #5a2a2a; color: #f88; }
+  .add-loot-btn {
+    background: #252525;
+    border: 1px dashed #444;
+    color: #888;
+    font-size: 12px;
+    padding: 5px;
+    width: 100%;
+    cursor: pointer;
+    margin-top: 6px;
+  }
+  .add-loot-btn:hover { color: #bbb; border-color: #666; }
+
+  /* SUBMIT */
+  .submit-btn {
+    background: #2a4a2a;
+    border: 1px solid #4a8a4a;
+    color: #8f8;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 9px;
+    width: 100%;
+    cursor: pointer;
+    margin-top: 14px;
+  }
+  .submit-btn:hover { background: #3a6a3a; }
+  #result { font-size: 12px; margin-top: 8px; min-height: 16px; color: #888; }
+  #result.ok  { color: #6c6; }
+  #result.err { color: #c66; }
+
+  /* LIST PANEL */
+  .list-panel {
+    background: #161616;
+    overflow-y: auto;
+    padding: 14px;
+  }
+  .list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .list-header h2 { font-size: 14px; color: #ccc; font-weight: bold; }
+  .list-controls { display: flex; gap: 8px; margin-bottom: 12px; }
+  .list-controls input,
+  .list-controls select {
+    background: #222;
+    border: 1px solid #333;
+    color: #ddd;
+    font-size: 13px;
+    padding: 5px 8px;
+    outline: none;
+  }
+  .list-controls input { flex: 1; }
+  .list-controls input:focus,
+  .list-controls select:focus { border-color: #555; }
+
+  /* ITEM CARD */
+  .item-card {
+    background: #1e1e1e;
+    border: 1px solid #2e2e2e;
+    padding: 10px 12px;
+    margin-bottom: 6px;
+    display: grid;
+    grid-template-columns: 52px 1fr auto;
+    gap: 12px;
+    align-items: start;
+  }
+  .item-card:hover { border-color: #444; }
+
+  /* BIG ID COLUMN */
+  .item-id-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #252525;
+    border: 1px solid #3a3a3a;
+    padding: 6px 4px;
+    min-height: 44px;
+  }
+  .item-id-num {
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff;
+    line-height: 1;
+  }
+  .item-id-hash {
+    font-size: 10px;
+    color: #555;
+    margin-top: 2px;
+  }
+
+  .item-main {}
+  .item-top {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 4px;
+    flex-wrap: wrap;
+  }
+  .item-name { font-size: 14px; font-weight: bold; color: #eee; }
+  .item-type-badge {
+    font-size: 11px;
+    padding: 1px 6px;
+    border-radius: 2px;
+    font-weight: bold;
+  }
+  .badge-weapon      { background: #3a1a10; color: #e07050; }
+  .badge-armor       { background: #0f2535; color: #5090c0; }
+  .badge-medicine    { background: #0f2a18; color: #50b870; }
+  .badge-alchool     { background: #2a200a; color: #c09040; }
+  .badge-enhancers   { background: #1a0a2a; color: #9060c0; }
+  .badge-clothes     { background: #1a1a2a; color: #7080c0; }
+  .badge-tools       { background: #1a1a0a; color: #a0a040; }
+  .badge-drugs       { background: #2a0a0a; color: #c04040; }
+  .badge-collectibles{ background: #0a1a2a; color: #4090b0; }
+  .badge-cache       { background: #2a2200; color: #ddaa30; }
+  .badge-other       { background: #222; color: #888; }
+  .badge-materials   { background: #1a1510; color: #a08060; }
+
+  .item-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    font-size: 12px;
+    color: #777;
+  }
+  .item-stats b { color: #bbb; }
+  .item-desc { font-size: 11px; color: #666; margin-top: 4px; font-style: italic; }
+
+  .item-actions { display: flex; flex-direction: column; gap: 5px; align-items: flex-end; }
+  .edit-btn {
+    background: none;
+    border: 1px solid #2a3a3a;
+    color: #58a;
+    font-size: 11px;
+    padding: 3px 8px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .edit-btn:hover { border-color: #4cc; color: #8ee; }
+  .del-btn {
+    background: none;
+    border: 1px solid #3a2a2a;
+    color: #855;
+    font-size: 11px;
+    padding: 3px 8px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .del-btn:hover { border-color: #c44; color: #f66; }
+  .dl-btn {
+    background: #222;
+    border: 1px solid #333;
+    color: #888;
+    font-size: 12px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  .dl-btn:hover { color: #bbb; border-color: #555; }
+  .empty-state { color: #444; text-align: center; padding: 30px 0; font-size: 13px; }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<header>
+  <span>Item Creator — Nizzia City</span>
+  <span id="item-count" style="font-size:12px;color:#666;font-weight:normal;"></span>
+</header>
+
+<div class="workspace">
+
+  <!-- FORM -->
+  <div class="form-panel">
+    <div class="section-label">Identity</div>
+    <div class="row2">
+      <div class="field"><label>Name</label><input type="text" id="f-name" placeholder="Item name"></div>
+      <div class="field"><label>Item ID</label><input type="text" id="f-id" placeholder="e.g. 42"></div>
+    </div>
+    <div class="field"><label>Description</label><textarea id="f-desc" placeholder="Flavor text..."></textarea></div>
+
+    <div class="section-label">Type</div>
+    <div class="type-strip" id="type-strip">
+      <button class="type-btn active" data-type="weapon">Weapon</button>
+      <button class="type-btn" data-type="armor">Armor</button>
+      <button class="type-btn" data-type="medicine">Medicine</button>
+      <button class="type-btn" data-type="alchool">Alcohol</button>
+      <button class="type-btn" data-type="enhancers">Enhancer</button>
+      <button class="type-btn" data-type="clothes">Clothes</button>
+      <button class="type-btn" data-type="tools">Tools</button>
+      <button class="type-btn" data-type="drugs">Drugs</button>
+      <button class="type-btn" data-type="collectibles">Collectible</button>
+      <button class="type-btn" data-type="cache">Cache</button>
+      <button class="type-btn" data-type="materials">Materials</button>
+      <button class="type-btn" data-type="other">Other</button>
+    </div>
+
+    <div id="section-subtype" class="field hidden">
+      <label>Subtype</label>
+      <select id="f-type2">
+        <option value="">— none —</option>
+        <option value="primaryWeapon">Primary Weapon</option>
+        <option value="secondaryWeapon">Secondary Weapon</option>
+        <option value="meleeWeapon">Melee Weapon</option>
+        <option value="head">Head</option>
+        <option value="torso">Torso</option>
+        <option value="pants">Pants</option>
+        <option value="shoes">Shoes</option>
+        <option value="legs">Legs</option>
+      </select>
+    </div>
+
+    <div id="section-weapon" class="hidden">
+      <div class="section-label">Weapon Stats</div>
+      <div class="row2">
+        <div class="field"><label>Damage</label><input type="number" id="f-damage" value="0" min="0"></div>
+        <div class="field"><label>Quality</label><input type="number" id="f-quality-w" value="0" min="0" max="100"></div>
+      </div>
+    </div>
+
+    <div id="section-armor" class="hidden">
+      <div class="section-label">Armor Stats</div>
+      <div class="row3">
+        <div class="field"><label>Armor</label><input type="number" id="f-armor" value="0" min="0"></div>
+        <div class="field"><label>Coverage %</label><input type="number" id="f-coverage" value="100" min="0" max="100"></div>
+        <div class="field"><label>Quality</label><input type="number" id="f-quality-a" value="0" min="0" max="100"></div>
+      </div>
+    </div>
+
+    <div id="section-effect" class="hidden">
+      <div class="section-label">Effect</div>
+      <div class="effect-grid">
+        <div class="field"><label>Energy Δ</label><input type="number" id="eb-energy" placeholder="e.g. 250"></div>
+        <div class="field"><label>Nerve Δ</label><input type="number" id="eb-nerve" placeholder="e.g. 5"></div>
+        <div class="field"><label>Happy Δ</label><input type="number" id="eb-happy" placeholder="e.g. 1000"></div>
+        <div class="field"><label>Addiction Δ</label><input type="number" id="eb-addiction" placeholder="e.g. 5"></div>
+        <div class="field"><label>Cooldown Type</label>
+          <select id="eb-cooldown-type">
+            <option value="">none</option>
+            <option value="drug">drug</option>
+            <option value="booster">booster</option>
+            <option value="medical">medical</option>
+            <option value="alcohol">alcohol</option>
+          </select>
+        </div>
+        <div class="field"><label>Cooldown (sec)</label><input type="number" id="eb-cooldown" placeholder="e.g. 3600"></div>
+      </div>
+      <div class="field"><label>Effect JSON (auto-built)</label><textarea id="f-effect" rows="2" placeholder='{"energy":250}'></textarea></div>
+    </div>
+
+    <div id="section-overdose" class="hidden">
+      <div class="section-label">Overdose Effect</div>
+      <div class="field"><textarea id="f-overdose" rows="2" placeholder='{"happy":-10000}'></textarea></div>
+    </div>
+
+    <div id="section-passive" class="hidden">
+      <div class="section-label">Passive Effect</div>
+      <div class="field"><textarea id="f-passive" rows="2" placeholder='{"pickpocket":0.1}'></textarea></div>
+    </div>
+
+    <div id="section-cache" class="hidden">
+      <div class="section-label">Cache — Loot Table</div>
+      <div class="cache-builder">
+        <div class="money-row">
+          <div><label>Money Min</label><input type="number" id="cache-money-min" value="0" min="0"></div>
+          <div><label>Money Max</label><input type="number" id="cache-money-max" value="0" min="0"></div>
+          <div><label>Money Chance (0–1)</label><input type="number" id="cache-money-chance" value="0" min="0" max="1" step="0.01"></div>
+        </div>
+        <div class="loot-table-header">
+          <span>Item ID</span><span>Min Qty</span><span>Max Qty</span><span>Chance</span><span></span>
+        </div>
+        <div id="loot-rows"></div>
+        <button class="add-loot-btn" id="add-loot-btn">+ Add Item</button>
+      </div>
+    </div>
+
+    <div class="section-label">Economics</div>
+    <div class="row3">
+      <div class="field"><label>Price</label><input type="number" id="f-price" value="0" min="0"></div>
+      <div class="field"><label>Sellable</label>
+        <select id="f-sellable"><option value="true">Yes</option><option value="false">No</option></select>
+      </div>
+      <div class="field"><label>Usable</label>
+        <select id="f-usable"><option value="false">No</option><option value="true">Yes</option></select>
+      </div>
+    </div>
+
+    <button class="submit-btn" id="submit-btn">Create Item</button>
+    <button style="background:#2a2a3a;border:1px solid #3a3a4a;color:#88a;font-size:14px;font-weight:bold;padding:9px;width:100%;cursor:pointer;margin-top:6px;" id="clear-btn">Clear Form</button>
+    <div id="result"></div>
+  </div>
+
+  <!-- LIST -->
+  <div class="list-panel">
+    <div class="list-header">
+      <h2>All Items</h2>
+      <button class="dl-btn" id="dl-btn">Export JSON</button>
+    </div>
+    <div class="list-controls">
+      <input type="text" id="search-input" placeholder="Search by name or ID...">
+      <select id="filter-type">
+        <option value="">All types</option>
+        <option value="weapon">Weapon</option>
+        <option value="armor">Armor</option>
+        <option value="medicine">Medicine</option>
+        <option value="alchool">Alcohol</option>
+        <option value="enhancers">Enhancer</option>
+        <option value="clothes">Clothes</option>
+        <option value="tools">Tools</option>
+        <option value="drugs">Drugs</option>
+        <option value="collectibles">Collectible</option>
+        <option value="cache">Cache</option>
+        <option value="materials">Materials</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+    <div id="items-container"></div>
+  </div>
+</div>
+
+<script>
+const API = 'http://localhost:5050/api/items';
+let currentType = 'weapon';
+let allItems = [];
+let editingItem = null;
+const $ = id => document.getElementById(id);
+
+function setResult(msg, ok) {
+  const el = $('result');
+  el.textContent = msg;
+  el.className = ok ? 'ok' : 'err';
+}
+
+function clearForm() {
+  editingItem = null;
+  $('f-id').value = '';
+  $('f-name').value = '';
+  $('f-desc').value = '';
+  $('f-price').value = '0';
+  $('f-sellable').value = 'true';
+  $('f-usable').value = 'false';
+  $('f-type2').value = '';
+  $('f-damage').value = '0';
+  $('f-quality-w').value = '0';
+  $('f-armor').value = '0';
+  $('f-coverage').value = '100';
+  $('f-quality-a').value = '0';
+  $('eb-energy').value = '';
+  $('eb-nerve').value = '';
+  $('eb-happy').value = '';
+  $('eb-addiction').value = '';
+  $('eb-cooldown-type').value = '';
+  $('eb-cooldown').value = '';
+  $('f-effect').value = '';
+  $('f-overdose').value = '';
+  $('f-passive').value = '';
+  $('cache-money-min').value = '0';
+  $('cache-money-max').value = '0';
+  $('cache-money-chance').value = '0';
+  lootRows = [];
+  renderLootRows();
+  applyType('weapon');
+  $('submit-btn').textContent = 'Create Item';
+  $('submit-btn').style.background = '#2a4a2a';
+  setResult('', true);
+}
+
+function loadItemToForm(item) {
+  editingItem = item;
+  $('f-id').value = item.id;
+  $('f-id').disabled = true;
+  $('f-name').value = item.name;
+  $('f-desc').value = item.description || '';
+  $('f-price').value = item.price || 0;
+  $('f-sellable').value = item.sellable ? 'true' : 'false';
+  $('f-usable').value = item.usable ? 'true' : 'false';
+  
+  applyType(item.type);
+  currentType = item.type;
+  
+  if (item.type2) $('f-type2').value = item.type2;
+  
+  if (item.type === 'weapon') {
+    $('f-damage').value = item.damage || 0;
+    $('f-quality-w').value = item.quality || 0;
+  }
+  if (item.type === 'armor') {
+    $('f-armor').value = item.armor || 0;
+    $('f-coverage').value = item.coverage ?? 100;
+    $('f-quality-a').value = item.quality || 0;
+  }
+  
+  if (item.effect) {
+    const e = item.effect;
+    if (e.energy) $('eb-energy').value = e.energy;
+    if (e.nerve) $('eb-nerve').value = e.nerve;
+    if (e.happy) $('eb-happy').value = e.happy;
+    if (e.addiction) $('eb-addiction').value = e.addiction;
+    if (e.cooldownType) $('eb-cooldown-type').value = e.cooldownType;
+    if (e.cooldownSeconds) $('eb-cooldown').value = e.cooldownSeconds;
+    if (!e.cache) $('f-effect').value = JSON.stringify(e);
+  }
+  
+  if (item.overdoseEffect) $('f-overdose').value = JSON.stringify(item.overdoseEffect);
+  if (item.passiveEffect) $('f-passive').value = JSON.stringify(item.passiveEffect);
+  
+  if (item.type === 'cache' && item.effect && item.effect.cache) {
+    const c = item.effect.cache;
+    if (c.money) {
+      $('cache-money-min').value = c.money.min || 0;
+      $('cache-money-max').value = c.money.max || 0;
+    }
+    if (c.moneyChance) $('cache-money-chance').value = c.moneyChance;
+    if (c.items) {
+      lootRows = c.items.map(i => ({ id: i.id, minQty: i.minQty, maxQty: i.maxQty, chance: i.chance }));
+      renderLootRows();
+    }
+  }
+  
+  $('submit-btn').textContent = 'Update Item';
+  $('submit-btn').style.background = '#2a3a4a';
+  setResult(`Editing: ${item.name}`, true);
+  document.querySelector('.form-panel').scrollTop = 0;
+}
+
+const typeSections = {
+  subtype:  ['weapon','armor','clothes'],
+  weapon:   ['weapon'],
+  armor:    ['armor'],
+  effect:   ['medicine','alchool','enhancers','drugs'],
+  overdose: ['alchool','drugs'],
+  passive:  ['tools','collectibles'],
+  cache:    ['cache'],
+};
+
+function applyType(type) {
+  currentType = type;
+  document.querySelectorAll('.type-btn').forEach(b => b.classList.toggle('active', b.dataset.type === type));
+  for (const [key, types] of Object.entries(typeSections)) {
+    $('section-' + key).classList.toggle('hidden', !types.includes(type));
+  }
+}
+$('type-strip').addEventListener('click', e => {
+  if (e.target.classList.contains('type-btn')) applyType(e.target.dataset.type);
+});
+
+function syncEffect() {
+  const eff = {};
+  const en = parseFloat($('eb-energy').value);
+  const nv = parseFloat($('eb-nerve').value);
+  const hp = parseFloat($('eb-happy').value);
+  const ad = parseFloat($('eb-addiction').value);
+  const ct = $('eb-cooldown-type').value;
+  const cs = parseFloat($('eb-cooldown').value);
+  if (!isNaN(en) && en !== 0) eff.energy = en;
+  if (!isNaN(nv) && nv !== 0) eff.nerve = nv;
+  if (!isNaN(hp) && hp !== 0) eff.happy = hp;
+  if (!isNaN(ad) && ad !== 0) eff.addiction = ad;
+  if (ct) eff.cooldownType = ct;
+  if (!isNaN(cs) && cs > 0) eff.cooldownSeconds = cs;
+  $('f-effect').value = Object.keys(eff).length ? JSON.stringify(eff) : '';
+}
+['eb-energy','eb-nerve','eb-happy','eb-addiction','eb-cooldown','eb-cooldown-type'].forEach(id => {
+  $(id).addEventListener('input', syncEffect);
+});
+
+let lootRows = [];
+function renderLootRows() {
+  const container = $('loot-rows');
+  container.innerHTML = '';
+  lootRows.forEach((row, i) => {
+    const div = document.createElement('div');
+    div.className = 'loot-row';
+    div.innerHTML = `
+      <input type="text"   value="${row.id}"     placeholder="ID"   data-i="${i}" data-f="id">
+      <input type="number" value="${row.minQty}" placeholder="1"    data-i="${i}" data-f="minQty" min="1">
+      <input type="number" value="${row.maxQty}" placeholder="1"    data-i="${i}" data-f="maxQty" min="1">
+      <input type="number" value="${row.chance}" placeholder="0.5"  data-i="${i}" data-f="chance" min="0" max="1" step="0.01">
+      <button class="loot-remove" data-i="${i}">×</button>
+    `;
+    container.appendChild(div);
+  });
+  container.querySelectorAll('input').forEach(inp => {
+    inp.addEventListener('input', e => {
+      const i = +e.target.dataset.i, f = e.target.dataset.f;
+      lootRows[i][f] = f === 'id' ? e.target.value : parseFloat(e.target.value) || 0;
+    });
+  });
+  container.querySelectorAll('.loot-remove').forEach(btn => {
+    btn.addEventListener('click', e => { lootRows.splice(+e.target.dataset.i, 1); renderLootRows(); });
+  });
+}
+$('add-loot-btn').addEventListener('click', () => {
+  lootRows.push({ id: '', minQty: 1, maxQty: 1, chance: 0.5 });
+  renderLootRows();
+});
+
+function buildCacheEffect() {
+  const moneyMin    = parseFloat($('cache-money-min').value) || 0;
+  const moneyMax    = parseFloat($('cache-money-max').value) || 0;
+  const moneyChance = parseFloat($('cache-money-chance').value) || 0;
+  const items = lootRows.filter(r => r.id.trim()).map(r => ({
+    id: r.id.trim(), minQty: r.minQty || 1, maxQty: r.maxQty || 1, chance: r.chance || 0
+  }));
+  const cache = {};
+  if (moneyMax > 0) cache.money = { min: moneyMin, max: moneyMax };
+  if (moneyChance > 0) cache.moneyChance = moneyChance;
+  if (items.length) cache.items = items;
+  return { cache };
+}
+
+function buildPayload() {
+  const parseJ = txt => { try { return txt.trim() ? JSON.parse(txt) : undefined; } catch(_) { return undefined; } };
+  const type = currentType;
+  const payload = {
+    id: $('f-id').value.trim(), name: $('f-name').value.trim(), type,
+    description: $('f-desc').value.trim(),
+    price: parseFloat($('f-price').value) || 0,
+    sellable: $('f-sellable').value === 'true',
+    usable: $('f-usable').value === 'true',
+  };
+  if (!payload.id || !payload.name) return null;
+  if (typeSections.subtype.includes(type)) { const t2 = $('f-type2').value; if (t2) payload.type2 = t2; }
+  if (type === 'weapon') { payload.damage = parseFloat($('f-damage').value) || 0; payload.quality = parseFloat($('f-quality-w').value) || 0; }
+  if (type === 'armor') { payload.armor = parseFloat($('f-armor').value) || 0; payload.coverage = parseFloat($('f-coverage').value) ?? 100; payload.quality = parseFloat($('f-quality-a').value) || 0; }
+  if (typeSections.effect.includes(type)) { const eff = parseJ($('f-effect').value); if (eff) payload.effect = eff; }
+  if (typeSections.overdose.includes(type)) { const od = parseJ($('f-overdose').value); if (od) payload.overdoseEffect = od; }
+  if (typeSections.passive.includes(type)) { const pe = parseJ($('f-passive').value); if (pe) payload.passiveEffect = pe; }
+  if (type === 'cache') payload.effect = buildCacheEffect();
+  return payload;
+}
+
+$('submit-btn').addEventListener('click', async () => {
+  const data = buildPayload();
+  if (!data) return setResult('Name and ID are required.', false);
+  try {
+    let res;
+    if (editingItem) {
+      res = await fetch(`${API}/${editingItem._id}`, { method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify(data) });
+    } else {
+      res = await fetch(`${API}/create`, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(data) });
+    }
+    if (!res.ok) throw new Error(await res.text());
+    setResult(`${editingItem ? 'Updated' : 'Created'}: ${data.name} [ID: ${data.id}]`, true);
+    clearForm();
+    $('f-id').disabled = false;
+    fetchItems();
+  } catch(e) { setResult(`Error: ${e.message}`, false); }
+});
+
+$('clear-btn').addEventListener('click', () => {
+  $('f-id').disabled = false;
+  clearForm();
+});
+
+async function fetchItems() {
+  try {
+    const res = await fetch(API);
+    if (!res.ok) throw new Error(res.statusText);
+    allItems = await res.json();
+    renderItems();
+  } catch(e) {
+    $('items-container').innerHTML = `<div class="empty-state">Cannot reach API: ${e.message}</div>`;
+  }
+}
+
+function renderItems() {
+  const search = $('search-input').value.toLowerCase();
+  const typeFilter = $('filter-type').value;
+  const filtered = allItems.filter(item => {
+    const matchSearch = !search || item.name.toLowerCase().includes(search) || String(item.id).toLowerCase().includes(search);
+    return matchSearch && (!typeFilter || item.type === typeFilter);
+  });
+
+  $('item-count').textContent = `${filtered.length} items`;
+  const container = $('items-container');
+  if (!filtered.length) { container.innerHTML = '<div class="empty-state">No items found</div>'; return; }
+
+  container.innerHTML = filtered.map(item => {
+    let stats = [];
+    if (item.type === 'weapon') stats.push(`DMG <b>${item.damage}</b>`, `QUAL <b>${item.quality}</b>`);
+    if (item.type === 'armor')  stats.push(`ARM <b>${item.armor}</b>`, `COV <b>${item.coverage}%</b>`, `QUAL <b>${item.quality}</b>`);
+    if (item.type2) stats.push(`${item.type2}`);
+    if (['medicine','alchool','enhancers','drugs'].includes(item.type) && item.effect) {
+      const e = item.effect;
+      if (e.energy)    stats.push(`NRG <b>+${e.energy}</b>`);
+      if (e.happy)     stats.push(`HPI <b>+${e.happy}</b>`);
+      if (e.addiction) stats.push(`ADD <b>+${e.addiction}</b>`);
+      if (e.cooldownSeconds) stats.push(`CD <b>${e.cooldownSeconds}s</b>`);
+    }
+    if (item.type === 'cache' && item.effect && item.effect.cache) {
+      const c = item.effect.cache;
+      if (c.money) stats.push(`$ <b>${c.money.min}–${c.money.max}</b>`);
+      const n = c.items ? c.items.length : 0;
+      stats.push(`<b>${n}</b> loot item${n===1?'':'s'}`);
+    }
+    stats.push(`$<b>${item.price}</b>`);
+
+    return `
+      <div class="item-card">
+        <div class="item-id-col">
+          <div class="item-id-num">${item.id}</div>
+          <div class="item-id-hash">ID</div>
+        </div>
+        <div class="item-main">
+          <div class="item-top">
+            <span class="item-name">${item.name}</span>
+            <span class="item-type-badge badge-${item.type}">${item.type}</span>
+          </div>
+          <div class="item-stats">${stats.map(s=>`<span>${s}</span>`).join('')}</div>
+          ${item.description ? `<div class="item-desc">${item.description}</div>` : ''}
+        </div>
+        <div class="item-actions">
+          <button class="edit-btn" data-mongo="${item._id}">Edit</button>
+          <button class="del-btn" data-mongo="${item._id}">Delete</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  container.querySelectorAll('.edit-btn').forEach(btn => {
+    btn.addEventListener('click', e => {
+      const item = allItems.find(i => i._id === e.target.dataset.mongo);
+      if (item) loadItemToForm(item);
+    });
+  });
+
+  container.querySelectorAll('.del-btn').forEach(btn => {
+    btn.addEventListener('click', async e => {
+      if (!confirm('Delete this item?')) return;
+      await fetch(`${API}/${e.target.dataset.mongo}`, { method: 'DELETE' });
+      fetchItems();
+    });
+  });
+}
+
+$('search-input').addEventListener('input', renderItems);
+$('filter-type').addEventListener('change', renderItems);
+$('dl-btn').addEventListener('click', () => { window.location.href = `${API}/download`; });
+
+applyType('weapon');
+fetchItems();
+</script>
+</body>
+</html>

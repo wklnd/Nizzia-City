@@ -1,0 +1,65 @@
+[
+    {
+        "symbol": "NIZZ",
+        "name": "Nizzia Inc",
+        "description": "High-growth tech-leaning company with moderate volatility.",
+        "initialPrice": 1000,
+        "avgYieldPerYear": 0.12,
+        "volatility": 1.35,
+        "decimals": 2
+    },
+    {
+        "symbol": "CUCO",
+        "name": "City Utilities Co.",
+        "description": "Stable local utilities company with modest growth.",
+        "initialPrice": 150,
+        "avgYieldPerYear": 0.15,
+        "volatility": 4.90,
+        "decimals": 2
+    },
+    {
+        "symbol": "FRIK",
+        "name": "Freenuk International Kilo",
+        "description": "Something something something.",
+        "initialPrice": 1,
+        "avgYieldPerYear": 0.25,
+        "volatility": 4.90,
+        "decimals": 4
+    },
+    {
+        "symbol": "NSI",
+        "name": "Nizzia Space Industries",
+        "description": "Something something something.",
+        "initialPrice": 10000,
+        "avgYieldPerYear": 0.15,
+        "volatility": 4.90,
+        "decimals": 2
+    },
+    {
+        "symbol": "PLPL",
+        "name": "Plain Planes",
+        "description": "Something something something.",
+        "initialPrice": 230,
+        "avgYieldPerYear": 0.05,
+        "volatility": 4.90,
+        "decimals": 2
+    },
+    {
+        "symbol": "S3X1",
+        "name": "Sextronics Inc",
+        "description": "Something something something.",
+        "initialPrice": 780,
+        "avgYieldPerYear": 1.18,
+        "volatility": 1.90,
+        "decimals": 2
+    },
+    {
+        "symbol": "NNN",
+        "name": "Nizzia National News",
+        "description": "Something something something.",
+        "initialPrice": 430,
+        "avgYieldPerYear": 0.11,
+        "volatility": 3.90,
+        "decimals": 2
+    }
+]

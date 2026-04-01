@@ -1,0 +1,1434 @@
+{
+  "meta": {
+    "maxCompanyEmployees": 16,
+    "maxCompanyRating": 10,
+    "workCooldownMinutes": 60,
+    "dailyPointsPerTick": true,
+    "tickIntervalMs": 3600000,
+    "quitPenaltyHours": 24,
+    "promoteRefundPct": 0
+  },
+  "CITY_JOBS": {
+    "army": {
+      "id": "army",
+      "name": "Army",
+      "description": "Serve the nation. Brute force meets discipline. Heavy on manual labor and endurance.",
+      "icon": "🎖️",
+      "ranks": [
+        {
+          "name": "Private",
+          "pay": 125,
+          "jobPoints": 1,
+          "pointsForPromotion": 5,
+          "requiredStats": {
+            "manuallabor": 2,
+            "intelligence": 2,
+            "endurance": 2
+          },
+          "statsGained": {
+            "manuallabor": 3,
+            "intelligence": 1,
+            "endurance": 2
+          }
+        },
+        {
+          "name": "Corporal",
+          "pay": 150,
+          "jobPoints": 2,
+          "pointsForPromotion": 10,
+          "requiredStats": {
+            "manuallabor": 50,
+            "intelligence": 15,
+            "endurance": 20
+          },
+          "statsGained": {
+            "manuallabor": 5,
+            "intelligence": 2,
+            "endurance": 3
+          }
+        },
+        {
+          "name": "Sergeant",
+          "pay": 180,
+          "jobPoints": 3,
+          "pointsForPromotion": 15,
+          "requiredStats": {
+            "manuallabor": 120,
+            "intelligence": 35,
+            "endurance": 50
+          },
+          "statsGained": {
+            "manuallabor": 8,
+            "intelligence": 3,
+            "endurance": 5
+          }
+        },
+        {
+          "name": "Master Sergeant",
+          "pay": 220,
+          "jobPoints": 4,
+          "pointsForPromotion": 20,
+          "requiredStats": {
+            "manuallabor": 325,
+            "intelligence": 60,
+            "endurance": 115
+          },
+          "statsGained": {
+            "manuallabor": 12,
+            "intelligence": 4,
+            "endurance": 7
+          }
+        },
+        {
+          "name": "Warrant Officer",
+          "pay": 225,
+          "jobPoints": 5,
+          "pointsForPromotion": 25,
+          "requiredStats": {
+            "manuallabor": 700,
+            "intelligence": 160,
+            "endurance": 300
+          },
+          "statsGained": {
+            "manuallabor": 17,
+            "intelligence": 7,
+            "endurance": 10
+          }
+        },
+        {
+          "name": "Lieutenant",
+          "pay": 325,
+          "jobPoints": 6,
+          "pointsForPromotion": 30,
+          "requiredStats": {
+            "manuallabor": 1300,
+            "intelligence": 360,
+            "endurance": 595
+          },
+          "statsGained": {
+            "manuallabor": 20,
+            "intelligence": 9,
+            "endurance": 11
+          }
+        },
+        {
+          "name": "Major",
+          "pay": 550,
+          "jobPoints": 7,
+          "pointsForPromotion": 35,
+          "requiredStats": {
+            "manuallabor": 2550,
+            "intelligence": 490,
+            "endurance": 900
+          },
+          "statsGained": {
+            "manuallabor": 24,
+            "intelligence": 10,
+            "endurance": 13
+          }
+        },
+        {
+          "name": "Colonel",
+          "pay": 755,
+          "jobPoints": 8,
+          "pointsForPromotion": 40,
+          "requiredStats": {
+            "manuallabor": 4150,
+            "intelligence": 600,
+            "endurance": 1100
+          },
+          "statsGained": {
+            "manuallabor": 28,
+            "intelligence": 12,
+            "endurance": 15
+          }
+        },
+        {
+          "name": "Brigadier",
+          "pay": 1000,
+          "jobPoints": 9,
+          "pointsForPromotion": 45,
+          "requiredStats": {
+            "manuallabor": 7500,
+            "intelligence": 1350,
+            "endurance": 2530
+          },
+          "statsGained": {
+            "manuallabor": 33,
+            "intelligence": 18,
+            "endurance": 15
+          }
+        },
+        {
+          "name": "General",
+          "pay": 2500,
+          "jobPoints": 10,
+          "pointsForPromotion": null,
+          "requiredStats": {
+            "manuallabor": 10000,
+            "intelligence": 2000,
+            "endurance": 4000
+          },
+          "statsGained": {
+            "manuallabor": 40,
+            "intelligence": 25,
+            "endurance": 20
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Boot Camp",
+          "description": "+10 Strength per use",
+          "unlockRank": 0,
+          "cost": 25,
+          "effect": {
+            "type": "stat_boost",
+            "stat": "strength",
+            "value": 10
+          }
+        },
+        {
+          "name": "Combat Drills",
+          "description": "+20 Strength per use",
+          "unlockRank": 2,
+          "cost": 50,
+          "effect": {
+            "type": "stat_boost",
+            "stat": "strength",
+            "value": 20
+          }
+        },
+        {
+          "name": "Weapons Cache",
+          "description": "Obtain a random weapon",
+          "unlockRank": 4,
+          "cost": 75,
+          "effect": {
+            "type": "grant_item",
+            "itemTag": "weapon"
+          }
+        },
+        {
+          "name": "Intel Report",
+          "description": "View another player's battle stats",
+          "unlockRank": 7,
+          "cost": 100,
+          "effect": {
+            "type": "spy"
+          }
+        },
+        {
+          "name": "General's Order",
+          "description": "+50 Strength and +25 Defense per use",
+          "unlockRank": 9,
+          "cost": 200,
+          "effect": {
+            "type": "stat_boost",
+            "stat": "strength",
+            "value": 50,
+            "stat2": "defense",
+            "value2": 25
+          }
+        }
+      ]
+    },
+    "medical": {
+      "id": "medical",
+      "name": "Medical",
+      "description": "Save lives—or learn how bodies break. Intelligence-heavy with endurance demands.",
+      "icon": "🏥",
+      "ranks": [
+        {
+          "name": "Intern",
+          "pay": 100,
+          "jobPoints": 1,
+          "pointsForPromotion": 5,
+          "requiredStats": {
+            "manuallabor": 1,
+            "intelligence": 5,
+            "endurance": 2
+          },
+          "statsGained": {
+            "manuallabor": 1,
+            "intelligence": 4,
+            "endurance": 2
+          }
+        },
+        {
+          "name": "Nurse",
+          "pay": 130,
+          "jobPoints": 2,
+          "pointsForPromotion": 10,
+          "requiredStats": {
+            "manuallabor": 10,
+            "intelligence": 60,
+            "endurance": 25
+          },
+          "statsGained": {
+            "manuallabor": 2,
+            "intelligence": 6,
+            "endurance": 3
+          }
+        },
+        {
+          "name": "Paramedic",
+          "pay": 170,
+          "jobPoints": 3,
+          "pointsForPromotion": 15,
+          "requiredStats": {
+            "manuallabor": 25,
+            "intelligence": 150,
+            "endurance": 60
+          },
+          "statsGained": {
+            "manuallabor": 3,
+            "intelligence": 9,
+            "endurance": 4
+          }
+        },
+        {
+          "name": "Resident",
+          "pay": 215,
+          "jobPoints": 4,
+          "pointsForPromotion": 20,
+          "requiredStats": {
+            "manuallabor": 50,
+            "intelligence": 350,
+            "endurance": 120
+          },
+          "statsGained": {
+            "manuallabor": 4,
+            "intelligence": 12,
+            "endurance": 6
+          }
+        },
+        {
+          "name": "Surgeon",
+          "pay": 310,
+          "jobPoints": 5,
+          "pointsForPromotion": 25,
+          "requiredStats": {
+            "manuallabor": 100,
+            "intelligence": 700,
+            "endurance": 250
+          },
+          "statsGained": {
+            "manuallabor": 5,
+            "intelligence": 16,
+            "endurance": 8
+          }
+        },
+        {
+          "name": "Attending",
+          "pay": 450,
+          "jobPoints": 6,
+          "pointsForPromotion": 30,
+          "requiredStats": {
+            "manuallabor": 175,
+            "intelligence": 1200,
+            "endurance": 450
+          },
+          "statsGained": {
+            "manuallabor": 6,
+            "intelligence": 20,
+            "endurance": 10
+          }
+        },
+        {
+          "name": "Specialist",
+          "pay": 650,
+          "jobPoints": 7,
+          "pointsForPromotion": 35,
+          "requiredStats": {
+            "manuallabor": 280,
+            "intelligence": 2000,
+            "endurance": 700
+          },
+          "statsGained": {
+            "manuallabor": 8,
+            "intelligence": 24,
+            "endurance": 12
+          }
+        },
+        {
+          "name": "Chief Physician",
+          "pay": 900,
+          "jobPoints": 8,
+          "pointsForPromotion": 40,
+          "requiredStats": {
+            "manuallabor": 400,
+            "intelligence": 3200,
+            "endurance": 1000
+          },
+          "statsGained": {
+            "manuallabor": 10,
+            "intelligence": 30,
+            "endurance": 14
+          }
+        },
+        {
+          "name": "Medical Director",
+          "pay": 1300,
+          "jobPoints": 9,
+          "pointsForPromotion": 45,
+          "requiredStats": {
+            "manuallabor": 600,
+            "intelligence": 5500,
+            "endurance": 1800
+          },
+          "statsGained": {
+            "manuallabor": 12,
+            "intelligence": 38,
+            "endurance": 16
+          }
+        },
+        {
+          "name": "Chief of Medicine",
+          "pay": 3000,
+          "jobPoints": 10,
+          "pointsForPromotion": null,
+          "requiredStats": {
+            "manuallabor": 900,
+            "intelligence": 9000,
+            "endurance": 3500
+          },
+          "statsGained": {
+            "manuallabor": 15,
+            "intelligence": 50,
+            "endurance": 20
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "First Aid",
+          "description": "Heal yourself for 15 HP",
+          "unlockRank": 0,
+          "cost": 20,
+          "effect": {
+            "type": "heal",
+            "value": 15
+          }
+        },
+        {
+          "name": "Revive",
+          "description": "Bring a hospitalized player back early",
+          "unlockRank": 3,
+          "cost": 75,
+          "effect": {
+            "type": "revive"
+          }
+        },
+        {
+          "name": "Rehab",
+          "description": "Remove 25 addiction",
+          "unlockRank": 5,
+          "cost": 50,
+          "effect": {
+            "type": "reduce_addiction",
+            "value": 25
+          }
+        },
+        {
+          "name": "Organ Harvest",
+          "description": "Obtain a rare medical item",
+          "unlockRank": 7,
+          "cost": 125,
+          "effect": {
+            "type": "grant_item",
+            "itemTag": "medical"
+          }
+        },
+        {
+          "name": "Miracle Worker",
+          "description": "Full heal + remove hospitalization",
+          "unlockRank": 9,
+          "cost": 250,
+          "effect": {
+            "type": "full_heal"
+          }
+        }
+      ]
+    },
+    "grocer": {
+      "id": "grocer",
+      "name": "Grocer",
+      "description": "Stack shelves, move product. Pure manual labor with a side of endurance.",
+      "icon": "🛒",
+      "ranks": [
+        {
+          "name": "Stock Boy",
+          "pay": 80,
+          "jobPoints": 1,
+          "pointsForPromotion": 5,
+          "requiredStats": {
+            "manuallabor": 0,
+            "intelligence": 0,
+            "endurance": 0
+          },
+          "statsGained": {
+            "manuallabor": 4,
+            "intelligence": 1,
+            "endurance": 2
+          }
+        },
+        {
+          "name": "Shelf Stocker",
+          "pay": 100,
+          "jobPoints": 2,
+          "pointsForPromotion": 10,
+          "requiredStats": {
+            "manuallabor": 40,
+            "intelligence": 8,
+            "endurance": 20
+          },
+          "statsGained": {
+            "manuallabor": 6,
+            "intelligence": 1,
+            "endurance": 3
+          }
+        },
+        {
+          "name": "Cashier",
+          "pay": 125,
+          "jobPoints": 2,
+          "pointsForPromotion": 15,
+          "requiredStats": {
+            "manuallabor": 90,
+            "intelligence": 20,
+            "endurance": 50
+          },
+          "statsGained": {
+            "manuallabor": 8,
+            "intelligence": 2,
+            "endurance": 4
+          }
+        },
+        {
+          "name": "Floor Manager",
+          "pay": 160,
+          "jobPoints": 3,
+          "pointsForPromotion": 20,
+          "requiredStats": {
+            "manuallabor": 200,
+            "intelligence": 45,
+            "endurance": 100
+          },
+          "statsGained": {
+            "manuallabor": 10,
+            "intelligence": 3,
+            "endurance": 5
+          }
+        },
+        {
+          "name": "Dept. Head",
+          "pay": 200,
+          "jobPoints": 4,
+          "pointsForPromotion": 25,
+          "requiredStats": {
+            "manuallabor": 450,
+            "intelligence": 90,
+            "endurance": 220
+          },
+          "statsGained": {
+            "manuallabor": 13,
+            "intelligence": 4,
+            "endurance": 7
+          }
+        },
+        {
+          "name": "Asst. Manager",
+          "pay": 260,
+          "jobPoints": 5,
+          "pointsForPromotion": 30,
+          "requiredStats": {
+            "manuallabor": 900,
+            "intelligence": 180,
+            "endurance": 440
+          },
+          "statsGained": {
+            "manuallabor": 16,
+            "intelligence": 5,
+            "endurance": 9
+          }
+        },
+        {
+          "name": "Store Manager",
+          "pay": 360,
+          "jobPoints": 6,
+          "pointsForPromotion": 35,
+          "requiredStats": {
+            "manuallabor": 1700,
+            "intelligence": 340,
+            "endurance": 800
+          },
+          "statsGained": {
+            "manuallabor": 20,
+            "intelligence": 7,
+            "endurance": 11
+          }
+        },
+        {
+          "name": "District Manager",
+          "pay": 500,
+          "jobPoints": 7,
+          "pointsForPromotion": 40,
+          "requiredStats": {
+            "manuallabor": 3000,
+            "intelligence": 600,
+            "endurance": 1400
+          },
+          "statsGained": {
+            "manuallabor": 25,
+            "intelligence": 9,
+            "endurance": 13
+          }
+        },
+        {
+          "name": "VP Operations",
+          "pay": 750,
+          "jobPoints": 8,
+          "pointsForPromotion": 45,
+          "requiredStats": {
+            "manuallabor": 5500,
+            "intelligence": 1100,
+            "endurance": 2600
+          },
+          "statsGained": {
+            "manuallabor": 30,
+            "intelligence": 12,
+            "endurance": 16
+          }
+        },
+        {
+          "name": "CEO",
+          "pay": 1800,
+          "jobPoints": 10,
+          "pointsForPromotion": null,
+          "requiredStats": {
+            "manuallabor": 9000,
+            "intelligence": 1800,
+            "endurance": 4200
+          },
+          "statsGained": {
+            "manuallabor": 38,
+            "intelligence": 16,
+            "endurance": 20
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Employee Discount",
+          "description": "Buy items 10% cheaper",
+          "unlockRank": 1,
+          "cost": 15,
+          "effect": {
+            "type": "item_discount",
+            "value": 0.1
+          }
+        },
+        {
+          "name": "Bulk Order",
+          "description": "Receive 3 random food items",
+          "unlockRank": 3,
+          "cost": 40,
+          "effect": {
+            "type": "grant_item",
+            "itemTag": "food",
+            "qty": 3
+          }
+        },
+        {
+          "name": "Supply Run",
+          "description": "+15 Energy",
+          "unlockRank": 5,
+          "cost": 60,
+          "effect": {
+            "type": "energy",
+            "value": 15
+          }
+        },
+        {
+          "name": "Warehouse Access",
+          "description": "Receive 5 random items",
+          "unlockRank": 7,
+          "cost": 100,
+          "effect": {
+            "type": "grant_item",
+            "itemTag": "any",
+            "qty": 5
+          }
+        },
+        {
+          "name": "Corner the Market",
+          "description": "Sell items for 15% more for 1 hour",
+          "unlockRank": 9,
+          "cost": 200,
+          "effect": {
+            "type": "sell_bonus",
+            "value": 0.15,
+            "duration": 3600
+          }
+        }
+      ]
+    },
+    "casino_staff": {
+      "id": "casino_staff",
+      "name": "Casino Staff",
+      "description": "Work the floor, learn the odds. Intelligence and endurance for the long night shifts.",
+      "icon": "🎰",
+      "ranks": [
+        {
+          "name": "Janitor",
+          "pay": 90,
+          "jobPoints": 1,
+          "pointsForPromotion": 5,
+          "requiredStats": {
+            "manuallabor": 2,
+            "intelligence": 3,
+            "endurance": 3
+          },
+          "statsGained": {
+            "manuallabor": 2,
+            "intelligence": 3,
+            "endurance": 3
+          }
+        },
+        {
+          "name": "Valet",
+          "pay": 115,
+          "jobPoints": 2,
+          "pointsForPromotion": 10,
+          "requiredStats": {
+            "manuallabor": 20,
+            "intelligence": 35,
+            "endurance": 30
+          },
+          "statsGained": {
+            "manuallabor": 3,
+            "intelligence": 5,
+            "endurance": 4
+          }
+        },
+        {
+          "name": "Dealer",
+          "pay": 150,
+          "jobPoints": 3,
+          "pointsForPromotion": 15,
+          "requiredStats": {
+            "manuallabor": 50,
+            "intelligence": 100,
+            "endurance": 70
+          },
+          "statsGained": {
+            "manuallabor": 4,
+            "intelligence": 7,
+            "endurance": 5
+          }
+        },
+        {
+          "name": "Pit Boss",
+          "pay": 200,
+          "jobPoints": 4,
+          "pointsForPromotion": 20,
+          "requiredStats": {
+            "manuallabor": 100,
+            "intelligence": 250,
+            "endurance": 150
+          },
+          "statsGained": {
+            "manuallabor": 5,
+            "intelligence": 10,
+            "endurance": 7
+          }
+        },
+        {
+          "name": "Floor Manager",
+          "pay": 280,
+          "jobPoints": 5,
+          "pointsForPromotion": 25,
+          "requiredStats": {
+            "manuallabor": 200,
+            "intelligence": 550,
+            "endurance": 300
+          },
+          "statsGained": {
+            "manuallabor": 7,
+            "intelligence": 13,
+            "endurance": 9
+          }
+        },
+        {
+          "name": "Surveillance",
+          "pay": 400,
+          "jobPoints": 6,
+          "pointsForPromotion": 30,
+          "requiredStats": {
+            "manuallabor": 350,
+            "intelligence": 1000,
+            "endurance": 550
+          },
+          "statsGained": {
+            "manuallabor": 8,
+            "intelligence": 17,
+            "endurance": 11
+          }
+        },
+        {
+          "name": "Operations Mgr",
+          "pay": 580,
+          "jobPoints": 7,
+          "pointsForPromotion": 35,
+          "requiredStats": {
+            "manuallabor": 550,
+            "intelligence": 1800,
+            "endurance": 900
+          },
+          "statsGained": {
+            "manuallabor": 10,
+            "intelligence": 21,
+            "endurance": 13
+          }
+        },
+        {
+          "name": "VP Gaming",
+          "pay": 800,
+          "jobPoints": 8,
+          "pointsForPromotion": 40,
+          "requiredStats": {
+            "manuallabor": 800,
+            "intelligence": 3000,
+            "endurance": 1500
+          },
+          "statsGained": {
+            "manuallabor": 12,
+            "intelligence": 26,
+            "endurance": 16
+          }
+        },
+        {
+          "name": "Casino Director",
+          "pay": 1100,
+          "jobPoints": 9,
+          "pointsForPromotion": 45,
+          "requiredStats": {
+            "manuallabor": 1200,
+            "intelligence": 5000,
+            "endurance": 2500
+          },
+          "statsGained": {
+            "manuallabor": 14,
+            "intelligence": 32,
+            "endurance": 18
+          }
+        },
+        {
+          "name": "Casino Owner",
+          "pay": 2800,
+          "jobPoints": 10,
+          "pointsForPromotion": null,
+          "requiredStats": {
+            "manuallabor": 1800,
+            "intelligence": 8500,
+            "endurance": 4000
+          },
+          "statsGained": {
+            "manuallabor": 18,
+            "intelligence": 42,
+            "endurance": 22
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Loaded Dice",
+          "description": "+5% casino win rate for 30 min",
+          "unlockRank": 1,
+          "cost": 30,
+          "effect": {
+            "type": "casino_boost",
+            "value": 0.05,
+            "duration": 1800
+          }
+        },
+        {
+          "name": "Comp Drinks",
+          "description": "+20 Happiness",
+          "unlockRank": 3,
+          "cost": 40,
+          "effect": {
+            "type": "happiness",
+            "value": 20
+          }
+        },
+        {
+          "name": "Card Counting",
+          "description": "+10% casino win rate for 1 hour",
+          "unlockRank": 5,
+          "cost": 80,
+          "effect": {
+            "type": "casino_boost",
+            "value": 0.1,
+            "duration": 3600
+          }
+        },
+        {
+          "name": "VIP Comps",
+          "description": "+50 Happiness and +10 Energy",
+          "unlockRank": 7,
+          "cost": 120,
+          "effect": {
+            "type": "multi_boost",
+            "happy": 50,
+            "energy": 10
+          }
+        },
+        {
+          "name": "House Edge",
+          "description": "Free casino spins for 1 hour",
+          "unlockRank": 9,
+          "cost": 250,
+          "effect": {
+            "type": "free_spins",
+            "duration": 3600
+          }
+        }
+      ]
+    },
+    "law": {
+      "id": "law",
+      "name": "Law Enforcement",
+      "description": "Enforce the law. Balanced stats with emphasis on endurance and intelligence.",
+      "icon": "👮",
+      "ranks": [
+        {
+          "name": "Cadet",
+          "pay": 110,
+          "jobPoints": 1,
+          "pointsForPromotion": 5,
+          "requiredStats": {
+            "manuallabor": 3,
+            "intelligence": 3,
+            "endurance": 3
+          },
+          "statsGained": {
+            "manuallabor": 2,
+            "intelligence": 2,
+            "endurance": 3
+          }
+        },
+        {
+          "name": "Officer",
+          "pay": 140,
+          "jobPoints": 2,
+          "pointsForPromotion": 10,
+          "requiredStats": {
+            "manuallabor": 30,
+            "intelligence": 40,
+            "endurance": 35
+          },
+          "statsGained": {
+            "manuallabor": 3,
+            "intelligence": 4,
+            "endurance": 4
+          }
+        },
+        {
+          "name": "Corporal",
+          "pay": 175,
+          "jobPoints": 3,
+          "pointsForPromotion": 15,
+          "requiredStats": {
+            "manuallabor": 80,
+            "intelligence": 100,
+            "endurance": 85
+          },
+          "statsGained": {
+            "manuallabor": 5,
+            "intelligence": 6,
+            "endurance": 6
+          }
+        },
+        {
+          "name": "Sergeant",
+          "pay": 220,
+          "jobPoints": 4,
+          "pointsForPromotion": 20,
+          "requiredStats": {
+            "manuallabor": 175,
+            "intelligence": 240,
+            "endurance": 190
+          },
+          "statsGained": {
+            "manuallabor": 7,
+            "intelligence": 8,
+            "endurance": 8
+          }
+        },
+        {
+          "name": "Detective",
+          "pay": 300,
+          "jobPoints": 5,
+          "pointsForPromotion": 25,
+          "requiredStats": {
+            "manuallabor": 380,
+            "intelligence": 520,
+            "endurance": 400
+          },
+          "statsGained": {
+            "manuallabor": 9,
+            "intelligence": 11,
+            "endurance": 10
+          }
+        },
+        {
+          "name": "Lieutenant",
+          "pay": 420,
+          "jobPoints": 6,
+          "pointsForPromotion": 30,
+          "requiredStats": {
+            "manuallabor": 700,
+            "intelligence": 1000,
+            "endurance": 750
+          },
+          "statsGained": {
+            "manuallabor": 11,
+            "intelligence": 14,
+            "endurance": 12
+          }
+        },
+        {
+          "name": "Captain",
+          "pay": 600,
+          "jobPoints": 7,
+          "pointsForPromotion": 35,
+          "requiredStats": {
+            "manuallabor": 1200,
+            "intelligence": 1800,
+            "endurance": 1300
+          },
+          "statsGained": {
+            "manuallabor": 14,
+            "intelligence": 18,
+            "endurance": 15
+          }
+        },
+        {
+          "name": "Commander",
+          "pay": 850,
+          "jobPoints": 8,
+          "pointsForPromotion": 40,
+          "requiredStats": {
+            "manuallabor": 2000,
+            "intelligence": 3200,
+            "endurance": 2200
+          },
+          "statsGained": {
+            "manuallabor": 17,
+            "intelligence": 22,
+            "endurance": 18
+          }
+        },
+        {
+          "name": "Deputy Chief",
+          "pay": 1200,
+          "jobPoints": 9,
+          "pointsForPromotion": 45,
+          "requiredStats": {
+            "manuallabor": 3500,
+            "intelligence": 5500,
+            "endurance": 3800
+          },
+          "statsGained": {
+            "manuallabor": 20,
+            "intelligence": 28,
+            "endurance": 22
+          }
+        },
+        {
+          "name": "Chief of Police",
+          "pay": 2800,
+          "jobPoints": 10,
+          "pointsForPromotion": null,
+          "requiredStats": {
+            "manuallabor": 6000,
+            "intelligence": 9000,
+            "endurance": 6500
+          },
+          "statsGained": {
+            "manuallabor": 25,
+            "intelligence": 35,
+            "endurance": 28
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Patrol",
+          "description": "Reduce your jail time by 30 min",
+          "unlockRank": 0,
+          "cost": 20,
+          "effect": {
+            "type": "reduce_jail",
+            "value": 1800
+          }
+        },
+        {
+          "name": "Bust",
+          "description": "Attempt to bust a player out of jail",
+          "unlockRank": 3,
+          "cost": 75,
+          "effect": {
+            "type": "bust"
+          }
+        },
+        {
+          "name": "Investigate",
+          "description": "View another player's crime history",
+          "unlockRank": 5,
+          "cost": 60,
+          "effect": {
+            "type": "spy_crimes"
+          }
+        },
+        {
+          "name": "SWAT Raid",
+          "description": "Receive a random weapon + armor",
+          "unlockRank": 7,
+          "cost": 150,
+          "effect": {
+            "type": "grant_item",
+            "itemTag": "weapon_armor"
+          }
+        },
+        {
+          "name": "Martial Law",
+          "description": "+100 Defense for 1 hour",
+          "unlockRank": 9,
+          "cost": 250,
+          "effect": {
+            "type": "temp_stat",
+            "stat": "defense",
+            "value": 100,
+            "duration": 3600
+          }
+        }
+      ]
+    },
+    "education": {
+      "id": "education",
+      "name": "Education",
+      "description": "Teach the next generation. Pure intelligence gains with solid endurance.",
+      "icon": "📚",
+      "ranks": [
+        {
+          "name": "Teaching Aide",
+          "pay": 85,
+          "jobPoints": 1,
+          "pointsForPromotion": 5,
+          "requiredStats": {
+            "manuallabor": 1,
+            "intelligence": 5,
+            "endurance": 2
+          },
+          "statsGained": {
+            "manuallabor": 1,
+            "intelligence": 5,
+            "endurance": 1
+          }
+        },
+        {
+          "name": "Substitute",
+          "pay": 110,
+          "jobPoints": 2,
+          "pointsForPromotion": 10,
+          "requiredStats": {
+            "manuallabor": 8,
+            "intelligence": 55,
+            "endurance": 18
+          },
+          "statsGained": {
+            "manuallabor": 1,
+            "intelligence": 7,
+            "endurance": 2
+          }
+        },
+        {
+          "name": "Teacher",
+          "pay": 140,
+          "jobPoints": 3,
+          "pointsForPromotion": 15,
+          "requiredStats": {
+            "manuallabor": 18,
+            "intelligence": 140,
+            "endurance": 45
+          },
+          "statsGained": {
+            "manuallabor": 2,
+            "intelligence": 10,
+            "endurance": 3
+          }
+        },
+        {
+          "name": "Senior Teacher",
+          "pay": 180,
+          "jobPoints": 3,
+          "pointsForPromotion": 20,
+          "requiredStats": {
+            "manuallabor": 35,
+            "intelligence": 320,
+            "endurance": 90
+          },
+          "statsGained": {
+            "manuallabor": 2,
+            "intelligence": 13,
+            "endurance": 4
+          }
+        },
+        {
+          "name": "Dept. Chair",
+          "pay": 230,
+          "jobPoints": 4,
+          "pointsForPromotion": 25,
+          "requiredStats": {
+            "manuallabor": 60,
+            "intelligence": 650,
+            "endurance": 180
+          },
+          "statsGained": {
+            "manuallabor": 3,
+            "intelligence": 17,
+            "endurance": 5
+          }
+        },
+        {
+          "name": "Vice Principal",
+          "pay": 310,
+          "jobPoints": 5,
+          "pointsForPromotion": 30,
+          "requiredStats": {
+            "manuallabor": 100,
+            "intelligence": 1100,
+            "endurance": 350
+          },
+          "statsGained": {
+            "manuallabor": 4,
+            "intelligence": 22,
+            "endurance": 7
+          }
+        },
+        {
+          "name": "Principal",
+          "pay": 440,
+          "jobPoints": 6,
+          "pointsForPromotion": 35,
+          "requiredStats": {
+            "manuallabor": 160,
+            "intelligence": 1900,
+            "endurance": 580
+          },
+          "statsGained": {
+            "manuallabor": 5,
+            "intelligence": 28,
+            "endurance": 9
+          }
+        },
+        {
+          "name": "Administrator",
+          "pay": 620,
+          "jobPoints": 7,
+          "pointsForPromotion": 40,
+          "requiredStats": {
+            "manuallabor": 250,
+            "intelligence": 3100,
+            "endurance": 900
+          },
+          "statsGained": {
+            "manuallabor": 6,
+            "intelligence": 35,
+            "endurance": 11
+          }
+        },
+        {
+          "name": "Superintendent",
+          "pay": 900,
+          "jobPoints": 8,
+          "pointsForPromotion": 45,
+          "requiredStats": {
+            "manuallabor": 380,
+            "intelligence": 5200,
+            "endurance": 1500
+          },
+          "statsGained": {
+            "manuallabor": 8,
+            "intelligence": 44,
+            "endurance": 14
+          }
+        },
+        {
+          "name": "Chancellor",
+          "pay": 2200,
+          "jobPoints": 10,
+          "pointsForPromotion": null,
+          "requiredStats": {
+            "manuallabor": 550,
+            "intelligence": 8500,
+            "endurance": 2800
+          },
+          "statsGained": {
+            "manuallabor": 10,
+            "intelligence": 55,
+            "endurance": 18
+          }
+        }
+      ],
+      "abilities": [
+        {
+          "name": "Study Session",
+          "description": "+500 experience points",
+          "unlockRank": 0,
+          "cost": 20,
+          "effect": {
+            "type": "exp",
+            "value": 500
+          }
+        },
+        {
+          "name": "Tutor",
+          "description": "+5 Intelligence permanent",
+          "unlockRank": 2,
+          "cost": 40,
+          "effect": {
+            "type": "perm_stat",
+            "stat": "intelligence",
+            "value": 5
+          }
+        },
+        {
+          "name": "Research Grant",
+          "description": "+2000 experience points",
+          "unlockRank": 5,
+          "cost": 80,
+          "effect": {
+            "type": "exp",
+            "value": 2000
+          }
+        },
+        {
+          "name": "Scholarship",
+          "description": "Reduce education course time by 50%",
+          "unlockRank": 7,
+          "cost": 120,
+          "effect": {
+            "type": "edu_speed",
+            "value": 0.5
+          }
+        },
+        {
+          "name": "Tenure",
+          "description": "+10 to all work stats permanent",
+          "unlockRank": 9,
+          "cost": 250,
+          "effect": {
+            "type": "perm_all_workstats",
+            "value": 10
+          }
+        }
+      ]
+    }
+  },
+  "COMPANY_TYPES": {
+    "logistics": {
+      "id": "logistics",
+      "name": "Logistics Company",
+      "description": "Shipping and freight. Hard labor, decent pay.",
+      "icon": "🚛",
+      "baseSalary": 150,
+      "salaryPerRating": 30,
+      "statWeights": {
+        "manuallabor": 0.6,
+        "intelligence": 0.1,
+        "endurance": 0.3
+      },
+      "passiveGains": {
+        "manuallabor": 2,
+        "intelligence": 0,
+        "endurance": 1
+      }
+    },
+    "tech": {
+      "id": "tech",
+      "name": "Tech Startup",
+      "description": "Code, innovate, disrupt. Intelligence-driven with ok pay.",
+      "icon": "💻",
+      "baseSalary": 180,
+      "salaryPerRating": 35,
+      "statWeights": {
+        "manuallabor": 0.05,
+        "intelligence": 0.75,
+        "endurance": 0.2
+      },
+      "passiveGains": {
+        "manuallabor": 0,
+        "intelligence": 3,
+        "endurance": 1
+      }
+    },
+    "restaurant": {
+      "id": "restaurant",
+      "name": "Restaurant",
+      "description": "Cook, serve, hustle. Balanced stats with tips.",
+      "icon": "🍽️",
+      "baseSalary": 120,
+      "salaryPerRating": 25,
+      "statWeights": {
+        "manuallabor": 0.35,
+        "intelligence": 0.25,
+        "endurance": 0.4
+      },
+      "passiveGains": {
+        "manuallabor": 1,
+        "intelligence": 1,
+        "endurance": 1
+      }
+    },
+    "security": {
+      "id": "security",
+      "name": "Security Firm",
+      "description": "Guard, patrol, respond. Endurance and strength.",
+      "icon": "🛡️",
+      "baseSalary": 160,
+      "salaryPerRating": 28,
+      "statWeights": {
+        "manuallabor": 0.45,
+        "intelligence": 0.15,
+        "endurance": 0.4
+      },
+      "passiveGains": {
+        "manuallabor": 2,
+        "intelligence": 0,
+        "endurance": 2
+      }
+    },
+    "pharma": {
+      "id": "pharma",
+      "name": "Pharmaceutical Corp",
+      "description": "Research, develop, profit. Heavy intelligence.",
+      "icon": "💊",
+      "baseSalary": 200,
+      "salaryPerRating": 40,
+      "statWeights": {
+        "manuallabor": 0.1,
+        "intelligence": 0.7,
+        "endurance": 0.2
+      },
+      "passiveGains": {
+        "manuallabor": 0,
+        "intelligence": 3,
+        "endurance": 1
+      }
+    }
+  }
+}

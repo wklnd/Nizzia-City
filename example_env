@@ -1,0 +1,5 @@
+MONGO_URI=mongodb://localhost:27017/nizziacity
+JWT_SECRET=my_secret_key
+NPC_LOG_MODE=dashboard || classic
+LOG_COLOR_MODE=on
+FORCE_COLOR=1

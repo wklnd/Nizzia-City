@@ -1,0 +1,2599 @@
+{
+  "meta": {
+    "maxActiveCourses": 1
+  },
+  "CATEGORIES": {
+    "biology": {
+      "id": "biology",
+      "name": "Biology",
+      "icon": "🧬",
+      "courses": [
+        {
+          "id": "biology_0",
+          "index": 0,
+          "category": "biology",
+          "name": "Intro to Biology",
+          "description": "Cells, organisms, and the basics of life.",
+          "durationDays": 9,
+          "cost": 500,
+          "rewards": {
+            "intelligence": 3,
+            "endurance": 1,
+            "manuallabor": 0
+          },
+          "prereqs": [],
+          "tier": "basic"
+        },
+        {
+          "id": "biology_1",
+          "index": 1,
+          "category": "biology",
+          "name": "Cell Biology",
+          "description": "Deep dive into cellular structure and function.",
+          "durationDays": 11,
+          "cost": 570,
+          "rewards": {
+            "intelligence": 4,
+            "endurance": 1,
+            "manuallabor": 0
+          },
+          "prereqs": [
+            "biology_0"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "biology_2",
+          "index": 2,
+          "category": "biology",
+          "name": "Genetics",
+          "description": "DNA, inheritance, and genetic variation.",
+          "durationDays": 12,
+          "cost": 640,
+          "rewards": {
+            "intelligence": 5,
+            "endurance": 1,
+            "manuallabor": 0
+          },
+          "prereqs": [
+            "biology_1"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "biology_3",
+          "index": 3,
+          "category": "biology",
+          "name": "Microbiology",
+          "description": "Bacteria, viruses, and microscopic life.",
+          "durationDays": 14,
+          "cost": 710,
+          "rewards": {
+            "intelligence": 5,
+            "endurance": 2,
+            "manuallabor": 0
+          },
+          "prereqs": [
+            "biology_2"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "biology_4",
+          "index": 4,
+          "category": "biology",
+          "name": "Anatomy & Physiology",
+          "description": "Human body systems and how they work.",
+          "durationDays": 16,
+          "cost": 780,
+          "rewards": {
+            "intelligence": 6,
+            "endurance": 2,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "biology_3"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "biology_5",
+          "index": 5,
+          "category": "biology",
+          "name": "Ecology",
+          "description": "Ecosystems, food chains, and environmental science.",
+          "durationDays": 18,
+          "cost": 850,
+          "rewards": {
+            "intelligence": 6,
+            "endurance": 2,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "biology_4"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "biology_6",
+          "index": 6,
+          "category": "biology",
+          "name": "Biochemistry",
+          "description": "Chemical processes within living organisms.",
+          "durationDays": 19,
+          "cost": 920,
+          "rewards": {
+            "intelligence": 7,
+            "endurance": 2,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "biology_5"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "biology_7",
+          "index": 7,
+          "category": "biology",
+          "name": "Molecular Biology",
+          "description": "Molecular mechanisms of gene expression.",
+          "durationDays": 21,
+          "cost": 990,
+          "rewards": {
+            "intelligence": 8,
+            "endurance": 2,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "biology_6"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "biology_8",
+          "index": 8,
+          "category": "biology",
+          "name": "Immunology",
+          "description": "The immune system and disease defense.",
+          "durationDays": 23,
+          "cost": 1060,
+          "rewards": {
+            "intelligence": 9,
+            "endurance": 3,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "biology_7"
+          ],
+          "tier": "advanced"
+        },
+        {
+          "id": "biology_9",
+          "index": 9,
+          "category": "biology",
+          "name": "Neuroscience",
+          "description": "The brain, nervous system, and cognition.",
+          "durationDays": 24,
+          "cost": 1130,
+          "rewards": {
+            "intelligence": 10,
+            "endurance": 3,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "biology_8"
+          ],
+          "tier": "advanced"
+        },
+        {
+          "id": "biology_10",
+          "index": 10,
+          "category": "biology",
+          "name": "Pharmacology",
+          "description": "Drug interactions and pharmaceutical science.",
+          "durationDays": 26,
+          "cost": 1200,
+          "rewards": {
+            "intelligence": 12,
+            "endurance": 3,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "biology_9"
+          ],
+          "tier": "advanced"
+        }
+      ],
+      "bachelor": {
+        "name": "Bachelor's of Biology",
+        "rewards": {
+          "intelligence": 30,
+          "endurance": 10,
+          "manuallabor": 5
+        },
+        "passive": {
+          "stat": "intelligence",
+          "multiplier": 1.02
+        },
+        "unlocks": "pharma_company"
+      }
+    },
+    "business": {
+      "id": "business",
+      "name": "Business",
+      "icon": "💼",
+      "courses": [
+        {
+          "id": "business_0",
+          "index": 0,
+          "category": "business",
+          "name": "Intro to Business",
+          "description": "Fundamentals of commerce and enterprise.",
+          "durationDays": 9,
+          "cost": 500,
+          "rewards": {
+            "intelligence": 3,
+            "endurance": 1,
+            "manuallabor": 1
+          },
+          "prereqs": [],
+          "tier": "basic"
+        },
+        {
+          "id": "business_1",
+          "index": 1,
+          "category": "business",
+          "name": "Accounting Basics",
+          "description": "Debits, credits, and financial statements.",
+          "durationDays": 11,
+          "cost": 570,
+          "rewards": {
+            "intelligence": 4,
+            "endurance": 1,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "business_0"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "business_2",
+          "index": 2,
+          "category": "business",
+          "name": "Marketing Fundamentals",
+          "description": "Consumer behavior and market strategies.",
+          "durationDays": 13,
+          "cost": 640,
+          "rewards": {
+            "intelligence": 5,
+            "endurance": 1,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "business_1"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "business_3",
+          "index": 3,
+          "category": "business",
+          "name": "Business Ethics",
+          "description": "Moral principles in the corporate world.",
+          "durationDays": 15,
+          "cost": 710,
+          "rewards": {
+            "intelligence": 5,
+            "endurance": 2,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "business_2"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "business_4",
+          "index": 4,
+          "category": "business",
+          "name": "Finance",
+          "description": "Investment, banking, and financial management.",
+          "durationDays": 17,
+          "cost": 780,
+          "rewards": {
+            "intelligence": 6,
+            "endurance": 2,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "business_3"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "business_5",
+          "index": 5,
+          "category": "business",
+          "name": "Operations Management",
+          "description": "Supply chains, logistics, and efficiency.",
+          "durationDays": 19,
+          "cost": 850,
+          "rewards": {
+            "intelligence": 6,
+            "endurance": 2,
+            "manuallabor": 2
+          },
+          "prereqs": [
+            "business_4"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "business_6",
+          "index": 6,
+          "category": "business",
+          "name": "Human Resources",
+          "description": "Managing people, recruitment, and labor law.",
+          "durationDays": 20,
+          "cost": 920,
+          "rewards": {
+            "intelligence": 7,
+            "endurance": 2,
+            "manuallabor": 2
+          },
+          "prereqs": [
+            "business_5"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "business_7",
+          "index": 7,
+          "category": "business",
+          "name": "Business Strategy",
+          "description": "Competitive advantage and strategic planning.",
+          "durationDays": 22,
+          "cost": 990,
+          "rewards": {
+            "intelligence": 8,
+            "endurance": 3,
+            "manuallabor": 2
+          },
+          "prereqs": [
+            "business_6"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "business_8",
+          "index": 8,
+          "category": "business",
+          "name": "Entrepreneurship",
+          "description": "Starting and scaling new ventures.",
+          "durationDays": 24,
+          "cost": 1060,
+          "rewards": {
+            "intelligence": 9,
+            "endurance": 3,
+            "manuallabor": 2
+          },
+          "prereqs": [
+            "business_7"
+          ],
+          "tier": "advanced"
+        },
+        {
+          "id": "business_9",
+          "index": 9,
+          "category": "business",
+          "name": "International Business",
+          "description": "Global trade, currency, and geopolitics.",
+          "durationDays": 26,
+          "cost": 1130,
+          "rewards": {
+            "intelligence": 10,
+            "endurance": 3,
+            "manuallabor": 2
+          },
+          "prereqs": [
+            "business_8"
+          ],
+          "tier": "advanced"
+        },
+        {
+          "id": "business_10",
+          "index": 10,
+          "category": "business",
+          "name": "Corporate Leadership",
+          "description": "Executive management and organizational change.",
+          "durationDays": 28,
+          "cost": 1200,
+          "rewards": {
+            "intelligence": 12,
+            "endurance": 4,
+            "manuallabor": 2
+          },
+          "prereqs": [
+            "business_9"
+          ],
+          "tier": "advanced"
+        }
+      ],
+      "bachelor": {
+        "name": "Bachelor's of Business",
+        "rewards": {
+          "intelligence": 25,
+          "endurance": 12,
+          "manuallabor": 8
+        },
+        "passive": {
+          "stat": "intelligence",
+          "multiplier": 1.02
+        },
+        "unlocks": "company_director"
+      }
+    },
+    "combat": {
+      "id": "combat",
+      "name": "Combat Training",
+      "icon": "⚔️",
+      "courses": [
+        {
+          "id": "combat_0",
+          "index": 0,
+          "category": "combat",
+          "name": "Basic Drill",
+          "description": "Fundamental military movement and commands.",
+          "durationDays": 9,
+          "cost": 500,
+          "rewards": {
+            "manuallabor": 3,
+            "endurance": 2,
+            "intelligence": 0
+          },
+          "prereqs": [],
+          "tier": "basic"
+        },
+        {
+          "id": "combat_1",
+          "index": 1,
+          "category": "combat",
+          "name": "Weapons Handling",
+          "description": "Firearms safety and marksmanship basics.",
+          "durationDays": 11,
+          "cost": 570,
+          "rewards": {
+            "manuallabor": 4,
+            "endurance": 2,
+            "intelligence": 1
+          },
+          "prereqs": [
+            "combat_0"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "combat_2",
+          "index": 2,
+          "category": "combat",
+          "name": "Field Exercises",
+          "description": "Outdoor survival and navigation.",
+          "durationDays": 13,
+          "cost": 640,
+          "rewards": {
+            "manuallabor": 5,
+            "endurance": 3,
+            "intelligence": 1
+          },
+          "prereqs": [
+            "combat_1"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "combat_3",
+          "index": 3,
+          "category": "combat",
+          "name": "Hand-to-Hand Combat",
+          "description": "Close quarters fighting techniques.",
+          "durationDays": 15,
+          "cost": 710,
+          "rewards": {
+            "manuallabor": 5,
+            "endurance": 3,
+            "intelligence": 1
+          },
+          "prereqs": [
+            "combat_2"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "combat_4",
+          "index": 4,
+          "category": "combat",
+          "name": "Tactical Operations",
+          "description": "Squad-level combat tactics.",
+          "durationDays": 17,
+          "cost": 780,
+          "rewards": {
+            "manuallabor": 6,
+            "endurance": 3,
+            "intelligence": 2
+          },
+          "prereqs": [
+            "combat_3"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "combat_5",
+          "index": 5,
+          "category": "combat",
+          "name": "Explosives & Demolition",
+          "description": "Safe handling and deployment of ordnance.",
+          "durationDays": 19,
+          "cost": 850,
+          "rewards": {
+            "manuallabor": 7,
+            "endurance": 3,
+            "intelligence": 2
+          },
+          "prereqs": [
+            "combat_4"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "combat_6",
+          "index": 6,
+          "category": "combat",
+          "name": "Sniper Training",
+          "description": "Long-range precision shooting.",
+          "durationDays": 20,
+          "cost": 920,
+          "rewards": {
+            "manuallabor": 7,
+            "endurance": 4,
+            "intelligence": 2
+          },
+          "prereqs": [
+            "combat_5"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "combat_7",
+          "index": 7,
+          "category": "combat",
+          "name": "Jungle Warfare",
+          "description": "Combat operations in dense terrain.",
+          "durationDays": 22,
+          "cost": 990,
+          "rewards": {
+            "manuallabor": 8,
+            "endurance": 4,
+            "intelligence": 2
+          },
+          "prereqs": [
+            "combat_6"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "combat_8",
+          "index": 8,
+          "category": "combat",
+          "name": "Urban Combat",
+          "description": "Building clearance and CQB tactics.",
+          "durationDays": 24,
+          "cost": 1060,
+          "rewards": {
+            "manuallabor": 9,
+            "endurance": 5,
+            "intelligence": 2
+          },
+          "prereqs": [
+            "combat_7"
+          ],
+          "tier": "advanced"
+        },
+        {
+          "id": "combat_9",
+          "index": 9,
+          "category": "combat",
+          "name": "Special Operations",
+          "description": "Covert missions and black ops training.",
+          "durationDays": 26,
+          "cost": 1130,
+          "rewards": {
+            "manuallabor": 10,
+            "endurance": 5,
+            "intelligence": 3
+          },
+          "prereqs": [
+            "combat_8"
+          ],
+          "tier": "advanced"
+        },
+        {
+          "id": "combat_10",
+          "index": 10,
+          "category": "combat",
+          "name": "Commander School",
+          "description": "Lead large-scale military operations.",
+          "durationDays": 28,
+          "cost": 1200,
+          "rewards": {
+            "manuallabor": 12,
+            "endurance": 5,
+            "intelligence": 4
+          },
+          "prereqs": [
+            "combat_9"
+          ],
+          "tier": "advanced"
+        }
+      ],
+      "bachelor": {
+        "name": "Bachelor's of Combat Training",
+        "rewards": {
+          "manuallabor": 30,
+          "endurance": 15,
+          "intelligence": 5
+        },
+        "passive": {
+          "stat": "manuallabor",
+          "multiplier": 1.02
+        },
+        "unlocks": "army_rank_5"
+      }
+    },
+    "computer_science": {
+      "id": "computer_science",
+      "name": "Computer Science",
+      "icon": "💻",
+      "courses": [
+        {
+          "id": "computer_science_0",
+          "index": 0,
+          "category": "computer_science",
+          "name": "Intro to Programming",
+          "description": "Variables, loops, and basic logic.",
+          "durationDays": 9,
+          "cost": 500,
+          "rewards": {
+            "intelligence": 4,
+            "endurance": 0,
+            "manuallabor": 0
+          },
+          "prereqs": [],
+          "tier": "basic"
+        },
+        {
+          "id": "computer_science_1",
+          "index": 1,
+          "category": "computer_science",
+          "name": "Data Structures",
+          "description": "Arrays, trees, graphs, and hash maps.",
+          "durationDays": 11,
+          "cost": 570,
+          "rewards": {
+            "intelligence": 5,
+            "endurance": 0,
+            "manuallabor": 0
+          },
+          "prereqs": [
+            "computer_science_0"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "computer_science_2",
+          "index": 2,
+          "category": "computer_science",
+          "name": "Algorithms",
+          "description": "Sorting, searching, and optimization.",
+          "durationDays": 13,
+          "cost": 640,
+          "rewards": {
+            "intelligence": 5,
+            "endurance": 1,
+            "manuallabor": 0
+          },
+          "prereqs": [
+            "computer_science_1"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "computer_science_3",
+          "index": 3,
+          "category": "computer_science",
+          "name": "Databases",
+          "description": "SQL, NoSQL, and data modeling.",
+          "durationDays": 15,
+          "cost": 710,
+          "rewards": {
+            "intelligence": 6,
+            "endurance": 1,
+            "manuallabor": 0
+          },
+          "prereqs": [
+            "computer_science_2"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "computer_science_4",
+          "index": 4,
+          "category": "computer_science",
+          "name": "Networking",
+          "description": "TCP/IP, protocols, and network architecture.",
+          "durationDays": 17,
+          "cost": 780,
+          "rewards": {
+            "intelligence": 7,
+            "endurance": 1,
+            "manuallabor": 0
+          },
+          "prereqs": [
+            "computer_science_3"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "computer_science_5",
+          "index": 5,
+          "category": "computer_science",
+          "name": "Operating Systems",
+          "description": "Process management, memory, and file systems.",
+          "durationDays": 19,
+          "cost": 850,
+          "rewards": {
+            "intelligence": 7,
+            "endurance": 1,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "computer_science_4"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "computer_science_6",
+          "index": 6,
+          "category": "computer_science",
+          "name": "Cybersecurity",
+          "description": "Hacking, encryption, and defense.",
+          "durationDays": 20,
+          "cost": 920,
+          "rewards": {
+            "intelligence": 8,
+            "endurance": 1,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "computer_science_5"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "computer_science_7",
+          "index": 7,
+          "category": "computer_science",
+          "name": "Software Engineering",
+          "description": "Design patterns, testing, and architecture.",
+          "durationDays": 22,
+          "cost": 990,
+          "rewards": {
+            "intelligence": 9,
+            "endurance": 1,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "computer_science_6"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "computer_science_8",
+          "index": 8,
+          "category": "computer_science",
+          "name": "Machine Learning",
+          "description": "AI, neural networks, and data science.",
+          "durationDays": 24,
+          "cost": 1060,
+          "rewards": {
+            "intelligence": 10,
+            "endurance": 2,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "computer_science_7"
+          ],
+          "tier": "advanced"
+        },
+        {
+          "id": "computer_science_9",
+          "index": 9,
+          "category": "computer_science",
+          "name": "Distributed Systems",
+          "description": "Scaling, consensus, and cloud computing.",
+          "durationDays": 26,
+          "cost": 1130,
+          "rewards": {
+            "intelligence": 11,
+            "endurance": 2,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "computer_science_8"
+          ],
+          "tier": "advanced"
+        },
+        {
+          "id": "computer_science_10",
+          "index": 10,
+          "category": "computer_science",
+          "name": "Advanced Research",
+          "description": "Cutting-edge CS theory and application.",
+          "durationDays": 28,
+          "cost": 1200,
+          "rewards": {
+            "intelligence": 13,
+            "endurance": 2,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "computer_science_9"
+          ],
+          "tier": "advanced"
+        }
+      ],
+      "bachelor": {
+        "name": "Bachelor's of Computer Science",
+        "rewards": {
+          "intelligence": 35,
+          "endurance": 5,
+          "manuallabor": 5
+        },
+        "passive": {
+          "stat": "intelligence",
+          "multiplier": 1.03
+        },
+        "unlocks": "tech_company"
+      }
+    },
+    "general_studies": {
+      "id": "general_studies",
+      "name": "General Studies",
+      "icon": "📚",
+      "courses": [
+        {
+          "id": "general_studies_0",
+          "index": 0,
+          "category": "general_studies",
+          "name": "Study Skills",
+          "description": "Time management, note-taking, and exam prep.",
+          "durationDays": 9,
+          "cost": 500,
+          "rewards": {
+            "intelligence": 2,
+            "endurance": 1,
+            "manuallabor": 1
+          },
+          "prereqs": [],
+          "tier": "basic"
+        },
+        {
+          "id": "general_studies_1",
+          "index": 1,
+          "category": "general_studies",
+          "name": "Critical Thinking",
+          "description": "Logic, reasoning, and argumentation.",
+          "durationDays": 11,
+          "cost": 570,
+          "rewards": {
+            "intelligence": 3,
+            "endurance": 1,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "general_studies_0"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "general_studies_2",
+          "index": 2,
+          "category": "general_studies",
+          "name": "Academic Writing",
+          "description": "Essay structure, citations, and clarity.",
+          "durationDays": 12,
+          "cost": 640,
+          "rewards": {
+            "intelligence": 3,
+            "endurance": 1,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "general_studies_1"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "general_studies_3",
+          "index": 3,
+          "category": "general_studies",
+          "name": "Philosophy",
+          "description": "Ethics, metaphysics, and epistemology.",
+          "durationDays": 14,
+          "cost": 710,
+          "rewards": {
+            "intelligence": 4,
+            "endurance": 1,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "general_studies_2"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "general_studies_4",
+          "index": 4,
+          "category": "general_studies",
+          "name": "Sociology",
+          "description": "Society, culture, and social institutions.",
+          "durationDays": 15,
+          "cost": 780,
+          "rewards": {
+            "intelligence": 4,
+            "endurance": 2,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "general_studies_3"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "general_studies_5",
+          "index": 5,
+          "category": "general_studies",
+          "name": "Economics 101",
+          "description": "Supply, demand, and market fundamentals.",
+          "durationDays": 17,
+          "cost": 850,
+          "rewards": {
+            "intelligence": 5,
+            "endurance": 2,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "general_studies_4"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "general_studies_6",
+          "index": 6,
+          "category": "general_studies",
+          "name": "Political Science",
+          "description": "Government systems and political theory.",
+          "durationDays": 19,
+          "cost": 920,
+          "rewards": {
+            "intelligence": 5,
+            "endurance": 2,
+            "manuallabor": 2
+          },
+          "prereqs": [
+            "general_studies_5"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "general_studies_7",
+          "index": 7,
+          "category": "general_studies",
+          "name": "Anthropology",
+          "description": "Human cultures and evolutionary history.",
+          "durationDays": 20,
+          "cost": 990,
+          "rewards": {
+            "intelligence": 6,
+            "endurance": 2,
+            "manuallabor": 2
+          },
+          "prereqs": [
+            "general_studies_6"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "general_studies_8",
+          "index": 8,
+          "category": "general_studies",
+          "name": "Environmental Studies",
+          "description": "Sustainability and the natural world.",
+          "durationDays": 22,
+          "cost": 1060,
+          "rewards": {
+            "intelligence": 6,
+            "endurance": 3,
+            "manuallabor": 2
+          },
+          "prereqs": [
+            "general_studies_7"
+          ],
+          "tier": "advanced"
+        },
+        {
+          "id": "general_studies_9",
+          "index": 9,
+          "category": "general_studies",
+          "name": "Ethics in Society",
+          "description": "Moral dilemmas and real-world decision making.",
+          "durationDays": 23,
+          "cost": 1130,
+          "rewards": {
+            "intelligence": 7,
+            "endurance": 3,
+            "manuallabor": 2
+          },
+          "prereqs": [
+            "general_studies_8"
+          ],
+          "tier": "advanced"
+        },
+        {
+          "id": "general_studies_10",
+          "index": 10,
+          "category": "general_studies",
+          "name": "Senior Capstone",
+          "description": "Interdisciplinary final project.",
+          "durationDays": 25,
+          "cost": 1200,
+          "rewards": {
+            "intelligence": 8,
+            "endurance": 3,
+            "manuallabor": 3
+          },
+          "prereqs": [
+            "general_studies_9"
+          ],
+          "tier": "advanced"
+        }
+      ],
+      "bachelor": {
+        "name": "Bachelor's of General Studies",
+        "rewards": {
+          "intelligence": 20,
+          "endurance": 10,
+          "manuallabor": 10
+        },
+        "passive": {
+          "stat": "all",
+          "multiplier": 1.01
+        },
+        "unlocks": null
+      }
+    },
+    "health_fitness": {
+      "id": "health_fitness",
+      "name": "Health & Fitness",
+      "icon": "🏋️",
+      "courses": [
+        {
+          "id": "health_fitness_0",
+          "index": 0,
+          "category": "health_fitness",
+          "name": "Nutrition Basics",
+          "description": "Macronutrients, calories, and meal planning.",
+          "durationDays": 9,
+          "cost": 500,
+          "rewards": {
+            "endurance": 3,
+            "manuallabor": 2,
+            "intelligence": 1
+          },
+          "prereqs": [],
+          "tier": "basic"
+        },
+        {
+          "id": "health_fitness_1",
+          "index": 1,
+          "category": "health_fitness",
+          "name": "Basic Exercise Science",
+          "description": "How muscles grow and adapt.",
+          "durationDays": 11,
+          "cost": 570,
+          "rewards": {
+            "endurance": 3,
+            "manuallabor": 3,
+            "intelligence": 1
+          },
+          "prereqs": [
+            "health_fitness_0"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "health_fitness_2",
+          "index": 2,
+          "category": "health_fitness",
+          "name": "Strength Training",
+          "description": "Progressive overload and resistance training.",
+          "durationDays": 13,
+          "cost": 640,
+          "rewards": {
+            "endurance": 3,
+            "manuallabor": 4,
+            "intelligence": 1
+          },
+          "prereqs": [
+            "health_fitness_1"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "health_fitness_3",
+          "index": 3,
+          "category": "health_fitness",
+          "name": "Cardio & Conditioning",
+          "description": "Endurance training and VO2 max.",
+          "durationDays": 14,
+          "cost": 710,
+          "rewards": {
+            "endurance": 4,
+            "manuallabor": 3,
+            "intelligence": 1
+          },
+          "prereqs": [
+            "health_fitness_2"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "health_fitness_4",
+          "index": 4,
+          "category": "health_fitness",
+          "name": "Sports Nutrition",
+          "description": "Performance-optimized diet strategies.",
+          "durationDays": 16,
+          "cost": 780,
+          "rewards": {
+            "endurance": 4,
+            "manuallabor": 4,
+            "intelligence": 2
+          },
+          "prereqs": [
+            "health_fitness_3"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "health_fitness_5",
+          "index": 5,
+          "category": "health_fitness",
+          "name": "Flexibility & Recovery",
+          "description": "Stretching, mobility, and injury prevention.",
+          "durationDays": 18,
+          "cost": 850,
+          "rewards": {
+            "endurance": 5,
+            "manuallabor": 4,
+            "intelligence": 2
+          },
+          "prereqs": [
+            "health_fitness_4"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "health_fitness_6",
+          "index": 6,
+          "category": "health_fitness",
+          "name": "Personal Training Cert",
+          "description": "Become a certified personal trainer.",
+          "durationDays": 20,
+          "cost": 920,
+          "rewards": {
+            "endurance": 5,
+            "manuallabor": 5,
+            "intelligence": 2
+          },
+          "prereqs": [
+            "health_fitness_5"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "health_fitness_7",
+          "index": 7,
+          "category": "health_fitness",
+          "name": "Advanced Biomechanics",
+          "description": "Movement science and force analysis.",
+          "durationDays": 22,
+          "cost": 990,
+          "rewards": {
+            "endurance": 6,
+            "manuallabor": 5,
+            "intelligence": 3
+          },
+          "prereqs": [
+            "health_fitness_6"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "health_fitness_8",
+          "index": 8,
+          "category": "health_fitness",
+          "name": "Sports Medicine",
+          "description": "Athlete injuries and rehabilitation.",
+          "durationDays": 23,
+          "cost": 1060,
+          "rewards": {
+            "endurance": 6,
+            "manuallabor": 6,
+            "intelligence": 3
+          },
+          "prereqs": [
+            "health_fitness_7"
+          ],
+          "tier": "advanced"
+        },
+        {
+          "id": "health_fitness_9",
+          "index": 9,
+          "category": "health_fitness",
+          "name": "Elite Performance",
+          "description": "Peak athletic training methodologies.",
+          "durationDays": 25,
+          "cost": 1130,
+          "rewards": {
+            "endurance": 7,
+            "manuallabor": 6,
+            "intelligence": 3
+          },
+          "prereqs": [
+            "health_fitness_8"
+          ],
+          "tier": "advanced"
+        },
+        {
+          "id": "health_fitness_10",
+          "index": 10,
+          "category": "health_fitness",
+          "name": "Mastery of the Body",
+          "description": "Total physical and mental optimization.",
+          "durationDays": 27,
+          "cost": 1200,
+          "rewards": {
+            "endurance": 8,
+            "manuallabor": 7,
+            "intelligence": 3
+          },
+          "prereqs": [
+            "health_fitness_9"
+          ],
+          "tier": "advanced"
+        }
+      ],
+      "bachelor": {
+        "name": "Bachelor's of Health & Fitness",
+        "rewards": {
+          "endurance": 25,
+          "manuallabor": 20,
+          "intelligence": 8
+        },
+        "passive": {
+          "stat": "endurance",
+          "multiplier": 1.02
+        },
+        "unlocks": null
+      }
+    },
+    "history": {
+      "id": "history",
+      "name": "History",
+      "icon": "📜",
+      "courses": [
+        {
+          "id": "history_0",
+          "index": 0,
+          "category": "history",
+          "name": "Ancient Civilizations",
+          "description": "Mesopotamia, Egypt, Greece, and Rome.",
+          "durationDays": 9,
+          "cost": 500,
+          "rewards": {
+            "intelligence": 3,
+            "endurance": 1,
+            "manuallabor": 0
+          },
+          "prereqs": [],
+          "tier": "basic"
+        },
+        {
+          "id": "history_1",
+          "index": 1,
+          "category": "history",
+          "name": "Medieval History",
+          "description": "Feudalism, crusades, and the Dark Ages.",
+          "durationDays": 11,
+          "cost": 570,
+          "rewards": {
+            "intelligence": 4,
+            "endurance": 1,
+            "manuallabor": 0
+          },
+          "prereqs": [
+            "history_0"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "history_2",
+          "index": 2,
+          "category": "history",
+          "name": "Renaissance & Reform",
+          "description": "Art, science, and religious upheaval.",
+          "durationDays": 12,
+          "cost": 640,
+          "rewards": {
+            "intelligence": 4,
+            "endurance": 1,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "history_1"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "history_3",
+          "index": 3,
+          "category": "history",
+          "name": "Colonial Empires",
+          "description": "Exploration, colonization, and trade.",
+          "durationDays": 14,
+          "cost": 710,
+          "rewards": {
+            "intelligence": 5,
+            "endurance": 1,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "history_2"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "history_4",
+          "index": 4,
+          "category": "history",
+          "name": "Industrial Revolution",
+          "description": "Steam power, factories, and urbanization.",
+          "durationDays": 16,
+          "cost": 780,
+          "rewards": {
+            "intelligence": 5,
+            "endurance": 2,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "history_3"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "history_5",
+          "index": 5,
+          "category": "history",
+          "name": "World War I",
+          "description": "Trenches, alliances, and total war.",
+          "durationDays": 18,
+          "cost": 850,
+          "rewards": {
+            "intelligence": 6,
+            "endurance": 2,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "history_4"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "history_6",
+          "index": 6,
+          "category": "history",
+          "name": "World War II",
+          "description": "Global conflict and the atomic age.",
+          "durationDays": 19,
+          "cost": 920,
+          "rewards": {
+            "intelligence": 6,
+            "endurance": 2,
+            "manuallabor": 2
+          },
+          "prereqs": [
+            "history_5"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "history_7",
+          "index": 7,
+          "category": "history",
+          "name": "Cold War Era",
+          "description": "Superpowers, proxy wars, and espionage.",
+          "durationDays": 21,
+          "cost": 990,
+          "rewards": {
+            "intelligence": 7,
+            "endurance": 2,
+            "manuallabor": 2
+          },
+          "prereqs": [
+            "history_6"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "history_8",
+          "index": 8,
+          "category": "history",
+          "name": "Modern Conflicts",
+          "description": "Terrorism, asymmetric warfare, and geopolitics.",
+          "durationDays": 23,
+          "cost": 1060,
+          "rewards": {
+            "intelligence": 8,
+            "endurance": 3,
+            "manuallabor": 2
+          },
+          "prereqs": [
+            "history_7"
+          ],
+          "tier": "advanced"
+        },
+        {
+          "id": "history_9",
+          "index": 9,
+          "category": "history",
+          "name": "Historical Analysis",
+          "description": "Research methods and historiography.",
+          "durationDays": 24,
+          "cost": 1130,
+          "rewards": {
+            "intelligence": 9,
+            "endurance": 3,
+            "manuallabor": 2
+          },
+          "prereqs": [
+            "history_8"
+          ],
+          "tier": "advanced"
+        },
+        {
+          "id": "history_10",
+          "index": 10,
+          "category": "history",
+          "name": "Thesis Defense",
+          "description": "Original research and scholarly contribution.",
+          "durationDays": 26,
+          "cost": 1200,
+          "rewards": {
+            "intelligence": 10,
+            "endurance": 3,
+            "manuallabor": 2
+          },
+          "prereqs": [
+            "history_9"
+          ],
+          "tier": "advanced"
+        }
+      ],
+      "bachelor": {
+        "name": "Bachelor's of History",
+        "rewards": {
+          "intelligence": 28,
+          "endurance": 8,
+          "manuallabor": 6
+        },
+        "passive": {
+          "stat": "intelligence",
+          "multiplier": 1.02
+        },
+        "unlocks": null
+      }
+    },
+    "law": {
+      "id": "law",
+      "name": "Law",
+      "icon": "⚖️",
+      "courses": [
+        {
+          "id": "law_0",
+          "index": 0,
+          "category": "law",
+          "name": "Intro to Law",
+          "description": "Legal systems, courts, and constitutional basics.",
+          "durationDays": 10,
+          "cost": 500,
+          "rewards": {
+            "intelligence": 4,
+            "endurance": 1,
+            "manuallabor": 0
+          },
+          "prereqs": [],
+          "tier": "basic"
+        },
+        {
+          "id": "law_1",
+          "index": 1,
+          "category": "law",
+          "name": "Criminal Law",
+          "description": "Offenses, defenses, and criminal procedure.",
+          "durationDays": 12,
+          "cost": 570,
+          "rewards": {
+            "intelligence": 5,
+            "endurance": 1,
+            "manuallabor": 0
+          },
+          "prereqs": [
+            "law_0"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "law_2",
+          "index": 2,
+          "category": "law",
+          "name": "Constitutional Law",
+          "description": "Rights, amendments, and judicial review.",
+          "durationDays": 14,
+          "cost": 640,
+          "rewards": {
+            "intelligence": 5,
+            "endurance": 1,
+            "manuallabor": 0
+          },
+          "prereqs": [
+            "law_1"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "law_3",
+          "index": 3,
+          "category": "law",
+          "name": "Contract Law",
+          "description": "Agreements, obligations, and remedies.",
+          "durationDays": 16,
+          "cost": 710,
+          "rewards": {
+            "intelligence": 6,
+            "endurance": 1,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "law_2"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "law_4",
+          "index": 4,
+          "category": "law",
+          "name": "Tort Law",
+          "description": "Civil wrongs, negligence, and liability.",
+          "durationDays": 18,
+          "cost": 780,
+          "rewards": {
+            "intelligence": 6,
+            "endurance": 2,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "law_3"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "law_5",
+          "index": 5,
+          "category": "law",
+          "name": "Property Law",
+          "description": "Ownership, land, and intellectual property.",
+          "durationDays": 20,
+          "cost": 850,
+          "rewards": {
+            "intelligence": 7,
+            "endurance": 2,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "law_4"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "law_6",
+          "index": 6,
+          "category": "law",
+          "name": "Evidence & Procedure",
+          "description": "Rules of evidence and courtroom protocol.",
+          "durationDays": 22,
+          "cost": 920,
+          "rewards": {
+            "intelligence": 8,
+            "endurance": 2,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "law_5"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "law_7",
+          "index": 7,
+          "category": "law",
+          "name": "Corporate Law",
+          "description": "Business entities, mergers, and securities.",
+          "durationDays": 24,
+          "cost": 990,
+          "rewards": {
+            "intelligence": 9,
+            "endurance": 2,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "law_6"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "law_8",
+          "index": 8,
+          "category": "law",
+          "name": "International Law",
+          "description": "Treaties, human rights, and global governance.",
+          "durationDays": 26,
+          "cost": 1060,
+          "rewards": {
+            "intelligence": 10,
+            "endurance": 3,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "law_7"
+          ],
+          "tier": "advanced"
+        },
+        {
+          "id": "law_9",
+          "index": 9,
+          "category": "law",
+          "name": "Legal Ethics",
+          "description": "Professional responsibility and bar standards.",
+          "durationDays": 28,
+          "cost": 1130,
+          "rewards": {
+            "intelligence": 11,
+            "endurance": 3,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "law_8"
+          ],
+          "tier": "advanced"
+        },
+        {
+          "id": "law_10",
+          "index": 10,
+          "category": "law",
+          "name": "Bar Exam Prep",
+          "description": "Comprehensive review and mock examinations.",
+          "durationDays": 30,
+          "cost": 1200,
+          "rewards": {
+            "intelligence": 13,
+            "endurance": 3,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "law_9"
+          ],
+          "tier": "advanced"
+        }
+      ],
+      "bachelor": {
+        "name": "Bachelor's of Law",
+        "rewards": {
+          "intelligence": 35,
+          "endurance": 8,
+          "manuallabor": 5
+        },
+        "passive": {
+          "stat": "intelligence",
+          "multiplier": 1.03
+        },
+        "unlocks": "law_rank_5"
+      }
+    },
+    "mathematics": {
+      "id": "mathematics",
+      "name": "Mathematics",
+      "icon": "🔢",
+      "courses": [
+        {
+          "id": "mathematics_0",
+          "index": 0,
+          "category": "mathematics",
+          "name": "Pre-Calculus",
+          "description": "Algebra, trigonometry, and functions.",
+          "durationDays": 9,
+          "cost": 500,
+          "rewards": {
+            "intelligence": 4,
+            "endurance": 0,
+            "manuallabor": 0
+          },
+          "prereqs": [],
+          "tier": "basic"
+        },
+        {
+          "id": "mathematics_1",
+          "index": 1,
+          "category": "mathematics",
+          "name": "Calculus I",
+          "description": "Limits, derivatives, and integrals.",
+          "durationDays": 11,
+          "cost": 570,
+          "rewards": {
+            "intelligence": 5,
+            "endurance": 0,
+            "manuallabor": 0
+          },
+          "prereqs": [
+            "mathematics_0"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "mathematics_2",
+          "index": 2,
+          "category": "mathematics",
+          "name": "Calculus II",
+          "description": "Series, sequences, and multivariable.",
+          "durationDays": 13,
+          "cost": 640,
+          "rewards": {
+            "intelligence": 5,
+            "endurance": 1,
+            "manuallabor": 0
+          },
+          "prereqs": [
+            "mathematics_1"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "mathematics_3",
+          "index": 3,
+          "category": "mathematics",
+          "name": "Linear Algebra",
+          "description": "Vectors, matrices, and transformations.",
+          "durationDays": 15,
+          "cost": 710,
+          "rewards": {
+            "intelligence": 6,
+            "endurance": 1,
+            "manuallabor": 0
+          },
+          "prereqs": [
+            "mathematics_2"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "mathematics_4",
+          "index": 4,
+          "category": "mathematics",
+          "name": "Differential Equations",
+          "description": "Modeling change with equations.",
+          "durationDays": 17,
+          "cost": 780,
+          "rewards": {
+            "intelligence": 7,
+            "endurance": 1,
+            "manuallabor": 0
+          },
+          "prereqs": [
+            "mathematics_3"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "mathematics_5",
+          "index": 5,
+          "category": "mathematics",
+          "name": "Probability & Stats",
+          "description": "Random variables, distributions, and inference.",
+          "durationDays": 19,
+          "cost": 850,
+          "rewards": {
+            "intelligence": 7,
+            "endurance": 1,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "mathematics_4"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "mathematics_6",
+          "index": 6,
+          "category": "mathematics",
+          "name": "Discrete Mathematics",
+          "description": "Combinatorics, graph theory, and logic.",
+          "durationDays": 20,
+          "cost": 920,
+          "rewards": {
+            "intelligence": 8,
+            "endurance": 1,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "mathematics_5"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "mathematics_7",
+          "index": 7,
+          "category": "mathematics",
+          "name": "Number Theory",
+          "description": "Primes, modular arithmetic, and cryptography.",
+          "durationDays": 22,
+          "cost": 990,
+          "rewards": {
+            "intelligence": 9,
+            "endurance": 1,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "mathematics_6"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "mathematics_8",
+          "index": 8,
+          "category": "mathematics",
+          "name": "Real Analysis",
+          "description": "Rigorous calculus: proofs and topology.",
+          "durationDays": 24,
+          "cost": 1060,
+          "rewards": {
+            "intelligence": 10,
+            "endurance": 2,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "mathematics_7"
+          ],
+          "tier": "advanced"
+        },
+        {
+          "id": "mathematics_9",
+          "index": 9,
+          "category": "mathematics",
+          "name": "Abstract Algebra",
+          "description": "Groups, rings, and fields.",
+          "durationDays": 26,
+          "cost": 1130,
+          "rewards": {
+            "intelligence": 11,
+            "endurance": 2,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "mathematics_8"
+          ],
+          "tier": "advanced"
+        },
+        {
+          "id": "mathematics_10",
+          "index": 10,
+          "category": "mathematics",
+          "name": "Senior Thesis",
+          "description": "Original mathematical research.",
+          "durationDays": 28,
+          "cost": 1200,
+          "rewards": {
+            "intelligence": 13,
+            "endurance": 2,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "mathematics_9"
+          ],
+          "tier": "advanced"
+        }
+      ],
+      "bachelor": {
+        "name": "Bachelor's of Mathematics",
+        "rewards": {
+          "intelligence": 38,
+          "endurance": 5,
+          "manuallabor": 5
+        },
+        "passive": {
+          "stat": "intelligence",
+          "multiplier": 1.03
+        },
+        "unlocks": null
+      }
+    },
+    "psychology": {
+      "id": "psychology",
+      "name": "Psychology",
+      "icon": "🧠",
+      "courses": [
+        {
+          "id": "psychology_0",
+          "index": 0,
+          "category": "psychology",
+          "name": "Intro to Psychology",
+          "description": "The mind, behavior, and scientific method.",
+          "durationDays": 9,
+          "cost": 500,
+          "rewards": {
+            "intelligence": 3,
+            "endurance": 1,
+            "manuallabor": 1
+          },
+          "prereqs": [],
+          "tier": "basic"
+        },
+        {
+          "id": "psychology_1",
+          "index": 1,
+          "category": "psychology",
+          "name": "Developmental Psych",
+          "description": "Human growth from infancy to old age.",
+          "durationDays": 11,
+          "cost": 570,
+          "rewards": {
+            "intelligence": 4,
+            "endurance": 1,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "psychology_0"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "psychology_2",
+          "index": 2,
+          "category": "psychology",
+          "name": "Social Psychology",
+          "description": "Group behavior, conformity, and persuasion.",
+          "durationDays": 13,
+          "cost": 640,
+          "rewards": {
+            "intelligence": 5,
+            "endurance": 1,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "psychology_1"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "psychology_3",
+          "index": 3,
+          "category": "psychology",
+          "name": "Cognitive Psychology",
+          "description": "Memory, attention, and problem solving.",
+          "durationDays": 14,
+          "cost": 710,
+          "rewards": {
+            "intelligence": 5,
+            "endurance": 2,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "psychology_2"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "psychology_4",
+          "index": 4,
+          "category": "psychology",
+          "name": "Abnormal Psychology",
+          "description": "Mental disorders, diagnosis, and treatment.",
+          "durationDays": 16,
+          "cost": 780,
+          "rewards": {
+            "intelligence": 6,
+            "endurance": 2,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "psychology_3"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "psychology_5",
+          "index": 5,
+          "category": "psychology",
+          "name": "Behavioral Neuroscience",
+          "description": "Brain structures and their behavioral effects.",
+          "durationDays": 18,
+          "cost": 850,
+          "rewards": {
+            "intelligence": 7,
+            "endurance": 2,
+            "manuallabor": 1
+          },
+          "prereqs": [
+            "psychology_4"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "psychology_6",
+          "index": 6,
+          "category": "psychology",
+          "name": "Research Methods",
+          "description": "Experimental design and statistical analysis.",
+          "durationDays": 20,
+          "cost": 920,
+          "rewards": {
+            "intelligence": 7,
+            "endurance": 2,
+            "manuallabor": 2
+          },
+          "prereqs": [
+            "psychology_5"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "psychology_7",
+          "index": 7,
+          "category": "psychology",
+          "name": "Clinical Psychology",
+          "description": "Therapy techniques and patient assessment.",
+          "durationDays": 22,
+          "cost": 990,
+          "rewards": {
+            "intelligence": 8,
+            "endurance": 3,
+            "manuallabor": 2
+          },
+          "prereqs": [
+            "psychology_6"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "psychology_8",
+          "index": 8,
+          "category": "psychology",
+          "name": "Forensic Psychology",
+          "description": "Criminal profiling and legal psychology.",
+          "durationDays": 23,
+          "cost": 1060,
+          "rewards": {
+            "intelligence": 9,
+            "endurance": 3,
+            "manuallabor": 2
+          },
+          "prereqs": [
+            "psychology_7"
+          ],
+          "tier": "advanced"
+        },
+        {
+          "id": "psychology_9",
+          "index": 9,
+          "category": "psychology",
+          "name": "Industrial Psychology",
+          "description": "Workplace behavior and organizational design.",
+          "durationDays": 25,
+          "cost": 1130,
+          "rewards": {
+            "intelligence": 10,
+            "endurance": 3,
+            "manuallabor": 2
+          },
+          "prereqs": [
+            "psychology_8"
+          ],
+          "tier": "advanced"
+        },
+        {
+          "id": "psychology_10",
+          "index": 10,
+          "category": "psychology",
+          "name": "Senior Research Project",
+          "description": "Original psychological research.",
+          "durationDays": 27,
+          "cost": 1200,
+          "rewards": {
+            "intelligence": 11,
+            "endurance": 3,
+            "manuallabor": 2
+          },
+          "prereqs": [
+            "psychology_9"
+          ],
+          "tier": "advanced"
+        }
+      ],
+      "bachelor": {
+        "name": "Bachelor's of Psychology",
+        "rewards": {
+          "intelligence": 30,
+          "endurance": 10,
+          "manuallabor": 8
+        },
+        "passive": {
+          "stat": "intelligence",
+          "multiplier": 1.02
+        },
+        "unlocks": null
+      }
+    },
+    "self_defense": {
+      "id": "self_defense",
+      "name": "Self Defense",
+      "icon": "🥋",
+      "courses": [
+        {
+          "id": "self_defense_0",
+          "index": 0,
+          "category": "self_defense",
+          "name": "Awareness & Avoidance",
+          "description": "Situational awareness and de-escalation.",
+          "durationDays": 9,
+          "cost": 500,
+          "rewards": {
+            "manuallabor": 2,
+            "endurance": 2,
+            "intelligence": 1
+          },
+          "prereqs": [],
+          "tier": "basic"
+        },
+        {
+          "id": "self_defense_1",
+          "index": 1,
+          "category": "self_defense",
+          "name": "Basic Striking",
+          "description": "Punches, kicks, and fundamental combos.",
+          "durationDays": 11,
+          "cost": 570,
+          "rewards": {
+            "manuallabor": 3,
+            "endurance": 3,
+            "intelligence": 1
+          },
+          "prereqs": [
+            "self_defense_0"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "self_defense_2",
+          "index": 2,
+          "category": "self_defense",
+          "name": "Grappling Basics",
+          "description": "Clinch work, takedowns, and escapes.",
+          "durationDays": 13,
+          "cost": 640,
+          "rewards": {
+            "manuallabor": 4,
+            "endurance": 3,
+            "intelligence": 1
+          },
+          "prereqs": [
+            "self_defense_1"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "self_defense_3",
+          "index": 3,
+          "category": "self_defense",
+          "name": "Ground Defense",
+          "description": "Guard, submissions, and ground control.",
+          "durationDays": 15,
+          "cost": 710,
+          "rewards": {
+            "manuallabor": 4,
+            "endurance": 4,
+            "intelligence": 1
+          },
+          "prereqs": [
+            "self_defense_2"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "self_defense_4",
+          "index": 4,
+          "category": "self_defense",
+          "name": "Weapon Defense",
+          "description": "Defending against knives, clubs, and firearms.",
+          "durationDays": 17,
+          "cost": 780,
+          "rewards": {
+            "manuallabor": 5,
+            "endurance": 4,
+            "intelligence": 2
+          },
+          "prereqs": [
+            "self_defense_3"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "self_defense_5",
+          "index": 5,
+          "category": "self_defense",
+          "name": "Krav Maga",
+          "description": "Israeli military self-defense system.",
+          "durationDays": 19,
+          "cost": 850,
+          "rewards": {
+            "manuallabor": 6,
+            "endurance": 4,
+            "intelligence": 2
+          },
+          "prereqs": [
+            "self_defense_4"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "self_defense_6",
+          "index": 6,
+          "category": "self_defense",
+          "name": "Brazilian Jiu-Jitsu",
+          "description": "Advanced grappling and submission arts.",
+          "durationDays": 20,
+          "cost": 920,
+          "rewards": {
+            "manuallabor": 6,
+            "endurance": 5,
+            "intelligence": 2
+          },
+          "prereqs": [
+            "self_defense_5"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "self_defense_7",
+          "index": 7,
+          "category": "self_defense",
+          "name": "Muay Thai",
+          "description": "The art of eight limbs.",
+          "durationDays": 22,
+          "cost": 990,
+          "rewards": {
+            "manuallabor": 7,
+            "endurance": 5,
+            "intelligence": 2
+          },
+          "prereqs": [
+            "self_defense_6"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "self_defense_8",
+          "index": 8,
+          "category": "self_defense",
+          "name": "Mixed Martial Arts",
+          "description": "Combining disciplines for complete fighting.",
+          "durationDays": 24,
+          "cost": 1060,
+          "rewards": {
+            "manuallabor": 8,
+            "endurance": 6,
+            "intelligence": 2
+          },
+          "prereqs": [
+            "self_defense_7"
+          ],
+          "tier": "advanced"
+        },
+        {
+          "id": "self_defense_9",
+          "index": 9,
+          "category": "self_defense",
+          "name": "Close Protection",
+          "description": "Bodyguard techniques and VIP security.",
+          "durationDays": 26,
+          "cost": 1130,
+          "rewards": {
+            "manuallabor": 9,
+            "endurance": 6,
+            "intelligence": 3
+          },
+          "prereqs": [
+            "self_defense_8"
+          ],
+          "tier": "advanced"
+        },
+        {
+          "id": "self_defense_10",
+          "index": 10,
+          "category": "self_defense",
+          "name": "Master Instructor",
+          "description": "Teaching self-defense at the highest level.",
+          "durationDays": 28,
+          "cost": 1200,
+          "rewards": {
+            "manuallabor": 10,
+            "endurance": 6,
+            "intelligence": 3
+          },
+          "prereqs": [
+            "self_defense_9"
+          ],
+          "tier": "advanced"
+        }
+      ],
+      "bachelor": {
+        "name": "Bachelor's of Self Defense",
+        "rewards": {
+          "manuallabor": 25,
+          "endurance": 20,
+          "intelligence": 8
+        },
+        "passive": {
+          "stat": "manuallabor",
+          "multiplier": 1.02
+        },
+        "unlocks": null
+      }
+    },
+    "sports_science": {
+      "id": "sports_science",
+      "name": "Sports Science",
+      "icon": "🏅",
+      "courses": [
+        {
+          "id": "sports_science_0",
+          "index": 0,
+          "category": "sports_science",
+          "name": "Intro to Sports Science",
+          "description": "Overview of athletic performance research.",
+          "durationDays": 9,
+          "cost": 500,
+          "rewards": {
+            "endurance": 3,
+            "manuallabor": 2,
+            "intelligence": 1
+          },
+          "prereqs": [],
+          "tier": "basic"
+        },
+        {
+          "id": "sports_science_1",
+          "index": 1,
+          "category": "sports_science",
+          "name": "Exercise Physiology",
+          "description": "How the body responds to physical stress.",
+          "durationDays": 11,
+          "cost": 570,
+          "rewards": {
+            "endurance": 4,
+            "manuallabor": 2,
+            "intelligence": 1
+          },
+          "prereqs": [
+            "sports_science_0"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "sports_science_2",
+          "index": 2,
+          "category": "sports_science",
+          "name": "Kinesiology",
+          "description": "The science of human movement.",
+          "durationDays": 13,
+          "cost": 640,
+          "rewards": {
+            "endurance": 4,
+            "manuallabor": 3,
+            "intelligence": 1
+          },
+          "prereqs": [
+            "sports_science_1"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "sports_science_3",
+          "index": 3,
+          "category": "sports_science",
+          "name": "Biomechanics",
+          "description": "Forces and physics of athletic motion.",
+          "durationDays": 15,
+          "cost": 710,
+          "rewards": {
+            "endurance": 4,
+            "manuallabor": 3,
+            "intelligence": 2
+          },
+          "prereqs": [
+            "sports_science_2"
+          ],
+          "tier": "basic"
+        },
+        {
+          "id": "sports_science_4",
+          "index": 4,
+          "category": "sports_science",
+          "name": "Sports Psychology",
+          "description": "Mental preparation and competitive mindset.",
+          "durationDays": 17,
+          "cost": 780,
+          "rewards": {
+            "endurance": 5,
+            "manuallabor": 3,
+            "intelligence": 2
+          },
+          "prereqs": [
+            "sports_science_3"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "sports_science_5",
+          "index": 5,
+          "category": "sports_science",
+          "name": "Coaching Methods",
+          "description": "Training plans, periodization, and team management.",
+          "durationDays": 19,
+          "cost": 850,
+          "rewards": {
+            "endurance": 5,
+            "manuallabor": 4,
+            "intelligence": 2
+          },
+          "prereqs": [
+            "sports_science_4"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "sports_science_6",
+          "index": 6,
+          "category": "sports_science",
+          "name": "Injury Rehabilitation",
+          "description": "Recovery protocols and return-to-play.",
+          "durationDays": 20,
+          "cost": 920,
+          "rewards": {
+            "endurance": 6,
+            "manuallabor": 4,
+            "intelligence": 3
+          },
+          "prereqs": [
+            "sports_science_5"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "sports_science_7",
+          "index": 7,
+          "category": "sports_science",
+          "name": "Performance Analytics",
+          "description": "Data-driven athletic optimization.",
+          "durationDays": 22,
+          "cost": 990,
+          "rewards": {
+            "endurance": 6,
+            "manuallabor": 5,
+            "intelligence": 3
+          },
+          "prereqs": [
+            "sports_science_6"
+          ],
+          "tier": "intermediate"
+        },
+        {
+          "id": "sports_science_8",
+          "index": 8,
+          "category": "sports_science",
+          "name": "Strength & Conditioning",
+          "description": "Elite-level S&C program design.",
+          "durationDays": 24,
+          "cost": 1060,
+          "rewards": {
+            "endurance": 7,
+            "manuallabor": 5,
+            "intelligence": 3
+          },
+          "prereqs": [
+            "sports_science_7"
+          ],
+          "tier": "advanced"
+        },
+        {
+          "id": "sports_science_9",
+          "index": 9,
+          "category": "sports_science",
+          "name": "Sports Therapy",
+          "description": "Advanced therapeutic techniques for athletes.",
+          "durationDays": 26,
+          "cost": 1130,
+          "rewards": {
+            "endurance": 7,
+            "manuallabor": 6,
+            "intelligence": 3
+          },
+          "prereqs": [
+            "sports_science_8"
+          ],
+          "tier": "advanced"
+        },
+        {
+          "id": "sports_science_10",
+          "index": 10,
+          "category": "sports_science",
+          "name": "Research Capstone",
+          "description": "Original sports science research.",
+          "durationDays": 28,
+          "cost": 1200,
+          "rewards": {
+            "endurance": 8,
+            "manuallabor": 6,
+            "intelligence": 4
+          },
+          "prereqs": [
+            "sports_science_9"
+          ],
+          "tier": "advanced"
+        }
+      ],
+      "bachelor": {
+        "name": "Bachelor's of Sports Science",
+        "rewards": {
+          "endurance": 25,
+          "manuallabor": 18,
+          "intelligence": 12
+        },
+        "passive": {
+          "stat": "endurance",
+          "multiplier": 1.02
+        },
+        "unlocks": null
+      }
+    }
+  }
+}
