@@ -22,6 +22,7 @@ const scheduleRegenHappiness = require('./cronjobs/regenHappiness');
 const scheduleStockTicker = require('./cronjobs/stockTicker');
 const scheduleRegenCooldowns = require('./cronjobs/regenCooldowns');
 const scheduleNpcActions = require('./cronjobs/npcActions');
+const scheduleNpcMarketBuying = require('./cronjobs/npcMarketBuying');
 const schedulePlayerSnapshots = require('./cronjobs/playerSnapshot');
 const scheduleBankApr = require('./cronjobs/bankApr');
 const scheduleDailyReset = require('./cronjobs/dailyReset');
@@ -74,6 +75,7 @@ if (process.env.DISABLE_CRON !== 'true') {
   scheduleStockTicker();
   scheduleBankApr();
   scheduleNpcActions();
+  scheduleNpcMarketBuying();
   schedulePlayerSnapshots();
   scheduleRegenCooldowns();
   scheduleDailyReset();

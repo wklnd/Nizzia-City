@@ -107,56 +107,82 @@
         <div v-if="loading" class="muted">Loading…</div>
         <div v-else>
           <table class="tbl" v-if="tab==='items'">
-            <thead><tr><th>Item</th><th>Seller</th><th class="num">Price</th><th class="num">Available</th><th></th></tr></thead>
+            <thead><tr><th>Item</th><th class="num">Price</th><th class="num">Listings</th><th></th></tr></thead>
             <tbody>
-              <tr v-for="l in filteredListings" :key="l.id">
-                <td>{{ l.item?.name || l.itemId }}</td>
-                <td>
-                  <RouterLink v-if="l.seller?.playerId" :to="`/profile/${l.seller.playerId}`">{{ l.seller?.name }}</RouterLink>
-                  <span v-else>{{ l.seller?.name || '—' }}</span>
-                </td>
-                <td class="num">{{ fmtMoney(l.price) }}</td>
-                <td class="num">{{ l.amountAvailable }}</td>
-                <td class="num">
-                  <input v-model.number="l.buyQty" type="number" min="1" :max="l.amountAvailable" class="input input--qty" />
-                  <button class="btn" @click="buy(l)" :disabled="busy || l.amountAvailable<=0">Buy</button>
-                </td>
-              </tr>
-              <tr v-if="!listings.length"><td colspan="5" class="muted">No listings</td></tr>
+              <template v-for="g in groupedListings" :key="g.itemId">
+                <tr class="group-row" @click="toggleGroup(g.itemId)">
+                  <td><strong>{{ g.item?.name || g.itemId }}</strong></td>
+                  <td class="num">{{ fmtMoney(g.minPrice) }}<span v-if="g.maxPrice > g.minPrice" class="muted"> - {{ fmtMoney(g.maxPrice) }}</span></td>
+                  <td class="num">{{ g.listings.length }}</td>
+                  <td class="num"><span class="group-chevron">{{ expandedGroups[g.itemId] ? '▼' : '▶' }}</span></td>
+                </tr>
+                <tr v-if="expandedGroups[g.itemId]" class="expand-spacer"><td colspan="4" class="expand-pad"></td></tr>
+                <tr v-for="l in g.listings" v-if="expandedGroups[g.itemId]" :key="l.id" class="sub-row">
+                  <td class="sub-seller">
+                    <RouterLink v-if="l.seller?.playerId" :to="`/profile/${l.seller.playerId}`">{{ l.seller?.name }}</RouterLink>
+                    <span v-else>{{ l.seller?.name || '—' }}</span>
+                  </td>
+                  <td class="num">{{ fmtMoney(l.price) }}</td>
+                  <td class="num">{{ l.amountAvailable }}</td>
+                  <td class="num">
+                    <input v-model.number="buyQtyMap[l.id]" type="number" min="1" :max="l.amountAvailable" class="input input--qty" />
+                    <button class="btn" @click.stop="buy(l)" :disabled="busy || l.amountAvailable<=0">Buy</button>
+                  </td>
+                </tr>
+              </template>
+              <tr v-if="!groupedListings.length"><td colspan="4" class="muted">No listings</td></tr>
             </tbody>
           </table>
           <table class="tbl" v-else-if="tab==='pets'">
-            <thead><tr><th>Pet</th><th>Seller</th><th class="num">Price</th><th></th></tr></thead>
+            <thead><tr><th>Pet</th><th class="num">Price</th><th class="num">Listings</th><th></th></tr></thead>
             <tbody>
-              <tr v-for="l in filteredListings" :key="l.id">
-                <td>{{ l.pet?.name }} <span class="muted">({{ l.pet?.type }})</span></td>
-                <td>
-                  <RouterLink v-if="l.seller?.playerId" :to="`/profile/${l.seller.playerId}`">{{ l.seller?.name }}</RouterLink>
-                  <span v-else>{{ l.seller?.name || '—' }}</span>
-                </td>
-                <td class="num">{{ fmtMoney(l.price) }}</td>
-                <td class="num">
-                  <button class="btn" @click="buy(l)">Buy</button>
-                </td>
-              </tr>
-              <tr v-if="!listings.length"><td colspan="4" class="muted">No listings</td></tr>
+              <template v-for="g in groupedListings" :key="g.petId">
+                <tr class="group-row" @click="toggleGroup(g.petId)">
+                  <td><strong>{{ g.pet?.name }} <span class="muted">({{ g.pet?.type }})</span></strong></td>
+                  <td class="num">{{ fmtMoney(g.minPrice) }}<span v-if="g.maxPrice > g.minPrice" class="muted"> - {{ fmtMoney(g.maxPrice) }}</span></td>
+                  <td class="num">{{ g.listings.length }}</td>
+                  <td class="num"><span class="group-chevron">{{ expandedGroups[g.petId] ? '▼' : '▶' }}</span></td>
+                </tr>
+                <tr v-if="expandedGroups[g.petId]" class="expand-spacer"><td colspan="4" class="expand-pad"></td></tr>
+                <tr v-for="l in g.listings" v-if="expandedGroups[g.petId]" :key="l.id" class="sub-row">
+                  <td class="sub-seller">
+                    <RouterLink v-if="l.seller?.playerId" :to="`/profile/${l.seller.playerId}`">{{ l.seller?.name }}</RouterLink>
+                    <span v-else>{{ l.seller?.name || '—' }}</span>
+                  </td>
+                  <td class="num">{{ fmtMoney(l.price) }}</td>
+                  <td class="num">—</td>
+                  <td class="num">
+                    <button class="btn" @click.stop="buy(l)" :disabled="busy">Buy</button>
+                  </td>
+                </tr>
+              </template>
+              <tr v-if="!groupedListings.length"><td colspan="4" class="muted">No listings</td></tr>
             </tbody>
           </table>
           <table class="tbl" v-else>
-            <thead><tr><th>Property</th><th>Seller</th><th class="num">Price</th><th></th></tr></thead>
+            <thead><tr><th>Property</th><th class="num">Price</th><th class="num">Listings</th><th></th></tr></thead>
             <tbody>
-              <tr v-for="l in filteredListings" :key="l.id">
-                <td>{{ l.property?.name || l.propertyId }}</td>
-                <td>
-                  <RouterLink v-if="l.seller?.playerId" :to="`/profile/${l.seller.playerId}`">{{ l.seller?.name }}</RouterLink>
-                  <span v-else>{{ l.seller?.name || '—' }}</span>
-                </td>
-                <td class="num">{{ fmtMoney(l.price) }}</td>
-                <td class="num">
-                  <button class="btn" @click="buy(l)">Buy</button>
-                </td>
-              </tr>
-              <tr v-if="!listings.length"><td colspan="4" class="muted">No listings</td></tr>
+              <template v-for="g in groupedListings" :key="g.propertyId">
+                <tr class="group-row" @click="toggleGroup(g.propertyId)">
+                  <td><strong>{{ g.property?.name || g.propertyId }}</strong></td>
+                  <td class="num">{{ fmtMoney(g.minPrice) }}<span v-if="g.maxPrice > g.minPrice" class="muted"> - {{ fmtMoney(g.maxPrice) }}</span></td>
+                  <td class="num">{{ g.listings.length }}</td>
+                  <td class="num"><span class="group-chevron">{{ expandedGroups[g.propertyId] ? '▼' : '▶' }}</span></td>
+                </tr>
+                <tr v-if="expandedGroups[g.propertyId]" class="expand-spacer"><td colspan="4" class="expand-pad"></td></tr>
+                <tr v-for="l in g.listings" v-if="expandedGroups[g.propertyId]" :key="l.id" class="sub-row">
+                  <td class="sub-seller">
+                    <RouterLink v-if="l.seller?.playerId" :to="`/profile/${l.seller.playerId}`">{{ l.seller?.name }}</RouterLink>
+                    <span v-else>{{ l.seller?.name || '—' }}</span>
+                  </td>
+                  <td class="num">{{ fmtMoney(l.price) }}</td>
+                  <td class="num">—</td>
+                  <td class="num">
+                    <button class="btn" @click.stop="buy(l)" :disabled="busy">Buy</button>
+                  </td>
+                </tr>
+              </template>
+              <tr v-if="!groupedListings.length"><td colspan="4" class="muted">No listings</td></tr>
             </tbody>
           </table>
         </div>
@@ -181,6 +207,8 @@ const listings = ref([])
 const tab = ref('items')
 const petMine = ref(null)
 const filter = ref('')
+const buyQtyMap = ref({})
+const expandedGroups = ref({})
 
 const form = ref({ itemKey: '', qty: 1, price: 1, petPrice: 1, propertyId: '', propertyPrice: 1 })
 const canCreate = computed(() => {
@@ -202,6 +230,41 @@ const filteredListings = computed(() => {
   return listings.value.filter(l => (l.property?.name || l.propertyId || '').toLowerCase().includes(f))
 })
 
+const groupedListings = computed(() => {
+  const filtered = filteredListings.value
+  if (tab.value === 'items') {
+    const groups = {}
+    for (const l of filtered) {
+      const key = l.itemId
+      if (!groups[key]) groups[key] = { itemId: l.itemId, item: l.item, listings: [], minPrice: Infinity, maxPrice: 0 }
+      groups[key].listings.push(l)
+      groups[key].minPrice = Math.min(groups[key].minPrice, l.price)
+      groups[key].maxPrice = Math.max(groups[key].maxPrice, l.price)
+    }
+    return Object.values(groups).sort((a, b) => a.minPrice - b.minPrice)
+  } else if (tab.value === 'pets') {
+    const groups = {}
+    for (const l of filtered) {
+      const key = l.id
+      if (!groups[key]) groups[key] = { petId: key, pet: l.pet, listings: [], minPrice: Infinity, maxPrice: 0 }
+      groups[key].listings.push(l)
+      groups[key].minPrice = Math.min(groups[key].minPrice, l.price)
+      groups[key].maxPrice = Math.max(groups[key].maxPrice, l.price)
+    }
+    return Object.values(groups).sort((a, b) => a.minPrice - b.minPrice)
+  } else {
+    const groups = {}
+    for (const l of filtered) {
+      const key = l.propertyId
+      if (!groups[key]) groups[key] = { propertyId: key, property: l.property, listings: [], minPrice: Infinity, maxPrice: 0 }
+      groups[key].listings.push(l)
+      groups[key].minPrice = Math.min(groups[key].minPrice, l.price)
+      groups[key].maxPrice = Math.max(groups[key].maxPrice, l.price)
+    }
+    return Object.values(groups).sort((a, b) => a.minPrice - b.minPrice)
+  }
+})
+
 async function loadInventory() {
   if (!store.player?.user) return
   const { data } = await api.get('/inventory/mine')
@@ -213,13 +276,13 @@ async function loadListings() {
   try {
     let data
     if (tab.value === 'items') {
-      data = (await api.get('/market/listings')).data
-      const rows = data?.listings || []; rows.forEach(r => { r.buyQty = 1 }); listings.value = rows
+      data = (await api.get('/market/listings')).data; listings.value = data?.listings || []
     } else if (tab.value === 'pets') {
       data = (await api.get('/market/listings/pets')).data; listings.value = data?.listings || []
     } else {
       data = (await api.get('/market/listings/properties')).data; listings.value = data?.listings || []
     }
+    buyQtyMap.value = {}
   } catch { /* ignore */ } finally { loading.value = false }
 }
 
@@ -257,7 +320,7 @@ async function buy(l) {
   try {
     let res
     if (tab.value === 'items') {
-      const q = Math.max(1, Number(l.buyQty || 1))
+      const q = Math.max(1, Number(buyQtyMap.value[l.id] || 1))
       res = await api.post('/market/buy', { listingId: l.id, qty: q })
     } else if (tab.value === 'pets') {
       res = await api.post('/market/buy/pet', { listingId: l.id })
@@ -271,7 +334,11 @@ async function buy(l) {
   finally { busy.value = false }
 }
 
-function switchTab(next) { tab.value = next; loadListings() }
+function switchTab(next) { tab.value = next; expandedGroups.value = {}; loadListings() }
+
+function toggleGroup(key) {
+  expandedGroups.value[key] = !expandedGroups.value[key]
+}
 
 async function loadMinePet() {
   try {
@@ -299,10 +366,126 @@ onMounted(async () => { await ensurePlayer(); await Promise.all([loadInventory()
 
 <style scoped>
 .market { max-width: 1000px; margin: 0 auto; }
-.panel__head { display: flex; align-items: center; justify-content: space-between; }
-.panel--full { grid-column: 1 / -1; }
-.form-grid { display: grid; grid-template-columns: 100px 1fr; gap: 6px; align-items: center; font-size: 12px; }
-.input--qty { width: 72px; }
-.filter { margin-bottom: 6px; }
-.btn-danger { background: var(--danger); color: #fff; border-color: var(--danger); }
+
+.grid { 
+  display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  gap: 1rem; 
+  width: 100%;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1rem;
+  overflow: hidden;
+}
+
+.panel h3 {
+  margin: 0 0 1rem 0;
+  font-size: 16px;
+}
+
+.panel__head { 
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between; 
+  margin-bottom: 1rem;
+}
+
+.panel--full { 
+  grid-column: 1 / -1; 
+}
+
+.tbl {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.tbl thead {
+  background: var(--panel-hover);
+  border-bottom: 1px solid var(--border);
+}
+
+.tbl th {
+  padding: 8px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.tbl td {
+  padding: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.tbl tbody tr:hover {
+  background: var(--panel-hover);
+}
+
+.tbl .num {
+  text-align: right;
+}
+
+.form-grid { 
+  display: grid; 
+  grid-template-columns: 100px 1fr; 
+  gap: 6px; 
+  align-items: center; 
+  font-size: 12px;
+  margin-bottom: 1rem;
+}
+
+.input--qty { 
+  width: 72px; 
+}
+
+.filter { 
+  margin-bottom: 6px; 
+}
+
+.btn-danger { 
+  background: var(--danger); 
+  color: #fff; 
+  border-color: var(--danger); 
+}
+
+.group-row { 
+  background: var(--panel-hover); 
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.group-chevron { color: var(--muted); }
+
+.group-row:hover { 
+  background: var(--accent-muted); 
+}
+
+.expand-spacer { 
+  height: 2px;
+  background: transparent;
+}
+
+.expand-pad { padding: 0; }
+
+.sub-row { 
+  background: var(--panel); 
+  font-size: 13px; 
+}
+
+.sub-seller { padding-left: 2rem; }
+
+.sub-row td { 
+  padding-top: 4px; 
+  padding-bottom: 4px; 
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
 </style>
