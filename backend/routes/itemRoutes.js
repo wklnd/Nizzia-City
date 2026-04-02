@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const { requireAuth } = require('../middleware/authUser');
-const { getAllItems, useItem, createItem, updateItem, deleteItem, downloadAllItems } = require('../controllers/itemController');
+const { getAllItems, getItemMeta, useItem, createItem, updateItem, deleteItem, downloadAllItems } = require('../controllers/itemController');
 
 // GET all items
 router.get('/', getAllItems);
+router.get('/meta', getItemMeta);
 
 // POST to create item
 router.post('/create', createItem);

@@ -1,4 +1,5 @@
 // TODO : Refactor to json 
+// TODO: Remove magic Numbers. 
 const LOCATION = {
   Subway_Station: {
     id: 'subway_station',
@@ -6,10 +7,15 @@ const LOCATION = {
     requirements: { none: true },
     loot: [
       { type: 'money', min: 50, max: 200, chance: 70 },
-      { type: 'item', value: '0', chance: 20 }, // Placeholder item
-      { type: 'item', value: '0', chance: 10 }, // PLACEHOLDER item
-      { type: 'item', value: '6', chance: 40 },
+      { type: 'item', value: '1', chance: 0.1 }, // Xanax
+      { type: 'item', value: '62', chance: 10 }, // Purse
+      { type: 'item', value: '52', chance: 40 }, // Subway pass
       { type: 'item', value: '41', chance: 5 }, // ecstasy
+      { type: 'item', value: '41', chance: 20 }, // Beer
+      { type: 'item', value: '9', chance: 2 }, // Jacket
+      { type: 'item', value: '101', chance: 2 }, // Newspaper
+      { type: 'item', value: '102', chance: 20 }, // Empty Can
+
     ],
     CriticalFailChance: 5, 
     CriticalFailEvent: { type: 'injury', severity: 'minor' }, // 20% of hp

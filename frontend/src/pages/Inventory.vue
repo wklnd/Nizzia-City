@@ -75,6 +75,7 @@ const TYPE_LABELS = {
   tools: 'Tools',
   drugs: 'Drugs',
   collectibles: 'Collectibles',
+  misc: 'Misc',
 }
 
 function labelForType(t){ return TYPE_LABELS[t] || t }
@@ -104,6 +105,7 @@ const TABS = [
   { key: 'medicine', label: 'Medicine', predicate: (e) => e?.item?.type === 'medicine' },
   { key: 'tools', label: 'Tools', predicate: (e) => e?.item?.type === 'tools' },
   { key: 'collectibles', label: 'Collectibles', predicate: (e) => e?.item?.type === 'collectibles' },
+  { key: 'misc', label: 'Misc', predicate: (e) => e?.item?.type === 'misc' },
   { key: 'caches', label: 'Caches', predicate: (e) => e?.item?.type === 'caches' },
 ]
 

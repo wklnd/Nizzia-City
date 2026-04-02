@@ -236,16 +236,7 @@
         <div><label>Name</label><input v-model.trim="item.name" /></div>
         <div><label>Type</label>
           <select v-model="item.type">
-            <option value="weapon">weapon</option>
-            <option value="alchool">alchol</option>
-            <option value="booster">booster</option>
-            <option value="cache">cache</option>
-            <option value="armor">armor</option>
-            <option value="medicine">medicine</option>
-            <option value="clothes">clothes</option>
-            <option value="tools">tools</option>
-            <option value="drugs">drugs</option>
-            <option value="collectibles">collectibles</option>
+            <option v-for="t in itemTypes" :key="t" :value="t">{{ t }}</option>
           </select>
         </div>
         <div><label>Item id</label><input v-model="item.id" placeholder="string or number" /></div>
@@ -291,7 +282,7 @@
       </div>
 
       <!-- effects for consumables and cache -->
-      <div v-if="['medicine','alchool','enhancers','drugs','booster','cache'].includes(item.type)" class="list">
+      <div v-if="['medicine','alchool','enhancers','drugs','cache'].includes(item.type)" class="list">
         <label>Effects</label>
         <div class="row">
           <div>
@@ -542,6 +533,7 @@ const invQty = ref(1)
 const invStatus = ref('')
 
 const item = ref({ name: '', type: 'tools', id: 0, price: 0, sellable: true, usable: true, description: '' })
+const itemTypes = ref([])
 const createItemStatus = ref('')
 const items = ref([])
 
@@ -913,6 +905,19 @@ function presetBoosterSmall(){
 async function fetchItems(){
   try { const res = await api.get('/items'); items.value = res.data || [] } catch { items.value = [] }
 }
+
+async function loadItemMeta(){
+  try {
+    const res = await api.get('/items/meta')
+    const types = res.data?.types || []
+    itemTypes.value = Array.isArray(types) ? types : []
+    if (itemTypes.value.length && !itemTypes.value.includes(item.value.type)) {
+      item.value.type = itemTypes.value[0]
+    }
+  } catch {
+    itemTypes.value = []
+  }
+}
 async function deleteItem(id){
   try { await api.delete(`/items/${id}`); await fetchItems() } catch (e) { alert(e?.response?.data?.error || e?.message || 'Failed') }
 }
@@ -930,8 +935,6 @@ function removeCacheItem(idx){ cacheItems.value.splice(idx, 1) }
 async function createItem(){
   try {
     const payload = { ...item.value }
-    // Map UI 'booster' to backend 'enhancers' type
-    if (payload.type === 'booster') payload.type = 'enhancers'
     // attach type-specific JSONs
     if (['medicine','alchool','enhancers','drugs','cache'].includes(payload.type)) {
       payload.effect = effectJson.value ? JSON.parse(effectJson.value) : buildEffectObject()
@@ -1129,7 +1132,7 @@ async function setAddiction(){
   } catch (e) { alert(e?.response?.data?.error || e?.message || 'Failed') }
 }
 
-onMounted(() => { loadSavedIds(); loadTitles(); fetchItems() })
+onMounted(() => { loadSavedIds(); loadTitles(); fetchItems(); loadItemMeta() })
 </script>
 
 <style scoped>

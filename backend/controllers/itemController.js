@@ -1,6 +1,15 @@
 const Item = require('../models/Item');
 const itemService = require('../services/itemService');
 
+const getItemMeta = async (req, res) => {
+  const typePath = Item.schema.path('type');
+  const type2Path = Item.schema.path('type2');
+  res.json({
+    types: Array.isArray(typePath?.enumValues) ? typePath.enumValues : [],
+    subtypes: Array.isArray(type2Path?.enumValues) ? type2Path.enumValues : [],
+  });
+};
+
 const getAllItems = async (req, res) => {
   const items = await Item.find();
   res.json(items);
@@ -164,4 +173,4 @@ const downloadAllItems = async () => {
   fs.writeFileSync('all_items.json', JSON.stringify(items, null, 2));
 }
 
-module.exports = { getAllItems, useItem, createItem, updateItem, deleteItem, downloadAllItems };
+module.exports = { getAllItems, getItemMeta, useItem, createItem, updateItem, deleteItem, downloadAllItems };
