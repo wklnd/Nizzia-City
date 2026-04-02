@@ -1,25 +1,34 @@
 <template>
   <div class="topbar">
-    <div class="brand">Nizzia City</div>
-    <div class="spacer"></div>
-    <div class="buttons">
-      <button v-if="isAdmin" @click="goAdmin" title="Admin">Admin</button>
-      <!-- Wiki button -->
-      <button @click="openWiki" title="Wiki">Wiki</button>
-      <button @click="rules" title="Rules">Rules</button>
-      <button @click="forums" title="Forums">Forums</button>
-      <button @click="discord" title="Discord">Discord</button>
-      <button @click="staff" title="Staff">Staff</button>
-      <button @click="credits" title="Credits">Credits</button>
+    <div class="topbar__left">
+      <button class="topbar__menu" @click="emit('toggle-nav')" :title="mobileNavOpen ? 'Close navigation' : 'Open navigation'">
+        {{ mobileNavOpen ? 'Close' : 'Menu' }}
+      </button>
+      <div class="brand">Nizzia City</div>
+      <div class="topbar__context" v-if="sectionLabel || pageLabel">
+        <span class="topbar__section" v-if="sectionLabel">{{ sectionLabel }}</span>
+        <span v-if="sectionLabel && pageLabel">/</span>
+        <span class="topbar__page" v-if="pageLabel">{{ pageLabel }}</span>
+      </div>
     </div>
-    <div class="topbar-center">
+
+    <div class="topbar__center">
+      <div class="buttons">
+        <button v-if="isAdmin" @click="goAdmin" title="Admin">Admin</button>
+        <button @click="openWiki" title="Wiki">Wiki</button>
+        <button @click="rules" title="Rules">Rules</button>
+        <button @click="staff" title="Staff">Staff</button>
+      </div>
       <div class="ticker" :class="{ 'ticker--single': tickerMode==='single' }">
         <div class="ticker__track" :style="trackStyle">{{ tickerText }}</div>
       </div>
     </div>
-    <div class="spacer"></div>
-    <div class="actions">
-      <button @click="toggleTheme" :title="isDark ? 'Switch to light' : 'Switch to dark'">{{ isDark ? '[LIGHT]' : '[DARK]' }}</button>
+
+    <div class="topbar__right actions">
+      <button @click="forums" title="Forums" data-label="secondary">Forums</button>
+      <button @click="discord" title="Discord" data-label="secondary">Discord</button>
+      <button @click="credits" title="Credits" data-label="secondary">Credits</button>
+      <button @click="toggleTheme" :title="isDark ? 'Switch to light' : 'Switch to dark'">{{ isDark ? 'Light' : 'Dark' }}</button>
       <button @click="goProfile" title="Profile">Profile</button>
       <button @click="logout" title="Log out">Log out</button>
     </div>
@@ -32,6 +41,13 @@ import { useRouter } from 'vue-router'
 import { usePlayerStore } from '../stores/player'
 // Note: do not import dev-only packages (like eslint configs) into runtime code
 
+const props = defineProps({
+  sectionLabel: { type: String, default: '' },
+  pageLabel: { type: String, default: '' },
+  mobileNavOpen: { type: Boolean, default: false },
+})
+const emit = defineEmits(['toggle-nav'])
+
 const router = useRouter()
 const store = usePlayerStore()
 const isAdmin = computed(() => {
@@ -43,7 +59,6 @@ const isAdmin = computed(() => {
 function goAdmin(){
   router.push('/admin')
 }
-const hp = ref(0)
 
 // Theme toggle
 const isDark = ref(document.documentElement.getAttribute('data-theme') !== 'light')
@@ -73,11 +88,6 @@ const trackStyle = computed(() => tickerMode.value==='scroll' ? { animationDurat
 
 let timer
 onMounted(() => {
-  // Load HP from cached player if present
-  try {
-    const p = JSON.parse(localStorage.getItem('nc_player')||'null')
-    hp.value = typeof p?.health === 'number' ? p.health : 0
-  } catch {}
   // Rotate ticker in single mode
   timer = setInterval(() => { if (tickerMode.value==='single') idx.value = (idx.value + 1) % newsItems.value.length }, 8000)
 })
@@ -128,6 +138,10 @@ function staff(){
 function credits(){
   router.push('/credits')
 }
+
+const sectionLabel = computed(() => props.sectionLabel)
+const pageLabel = computed(() => props.pageLabel)
+const mobileNavOpen = computed(() => props.mobileNavOpen)
 </script>
 
 <style scoped>

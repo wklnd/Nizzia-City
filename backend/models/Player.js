@@ -156,6 +156,16 @@ const playerSchema = new mongoose.Schema({
     }
   ],
 
+  // User-curated stock symbols for quick access in the trading terminal
+  stockWatchlist: {
+    type: [{ type: String, uppercase: true, trim: true }],
+    default: [],
+    validate: {
+      validator: (arr) => Array.isArray(arr) && arr.length <= 30,
+      message: 'Stock watchlist cannot exceed 30 symbols',
+    },
+  },
+
   // Casino-related state
   casino: {
     // Legacy single timestamp (kept for backward compatibility)

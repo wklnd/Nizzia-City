@@ -1,4 +1,4 @@
-// NPC Market Buying — dedicated cron job for NPCs to purchase items
+// NPC Market Buying 
 // Runs every 10 minutes
 
 const cron = require('node-cron');

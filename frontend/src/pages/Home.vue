@@ -33,26 +33,28 @@
         <div class="property-card" v-else-if="homeError">
           <div class="property-card__error">{{ homeError }}</div>
         </div>
-        <div class="property-card" v-else>
-          <div class="property-card__media">
+        <div class="property-card card card--flush" v-else>
+          <div class="card__media">
             <img
               v-if="imageOk && home?.image"
               :src="home.image"
               :alt="home?.name || 'Home'"
+              loading="lazy"
+              decoding="async"
               @error="imageOk = false"
             />
-            <div v-else class="property-card__placeholder">
+            <div v-else class="card__placeholder">
               <span>{{ home?.name || home?.id || 'Home' }}</span>
             </div>
           </div>
-          <div class="property-card__info">
-            <div class="property-card__row">
-              <strong class="property-card__name">{{ home?.name }}</strong>
-              <span class="property-card__meta">Happiness: {{ home?.happy }} / {{ home?.happyMax }}</span>
+          <div class="card__body">
+            <div class="card__row">
+              <strong class="card__title">{{ home?.name }}</strong>
+              <span class="muted">Happiness: {{ home?.happy }} / {{ home?.happyMax }}</span>
             </div>
             <div class="property-card__upgrades">
-              <div class="property-card__upgrades-title">Installed upgrades</div>
-              <div class="property-card__chips" v-if="installedUpgrades.length">
+              <div class="card__upgrades-title">Installed upgrades</div>
+              <div class="chips" v-if="installedUpgrades.length">
                 <span class="chip chip--ok" v-for="u in installedUpgrades" :key="u.id">{{ u.name }}</span>
               </div>
               <div v-else class="property-card__empty">No upgrades installed yet</div>
@@ -130,15 +132,6 @@ watch(() => store.player?.home, () => loadHome())
 
 <style scoped>
 .property-card { display: flex; flex-direction: column; gap: 10px; }
-.property-card__media { width: 100%; aspect-ratio: 16/9; border-radius: 2px; overflow: hidden; border: 1px solid var(--border); background: var(--bg-alt); }
-.property-card__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.property-card__placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--muted); }
-.property-card__info { display: flex; flex-direction: column; gap: 6px; }
-.property-card__row { display: flex; justify-content: space-between; align-items: baseline; font-size: 12px; }
-.property-card__name { font-size: 13px; font-weight: 600; }
-.property-card__meta { font-size: 12px; color: var(--muted); }
-.property-card__upgrades-title { font-size: 11px; color: var(--muted); margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.03em; }
-.property-card__chips { display: flex; flex-wrap: wrap; gap: 4px; }
 .property-card__empty { font-size: 12px; color: var(--muted); }
 .property-card__actions { margin-top: 6px; }
 .property-card__loading, .property-card__error { grid-column: 1 / -1; padding: 10px; color: var(--muted); font-size: 12px; }

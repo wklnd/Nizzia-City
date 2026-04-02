@@ -5,6 +5,13 @@
 - Minimera onödig kod. Inga 100+ rader funktioner längre
 
 
+
+### Game Functions
+- Improve Job
+- Improve Casino, add more games, add more ways to win, add more ways to lose.
+- Pets Screen is bygge. 
+
+
 ### Done: 
 - all hardcoded data is now moved to json files in the data folder
 

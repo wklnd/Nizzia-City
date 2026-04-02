@@ -24,7 +24,7 @@
                 <td>{{ l.item?.name || l.itemId }}</td>
                 <td class="num">{{ fmtMoney(l.price) }}</td>
                 <td class="num">{{ l.amountAvailable }}</td>
-                <td class="num"><button class="btn btn-danger" @click="cancel(l)" :disabled="busy">Cancel</button></td>
+                <td class="num"><button class="btn btn--danger" @click="cancel(l)" :disabled="busy">Cancel</button></td>
               </tr>
               <tr v-if="!myListings.length"><td colspan="4" class="muted">No listings</td></tr>
             </tbody>
@@ -35,7 +35,7 @@
               <tr v-for="l in myListings" :key="l.id">
                 <td>{{ l.pet?.name }} <span class="muted">({{ l.pet?.type }})</span></td>
                 <td class="num">{{ fmtMoney(l.price) }}</td>
-                <td class="num"><button class="btn btn-danger" @click="cancel(l)" :disabled="busy">Cancel</button></td>
+                <td class="num"><button class="btn btn--danger" @click="cancel(l)" :disabled="busy">Cancel</button></td>
               </tr>
               <tr v-if="!myListings.length"><td colspan="3" class="muted">No listings</td></tr>
             </tbody>
@@ -46,7 +46,7 @@
               <tr v-for="l in myListings" :key="l.id">
                 <td>{{ l.property?.name || l.propertyId }}</td>
                 <td class="num">{{ fmtMoney(l.price) }}</td>
-                <td class="num"><button class="btn btn-danger" @click="cancel(l)" :disabled="busy">Cancel</button></td>
+                <td class="num"><button class="btn btn--danger" @click="cancel(l)" :disabled="busy">Cancel</button></td>
               </tr>
               <tr v-if="!myListings.length"><td colspan="3" class="muted">No listings</td></tr>
             </tbody>
@@ -102,7 +102,7 @@
           <button class="btn" @click="loadListings" :disabled="loading">Refresh</button>
         </div>
         <div class="filter">
-          <input v-model="filter" class="input" type="text" :placeholder="tab==='items' ? 'Search item name…' : (tab==='pets' ? 'Search pet name…' : 'Search property…')" />
+          <input v-model="filterInput" class="input" type="text" :placeholder="tab==='items' ? 'Search item name…' : (tab==='pets' ? 'Search pet name…' : 'Search property…')" />
         </div>
         <div v-if="loading" class="muted">Loading…</div>
         <div v-else>
@@ -192,7 +192,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import api from '../api/client'
 import { usePlayer } from '../composables/usePlayer'
 import { useToast } from '../composables/useToast'
@@ -206,9 +206,11 @@ const inv = ref([])
 const listings = ref([])
 const tab = ref('items')
 const petMine = ref(null)
+const filterInput = ref('')
 const filter = ref('')
 const buyQtyMap = ref({})
 const expandedGroups = ref({})
+let filterDebounceTimer = null
 
 const form = ref({ itemKey: '', qty: 1, price: 1, petPrice: 1, propertyId: '', propertyPrice: 1 })
 const canCreate = computed(() => {
@@ -245,7 +247,7 @@ const groupedListings = computed(() => {
   } else if (tab.value === 'pets') {
     const groups = {}
     for (const l of filtered) {
-      const key = l.id
+      const key = l.petId || l.pet?._id || l.pet?.id || l.id
       if (!groups[key]) groups[key] = { petId: key, pet: l.pet, listings: [], minPrice: Infinity, maxPrice: 0 }
       groups[key].listings.push(l)
       groups[key].minPrice = Math.min(groups[key].minPrice, l.price)
@@ -283,7 +285,10 @@ async function loadListings() {
       data = (await api.get('/market/listings/properties')).data; listings.value = data?.listings || []
     }
     buyQtyMap.value = {}
-  } catch { /* ignore */ } finally { loading.value = false }
+  } catch (e) {
+    listings.value = []
+    toast.error(e?.response?.data?.error || e?.message || 'Failed to load listings')
+  } finally { loading.value = false }
 }
 
 async function create() {
@@ -362,6 +367,17 @@ const propertyOptions = computed(() => {
 })
 
 onMounted(async () => { await ensurePlayer(); await Promise.all([loadInventory(), loadListings(), loadMinePet()]) })
+
+watch(filterInput, (v) => {
+  if (filterDebounceTimer) clearTimeout(filterDebounceTimer)
+  filterDebounceTimer = setTimeout(() => {
+    filter.value = v
+  }, 250)
+})
+
+onUnmounted(() => {
+  if (filterDebounceTimer) clearTimeout(filterDebounceTimer)
+})
 </script>
 
 <style scoped>
@@ -374,19 +390,6 @@ onMounted(async () => { await ensurePlayer(); await Promise.all([loadInventory()
   width: 100%;
 }
 
-.panel {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 1rem;
-  overflow: hidden;
-}
-
-.panel h3 {
-  margin: 0 0 1rem 0;
-  font-size: 16px;
-}
-
 .panel__head { 
   display: flex; 
   align-items: center; 
@@ -396,37 +399,6 @@ onMounted(async () => { await ensurePlayer(); await Promise.all([loadInventory()
 
 .panel--full { 
   grid-column: 1 / -1; 
-}
-
-.tbl {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-}
-
-.tbl thead {
-  background: var(--panel-hover);
-  border-bottom: 1px solid var(--border);
-}
-
-.tbl th {
-  padding: 8px;
-  text-align: left;
-  font-weight: 600;
-  color: var(--muted);
-}
-
-.tbl td {
-  padding: 8px;
-  border-bottom: 1px solid var(--border);
-}
-
-.tbl tbody tr:hover {
-  background: var(--panel-hover);
-}
-
-.tbl .num {
-  text-align: right;
 }
 
 .form-grid { 
@@ -444,12 +416,6 @@ onMounted(async () => { await ensurePlayer(); await Promise.all([loadInventory()
 
 .filter { 
   margin-bottom: 6px; 
-}
-
-.btn-danger { 
-  background: var(--danger); 
-  color: #fff; 
-  border-color: var(--danger); 
 }
 
 .group-row { 

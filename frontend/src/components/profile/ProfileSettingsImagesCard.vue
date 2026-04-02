@@ -15,7 +15,7 @@
 
     <div class="settings-grid u-mt-8" v-if="localImages.length">
       <div class="settings-card" v-for="(img, idx) in localImages" :key="`${img}-${idx}`">
-        <img :src="img" :alt="`Profile image ${idx + 1}`" @error="onImgErr($event)" />
+        <img :src="img" :alt="`Profile image ${idx + 1}`" loading="lazy" decoding="async" @error="onImgErr($event)" />
         <a :href="img" target="_blank" rel="noopener noreferrer" class="muted settings-link">Open</a>
         <button class="btn btn--danger btn--small" :disabled="!canEdit || saving" @click="removeAt(idx)">Remove</button>
       </div>
@@ -23,7 +23,7 @@
 
     <div class="panel u-mt-8" v-else>
       <p class="muted">No custom profile images set. Default image is active.</p>
-      <img class="settings-default" :src="defaultImage" alt="Default profile image" />
+      <img class="settings-default" :src="defaultImage" alt="Default profile image" loading="lazy" decoding="async" />
     </div>
 
     <div class="settings-actions u-mt-8">

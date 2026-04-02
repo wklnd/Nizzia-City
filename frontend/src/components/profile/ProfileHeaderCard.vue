@@ -1,6 +1,6 @@
 <template>
   <div class="panel profile-header">
-    <img class="profile-header__avatar" :src="profileImage" :alt="`${name} profile image`" @error="onImgErr" />
+    <img class="profile-header__avatar" :src="profileImage" :alt="`${name} profile image`" loading="lazy" decoding="async" @error="onImgErr" />
 
     <div class="profile-header__identity">
       <div class="profile-header__title">

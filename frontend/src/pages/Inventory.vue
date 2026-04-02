@@ -16,7 +16,7 @@
         </button>
       </div>
       <div class="spacer"></div>
-      <input class="search" type="search" v-model="q" placeholder="Search items" />
+      <input class="search" type="search" v-model="qInput" placeholder="Search items" />
     </div>
 
     <div v-if="loading" class="muted u-mt-6">Loading inventory…</div>
@@ -49,7 +49,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import api from '../api/client'
 import { usePlayer } from '../composables/usePlayer'
 import { useToast } from '../composables/useToast'
@@ -60,8 +60,10 @@ const toast = useToast()
 const inv = ref([])
 const loading = ref(false)
 const busy = ref(false)
+const qInput = ref('')
 const q = ref('')
 const activeTab = ref('all')
+let searchDebounceTimer = null
 
 const TYPE_LABELS = {
   weapon: 'Weapons',
@@ -147,6 +149,17 @@ async function useOne(entry){
 
 onMounted(async () => { await ensurePlayer(); await loadInventory() })
 watch(() => store.player?.user, async (v, ov) => { if (v && v !== ov) await loadInventory() })
+
+watch(qInput, (v) => {
+  if (searchDebounceTimer) clearTimeout(searchDebounceTimer)
+  searchDebounceTimer = setTimeout(() => {
+    q.value = v
+  }, 250)
+})
+
+onUnmounted(() => {
+  if (searchDebounceTimer) clearTimeout(searchDebounceTimer)
+})
 
 function cooldownHours(item){
   const sec = Number(item?.effect?.cooldownSeconds || 0)

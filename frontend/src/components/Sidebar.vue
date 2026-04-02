@@ -1,5 +1,5 @@
 <template>
-  <aside class="sidebar">
+  <aside class="sidebar" :class="{ 'is-open': mobileOpen }">
     <div class="status-effects" v-if="effects.length">
       <span
         v-for="(e, i) in effects"
@@ -32,49 +32,18 @@
   <div class="progress-bar"><div class="progress-fill life" :style="{ width: pct(hpNow, hpMax) + '%' }"></div></div>
     </div>
 
-    <ul>
-      <li><RouterLink to="/">Home</RouterLink></li>
-      <li><RouterLink to="/inventory">Inventory</RouterLink></li>
-      <li><RouterLink to="/city">City</RouterLink></li>
-      <li><RouterLink to="/job">Job</RouterLink></li>
-      <li><RouterLink to="/education">Education</RouterLink></li>
-      <li><RouterLink to="/gym">Gym</RouterLink></li>
-      <li><RouterLink to="/casino">Casino</RouterLink></li>
-      <li><RouterLink to="/stocks">Stocks</RouterLink></li>
-      <li><RouterLink to="/crimes">Crimes</RouterLink></li>
-      <li><RouterLink to="/money">Money</RouterLink></li>
-      <li><RouterLink to="/property">Property</RouterLink></li>
-      <li v-if="hasWarehouse"><RouterLink to="/grow">Grow Operation</RouterLink></li>
-      <li v-if="hasBusiness"><RouterLink to="/real-estate?tab=businesses">Business</RouterLink></li>
-      <li><RouterLink to="/pets">Pets</RouterLink></li>
-      <li><RouterLink to="/market">Market</RouterLink></li>
-      <li><RouterLink to="/vault">Vault</RouterLink></li>
-      <li v-if="hasCartel"><RouterLink to="/cartel">Drug Empire</RouterLink></li>
-    </ul>
-
-    <div id="dev-menu" class="info u-mt-16" v-show="isDev">
-      <h3>Developer</h3>
-      <div class="u-mb-8">
-        <label>Add Money</label>
-        <div class="u-flex u-gap-6">
-          <input v-model.number="devMoney" type="number" />
-          <button @click="doDev('add-money', devMoney)" class="btn">Add</button>
-        </div>
-      </div>
-      <div class="u-mb-8">
-        <label>Add Energy</label>
-        <div class="u-flex u-gap-6">
-          <input v-model.number="devEnergy" type="number" />
-          <button @click="doDev('add-energy', devEnergy)" class="btn">Add</button>
-        </div>
-      </div>
-      <div>
-        <label>Add Nerve</label>
-        <div class="u-flex u-gap-6">
-          <input v-model.number="devNerve" type="number" />
-          <button @click="doDev('add-nerve', devNerve)" class="btn">Add</button>
-        </div>
-      </div>
+    <div class="sidebar-groups">
+      <section class="sidebar-group" v-for="group in navGroups" :key="group.key">
+        <button class="sidebar-group__head" @click="toggleGroup(group.key)">
+          <span>{{ group.title }}</span>
+          <span class="muted">{{ groupOpen[group.key] ? 'Hide' : 'Show' }}</span>
+        </button>
+        <ul v-show="groupOpen[group.key]">
+          <li v-for="item in group.items" :key="item.to">
+            <RouterLink :to="item.to" @click="emit('navigate')">{{ item.label }}</RouterLink>
+          </li>
+        </ul>
+      </section>
     </div>
   </aside>
 </template>
@@ -90,6 +59,10 @@ import { fmtMoney, fmtDuration } from '../utils/format'
 const { store, ensurePlayer } = usePlayer()
 const toast = useToast()
 const router = useRouter()
+defineProps({
+  mobileOpen: { type: Boolean, default: false },
+})
+const emit = defineEmits(['navigate'])
 
 const eNow = computed(() => store.player?.energyStats?.energy ?? 0)
 const eMax = computed(() => store.player?.energyStats?.energyMax ?? 0)
@@ -109,6 +82,7 @@ const devNerve = ref(5)
 
 let vitalsPollId
 let vitalsPollBusy = false
+let hasLoggedVitalsRefreshError = false
 
 async function refreshVitals() {
   if (typeof document !== 'undefined' && document.visibilityState !== 'visible') return
@@ -116,8 +90,12 @@ async function refreshVitals() {
   vitalsPollBusy = true
   try {
     await store.loadByUser()
-  } catch {
-    // Silent fail: keep current UI values and retry on next tick.
+  } catch (e) {
+    // Keep current UI values and retry on next tick.
+    if (!hasLoggedVitalsRefreshError) {
+      console.warn('Failed to refresh sidebar vitals', e)
+      hasLoggedVitalsRefreshError = true
+    }
   } finally {
     vitalsPollBusy = false
   }
@@ -186,6 +164,79 @@ const hasWarehouse = ref(false)
 const hasBusiness = ref(false)
 const hasCartel = computed(() => !!cartelRank.value)
 const hasStocks = computed(() => (store.player?.portfolio || []).some(p => Number(p?.shares || 0) > 0))
+
+const groupOpen = ref({
+  activities: true,
+  economy: true,
+  crime: true,
+  social: true,
+  progression: true,
+})
+
+const navGroups = computed(() => {
+  const groups = [
+    {
+      key: 'progression',
+      title: 'Main',
+      items: [
+        { to: '/', label: 'Home' },
+        { to: '/inventory', label: 'Inventory' },
+        { to: '/vault', label: 'Vault' },
+        { to: '/pets', label: 'Pets' },
+        { to: '/profile', label: 'Profile' },
+      ],
+    },
+    {
+      key: 'activities',
+      title: 'Activities',
+      items: [
+        { to: '/city', label: 'City' },
+        { to: '/job', label: 'Job' },
+        { to: '/education', label: 'Education' },
+        { to: '/gym', label: 'Gym' },
+        { to: '/casino', label: 'Casino' },
+      ],
+    },
+    {
+      key: 'economy',
+      title: 'Economy',
+      items: [
+        { to: '/money', label: 'Money' },
+        { to: '/bank', label: 'Bank' },
+        { to: '/stocks', label: 'Stocks' },
+        { to: '/market', label: 'Market' },
+        { to: '/property', label: 'Property' },
+        { to: '/real-estate', label: 'Real Estate' },
+        ...(hasBusiness.value ? [{ to: '/real-estate?tab=businesses', label: 'Business' }] : []),
+      ],
+    },
+    {
+      key: 'crime',
+      title: 'Crime',
+      items: [
+        { to: '/crimes', label: 'Crimes' },
+        ...(hasWarehouse.value ? [{ to: '/grow', label: 'Grow Operation' }] : []),
+        ...(hasCartel.value ? [{ to: '/cartel', label: 'Drug Empire' }] : []),
+      ],
+    },
+    {
+      key: 'social',
+      title: 'Social',
+      items: [
+        { to: '/hall-of-fame', label: 'Hall of Fame' },
+        { to: '/leaderboards', label: 'Leaderboards - TBD' },
+        { to: '/clans', label: 'Factions - TBD' },
+      ],
+    },
+
+  ]
+
+  return groups.filter((g) => g.items.length)
+})
+
+function toggleGroup(key) {
+  groupOpen.value[key] = !groupOpen.value[key]
+}
 
 async function loadBank() {
   try {
@@ -304,6 +355,48 @@ async function doDev(path, amount) {
 </script>
 
 <style scoped>
+.sidebar-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar-group {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--panel-alt);
+  overflow: hidden;
+}
+
+.sidebar-group__head {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 8px 10px;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  background: var(--panel);
+}
+
+.sidebar-group ul {
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+}
+
+.sidebar-group li {
+  margin-bottom: 4px;
+}
+
+.sidebar-group li:last-child {
+  margin-bottom: 0;
+}
+
 .status-effects { display: flex; gap: 4px; margin-bottom: 10px; flex-wrap: wrap; }
 .effect-icon {
   position: relative;

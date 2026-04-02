@@ -69,7 +69,11 @@
     "upgradeLimits": {
       "hot_tub": 1,
       "home_theater": 1,
-      "garden": 1
+      "garden": 1,
+      "vault": 1,
+      "security_system": 2,
+      "airstrip": 1
+
     }
   },
   "silo": {
@@ -111,7 +115,11 @@
       "hot_tub": 1,
       "home_theater": 1,
       "garden": 1,
-      "vault": 1
+      "vault": 1,
+      "airstrip": 1,
+      "security_system": 3,
+      "antiaircraftgun": 1
+
     }
   }
 }

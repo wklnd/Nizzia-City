@@ -40,5 +40,11 @@
     "name": "Security System",
     "costPerLevel": 7500000,
     "happyMaxPerLevel": 100
+  },
+  "antiaircraftgun": {
+    "id": "antiaircraftgun",
+    "name": "Anti-Aircraft Gun",
+    "costPerLevel": 50000000,
+    "happyMaxPerLevel": 3000
   }
 }

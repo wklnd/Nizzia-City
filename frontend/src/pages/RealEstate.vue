@@ -17,7 +17,7 @@
         <div class="owned-grid u-mt-4">
           <div class="owned-card" v-for="o in ownedSummary" :key="o.id">
             <div class="owned-media">
-              <img v-if="imageOk[o.id]" :src="imageUrl(o.id)" :alt="o.name" @error="() => (imageOk[o.id] = false)" />
+              <img v-if="imageOk[o.id]" :src="imageUrl(o.id)" :alt="o.name" loading="lazy" decoding="async" @error="() => (imageOk[o.id] = false)" />
               <div v-else class="card__placeholder">{{ o.name }}</div>
               <div class="owned-badge" v-if="o.count>1">×{{ o.count }}</div>
             </div>
@@ -44,14 +44,14 @@
       <div class="grid u-mt-6" v-else>
         <div v-for="p in filtered" :key="p.id" class="card">
           <div class="card__media">
-            <img v-if="imageOk[p.id]" :src="imageUrl(p.id)" :alt="p.name" @error="() => (imageOk[p.id] = false)" />
+            <img v-if="imageOk[p.id]" :src="imageUrl(p.id)" :alt="p.name" loading="lazy" decoding="async" @error="() => (imageOk[p.id] = false)" />
             <div v-else class="card__placeholder">{{ p.name }}</div>
             <div class="count-badge" v-if="(ownedCounts[p.id]||0) > 1">×{{ ownedCounts[p.id] }}</div>
           </div>
           <div class="card__body">
             <div class="card__row">
               <div class="card__title">{{ p.name }}</div>
-              <div class="status" :class="{ 'status--active': p.active, 'status--owned': p.owned && !p.active }">
+              <div class="status-badge" :class="{ 'status-badge--active': p.active, 'status-badge--owned': p.owned && !p.active, 'status-badge--sale': !p.owned }">
                 <template v-if="p.active">Active</template>
                 <template v-else-if="p.owned">Owned</template>
                 <template v-else>For Sale</template>
@@ -134,7 +134,7 @@
             <div class="card__body">
               <div class="card__row">
                 <div class="card__title">{{ w.name }}</div>
-                <div class="status" :class="{ 'status--active': growData.warehouse?.type === w.id }">
+                  <div class="status-badge" :class="{ 'status-badge--active': growData.warehouse?.type === w.id, 'status-badge--sale': growData.warehouse?.type !== w.id }">
                   <template v-if="growData.warehouse?.type === w.id">Current</template>
                   <template v-else>Available</template>
                 </div>
@@ -213,7 +213,7 @@
 
             <!-- inline rename -->
             <div v-if="renamingId === b._id" class="biz-rename u-mt-4">
-              <input v-model="renameText" class="biz-rename__input" maxlength="30" placeholder="New name…" @keyup.enter="doRename(b)" />
+              <input v-model="renameText" class="biz-rename__input input input--sm" maxlength="30" placeholder="New name…" @keyup.enter="doRename(b)" />
               <button class="btn btn--small btn--primary" :disabled="bizBusy" @click="doRename(b)">Save</button>
               <button class="btn btn--small" @click="renamingId = null">Cancel</button>
             </div>
@@ -589,37 +589,17 @@ watch(() => store.player?.user, async (v, ov) => {
 .broker-toolbar { display: flex; justify-content: space-between; align-items: center; }
 .toggle { font-size: 12px; color: var(--muted); }
 .card--active-border { border-color: var(--accent); }
-.card__media { width: 100%; aspect-ratio: 16/9; background: var(--bg-alt); }
-.card__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.card__placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 12px; }
 .count-badge { position: absolute; right: 6px; top: 6px; background: var(--panel); color: var(--text); padding: 1px 6px; border-radius: 2px; font-size: 11px; border: 1px solid var(--border); }
-.card__body { padding: 10px; display: flex; flex-direction: column; gap: 6px; }
-.card__row { display: flex; justify-content: space-between; align-items: baseline; font-size: 12px; }
-.card__title { font-weight: 600; }
-.card__meta { font-size: 12px; color: var(--muted); display: grid; gap: 1px; }
 .card__upgrades { margin-top: 4px; }
-.card__upgrades-title { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.03em; }
 .upgrade-list { display: grid; gap: 4px; margin-top: 4px; }
 .upgrade { display: flex; align-items: center; gap: 6px; font-size: 12px; }
 .upgrade__name { font-size: 12px; }
 .upgrade__spacer { flex: 1; }
 .upgrade__price { font-size: 11px; color: var(--muted); }
-.card__actions { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
-.status { font-size: 11px; color: var(--muted); }
-.status--owned { color: var(--warn); }
-.status--active { color: var(--ok); font-weight: 600; }
 .wh-info { padding: 3px 0; }
 .wh-name { font-size: 15px; font-weight: 700; margin-bottom: 3px; }
 .wh-tags { display: flex; gap: 6px; flex-wrap: wrap; }
 .wh-actions { display: flex; gap: 6px; flex-wrap: wrap; }
-.owned-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; }
-.owned-card { border: 1px solid var(--border); border-radius: 2px; background: var(--panel); overflow: hidden; }
-.owned-media { position: relative; width: 100%; aspect-ratio: 16/9; background: var(--bg-alt); }
-.owned-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.owned-badge { position: absolute; right: 6px; top: 6px; background: var(--panel); color: var(--text); padding: 1px 6px; border-radius: 2px; font-size: 11px; border: 1px solid var(--border); }
-.owned-body { padding: 6px; }
-.owned-title { font-weight: 600; font-size: 12px; }
-.owned-meta { font-size: 11px; color: var(--muted); }
 .coming-soon { display: flex; gap: 14px; align-items: center; padding: 10px 0; }
 .coming-soon__icon { font-size: 36px; }
 .coming-soon__text p { margin-top: 4px; font-size: 12px; color: var(--muted); }
@@ -649,10 +629,7 @@ watch(() => store.player?.user, async (v, ov) => {
 .biz-card__actions { display: flex; flex-wrap: wrap; gap: 4px; }
 
 .biz-rename { display: flex; gap: 6px; align-items: center; }
-.biz-rename__input { flex: 1; padding: 4px 8px; border: 1px solid var(--border); border-radius: 2px; background: var(--bg-alt); color: var(--text); font-size: 12px; font-family: inherit; }
-
-.btn--danger { background: var(--danger); color: #fff; border-color: var(--danger); }
-.btn--danger:hover { opacity: 0.85; }
+.biz-rename__input { flex: 1; }
 
 .tag--ok { color: var(--ok); font-weight: 700; }
 .tag--danger { color: var(--danger); font-weight: 700; }

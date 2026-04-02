@@ -1,59 +1,99 @@
 <template>
-  <section class="pets">
-    <h2>Pet Store</h2>
-    <p class="muted">Adopt a companion to boost your happiness. You can own one pet at a time.</p>
+  <section class="pets-page">
+    <header class="pets-page__header">
+      <h2>Pet Store</h2>
+      <p class="muted">Adopt a companion that increases happiness. You can own one pet at a time.</p>
+    </header>
 
-    <div class="panel" v-if="loading">Loading…</div>
-    <div class="panel" v-else-if="error" style="color:var(--danger);">{{ error }}</div>
+    <div class="panel" v-if="loading">Loading pets…</div>
+    <div class="panel" v-else-if="error">
+      <p class="text-danger">{{ error }}</p>
+    </div>
 
-    <div v-else>
-      <div class="grid">
-        <div class="panel">
-          <h3>Your Pet</h3>
-          <div v-if="!mine?.pet" class="muted">No pet yet. Pick one below!</div>
-          <div v-else class="pet-owned">
-            <img class="pet-img" :src="petImage(mine.pet)" alt="Pet" @error="onImgErr($event)"/>
-            <div class="pet-info">
-              <div class="pet-title"><strong>{{ mine.pet.name }}</strong> <span class="muted">({{ mine.pet.type }})</span></div>
-              <div class="pet-tags">
-                <span class="pill">Happiness Bonus: +{{ mine.pet.happyBonus }}</span>
-                <span class="pill">Age: {{ mine.pet.age }}d</span>
+    <div v-else class="pets-shell">
+      <article class="panel pets-current">
+        <h3>Your Pet</h3>
+
+        <div v-if="!hasPet" class="pets-empty u-mt-8">
+          <p class="muted">You do not currently own a pet.</p>
+          <p class="muted">Choose one from the catalog below to gain a happiness bonus.</p>
+        </div>
+
+        <div v-else class="pets-current__card card card--flush u-mt-8">
+          <div class="pets-current__media card__media">
+            <img :src="petImage(mine.pet)" :alt="mine.pet?.name || 'Pet'" loading="lazy" decoding="async" @error="onImgErr($event)" />
+          </div>
+
+          <div class="pets-current__body card__body">
+            <div class="pets-current__title-row">
+              <h4 class="pets-current__name">{{ mine.pet?.name }}</h4>
+              <span class="pill pill--info">{{ mine.pet?.type }}</span>
+            </div>
+
+            <div class="pets-current__stats">
+              <div class="stat-item">
+                <div class="lbl">Happiness Bonus</div>
+                <div class="val">+{{ mine.pet?.happyBonus || 0 }}</div>
               </div>
-              <div class="pet-actions">
-                <input v-model="newName" type="text" class="input" placeholder="Nickname" :maxlength="32" />
-                <button class="btn" @click="renamePet" :disabled="busy || !canRename">Save Name</button>
-                <button class="btn btn-danger" @click="release" :disabled="busy">Release</button>
+              <div class="stat-item">
+                <div class="lbl">Age</div>
+                <div class="val">{{ mine.pet?.age || 0 }}d</div>
               </div>
+            </div>
+
+            <div class="pets-current__actions">
+              <input
+                v-model="newName"
+                type="text"
+                class="input pets-current__name-input"
+                placeholder="New nickname"
+                :maxlength="32"
+              />
+              <button class="btn btn--primary" @click="renamePet" :disabled="busy || !canRename">Save Name</button>
+              <button class="btn btn--danger" @click="release" :disabled="busy">Release</button>
             </div>
           </div>
         </div>
+      </article>
 
-        <div class="panel">
+      <article class="panel pets-catalog">
+        <div class="pets-catalog__head">
           <h3>Catalog</h3>
-          <div class="cards">
-            <div class="card" v-for="p in catalog.pets" :key="p.id">
-              <img class="card-img" :src="petImageById(p.id)" :alt="p.name" @error="onImgErr($event)" />
-              <div class="card-head">
-                <div class="card-title">{{ p.name }}</div>
-                <div class="muted">+{{ p.happyBonus }} happy</div>
+          <input v-model="query" type="search" class="input input--sm pets-catalog__search" placeholder="Search pets" />
+        </div>
+
+        <div class="pets-catalog__rows u-mt-8">
+          <div class="pets-row card card--flush" v-for="p in filteredCatalog" :key="p.id">
+            <div class="pets-row__media card__media">
+              <img :src="petImageById(p.id)" :alt="p.name" loading="lazy" decoding="async" @error="onImgErr($event)" />
+            </div>
+
+            <div class="pets-row__main">
+              <div class="pets-row__top">
+                <div class="pets-row__name">{{ p.name }}</div>
+                <span class="pill pill--ok">+{{ p.happyBonus }} happy</span>
               </div>
-              <div class="card-body">
-                <div class="muted">Price: {{ fmtMoney(p.cost) }}</div>
-              </div>
-              <div class="card-actions">
-                <button class="btn" @click="buy(p)" :disabled="busy || !!mine.pet">Buy</button>
+
+              <div class="pets-row__meta muted">
+                <span>Price: {{ fmtMoney(p.cost) }}</span>
+                <span>Type: {{ p.id }}</span>
               </div>
             </div>
-            <div v-if="!catalog.pets?.length" class="muted">Nothing for sale.</div>
+
+            <div class="pets-row__actions">
+              <button class="btn btn--primary" @click="buy(p)" :disabled="busy || hasPet">Adopt</button>
+            </div>
           </div>
+
+          <div v-if="!filteredCatalog.length" class="pets-empty muted">No pets match your search.</div>
         </div>
-      </div>
+      </article>
     </div>
   </section>
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import api from '../api/client'
 import { useToast } from '../composables/useToast'
 import { fmtMoney } from '../utils/format'
@@ -66,19 +106,41 @@ const busy = ref(false)
 const mine = ref({ pet: null })
 const catalog = ref({ pets: [] })
 const newName = ref('')
+const query = ref('')
 
-function onImgErr(e){ e.target.style.background = '#2b2b2b'; e.target.src = '' }
-function petImage(p){
+const hasPet = computed(() => !!mine.value?.pet)
+
+const filteredCatalog = computed(() => {
+  const q = query.value.trim().toLowerCase()
+  const list = catalog.value?.pets || []
+  if (!q) return list
+  return list.filter((p) => {
+    const name = String(p?.name || '').toLowerCase()
+    const id = String(p?.id || '').toLowerCase()
+    return name.includes(q) || id.includes(q)
+  })
+})
+
+function onImgErr(e) {
+  const img = e?.target
+  if (!img) return
+  img.onerror = null
+  img.src = '/assets/images/pet_placeholder.jpg'
+}
+
+function petImage(p) {
   if (!p?.type) return '/assets/images/pet_placeholder.jpg'
   return `/assets/images/pet_${p.type}.jpg`
 }
-function petImageById(id){
+
+function petImageById(id) {
   if (!id) return '/assets/images/pet_placeholder.jpg'
   return `/assets/images/pet_${id}.jpg`
 }
 
-async function load(){
-  loading.value = true; error.value = ''
+async function load() {
+  loading.value = true
+  error.value = ''
   try {
     const [mineRes, catRes] = await Promise.all([
       api.get('/pets/my'),
@@ -87,65 +149,237 @@ async function load(){
     mine.value = mineRes.data || mineRes
     catalog.value = catRes.data || catRes
     newName.value = mine.value?.pet?.name || ''
-  } catch (e){
-    error.value = e?.response?.data?.error || e?.message || 'Failed to load'
-  } finally { loading.value = false }
+  } catch (e) {
+    error.value = e?.response?.data?.error || e?.message || 'Failed to load pets'
+  } finally {
+    loading.value = false
+  }
 }
 
-async function buy(p){
+async function buy(p) {
   busy.value = true
   try {
     await api.post('/pets/buy', { type: p.id, name: p.name })
     toast.ok(`Adopted ${p.name}!`)
     await load()
-  } catch (e){
-    toast.error(e?.response?.data?.error || e?.message || 'Failed to buy')
-  } finally { busy.value = false }
+  } catch (e) {
+    toast.error(e?.response?.data?.error || e?.message || 'Failed to buy pet')
+  } finally {
+    busy.value = false
+  }
 }
 
-async function release(){
+async function release() {
+  if (!confirm('Release your pet?')) return
   busy.value = true
   try {
-    if (!confirm('Release your pet?')) { busy.value = false; return }
     await api.post('/pets/release')
     toast.ok('Pet released')
     await load()
-  } catch (e){
-    toast.error(e?.response?.data?.error || e?.message || 'Failed to release')
-  } finally { busy.value = false }
+  } catch (e) {
+    toast.error(e?.response?.data?.error || e?.message || 'Failed to release pet')
+  } finally {
+    busy.value = false
+  }
 }
 
 const canRename = computed(() => {
-  const n = (newName.value || '').trim();
-  return n.length >= 2 && n.length <= 32;
+  const n = newName.value.trim()
+  return n.length >= 2 && n.length <= 32
 })
 
-async function renamePet(){
+async function renamePet() {
   if (!canRename.value) return
   busy.value = true
   try {
     await api.post('/pets/rename', { name: newName.value.trim() })
     toast.ok('Pet renamed')
     await load()
-  } catch (e){
-    toast.error(e?.response?.data?.error || e?.message || 'Failed to rename')
-  } finally { busy.value = false }
+  } catch (e) {
+    toast.error(e?.response?.data?.error || e?.message || 'Failed to rename pet')
+  } finally {
+    busy.value = false
+  }
 }
 
 onMounted(load)
 </script>
 
 <style scoped>
-.pet-owned { display: flex; gap: 10px; align-items: center; }
-.pet-img { width: 120px; height: 72px; object-fit: cover; border-radius: 2px; border: 1px solid var(--border); background: var(--bg-alt); }
-.pet-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
-.pet-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
-.pet-actions { display: flex; gap: 6px; align-items: center; margin-top: 6px; }
-.input { padding: 5px 8px; border-radius: 2px; border: 1px solid var(--border); background: var(--input-bg); color: var(--text); font-size: 12px; }
-.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; }
-.card-img { width: 100%; aspect-ratio: 5/3; object-fit: cover; border-radius: 2px; border: 1px solid var(--border); background: var(--bg-alt); margin-bottom: 6px; }
-.card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
-.card-title { font-weight: 700; font-size: 13px; }
-.card-actions { margin-top: 6px; display: flex; justify-content: flex-end; }
-.btn-danger { background: var(--danger); color: #fff; border-color: var(--danger); }
+.pets-page {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.pets-page__header {
+  display: grid;
+  gap: 2px;
+}
+
+.pets-shell {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+  align-items: start;
+}
+
+.pets-empty {
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+  display: grid;
+  gap: var(--space-1);
+}
+
+.pets-current__card {
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr);
+}
+
+.pets-current__media {
+  border-radius: 0;
+}
+
+.pets-current__body {
+  min-width: 0;
+}
+
+.pets-current__title-row {
+  display: flex;
+  gap: var(--space-2);
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.pets-current__name {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--text-strong);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.pets-current__stats {
+  display: grid;
+  gap: var(--space-2);
+  grid-template-columns: repeat(2, minmax(120px, 1fr));
+}
+
+.pets-current__actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.pets-current__name-input {
+  flex: 1 1 240px;
+  min-width: 0;
+}
+
+.pets-catalog {
+  min-width: 0;
+}
+
+.pets-catalog__head {
+  display: flex;
+  gap: var(--space-2);
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.pets-catalog__search {
+  width: min(100%, 240px);
+}
+
+.pets-catalog__rows {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.pets-row {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr) auto;
+  align-items: stretch;
+}
+
+.pets-row__media {
+  border-radius: 0;
+}
+
+.pets-row__main {
+  padding: var(--space-3);
+  min-width: 0;
+  display: grid;
+  align-content: center;
+  gap: var(--space-1);
+}
+
+.pets-row__top {
+  display: flex;
+  gap: var(--space-2);
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.pets-row__name {
+  font-weight: 700;
+  color: var(--text-strong);
+}
+
+.pets-row__meta {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  font-size: 12px;
+}
+
+.pets-row__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3);
+  border-left: 1px solid var(--border);
+}
+
+@media (max-width: 1100px) {
+  .pets-shell {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .pets-current__card {
+    grid-template-columns: 1fr;
+  }
+
+  .pets-current__media {
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  }
+
+  .pets-current__stats {
+    grid-template-columns: 1fr;
+  }
+
+  .pets-row {
+    grid-template-columns: 1fr;
+  }
+
+  .pets-row__media {
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  }
+
+  .pets-row__actions {
+    border-left: 0;
+    border-top: 1px solid var(--border);
+    justify-content: stretch;
+  }
+
+  .pets-row__actions .btn {
+    width: 100%;
+  }
+}
 </style>

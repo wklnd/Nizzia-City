@@ -162,6 +162,7 @@ const stashAmounts = reactive({})
 const dirtCost = 100
 const potCost = 2500
 let refreshTimer = null
+let hasLoggedRefreshError = false
 
 function fmtTime(sec) {
   sec = Math.max(0, Math.floor(sec))
@@ -210,7 +211,12 @@ async function refreshPots() {
     data.value.pots = d.pots || []
     data.value.stash = d.stash || []
     if (d.warehouse) data.value.warehouse = d.warehouse
-  } catch { /* silent */ }
+  } catch (e) {
+    if (!hasLoggedRefreshError) {
+      console.warn('Failed to refresh grow state', e)
+      hasLoggedRefreshError = true
+    }
+  }
 }
 
 async function doBuyPot() {

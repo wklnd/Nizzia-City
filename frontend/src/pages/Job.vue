@@ -54,8 +54,8 @@
           <button :disabled="busy || !status.canWork" @click="doWork">
             {{ status.canWork ? '💼 Work' : `⏳ ${cooldownStr}` }}
           </button>
-          <button v-if="status.nextRank" :disabled="busy" @click="doPromote" class="btn-secondary">⬆ Promote</button>
-          <button :disabled="busy" @click="doQuit" class="btn-danger">Quit Job</button>
+          <button v-if="status.nextRank" :disabled="busy" @click="doPromote" class="btn btn-secondary">⬆ Promote</button>
+          <button :disabled="busy" @click="doQuit" class="btn btn-danger">Quit Job</button>
         </div>
 
         <!-- Promotion preview -->
@@ -103,7 +103,7 @@
           <button :disabled="busy || !status.canWork" @click="doWork">
             {{ status.canWork ? '💼 Work' : `⏳ ${cooldownStr}` }}
           </button>
-          <button :disabled="busy" @click="doQuit" class="btn-danger">Quit Job</button>
+          <button :disabled="busy" @click="doQuit" class="btn btn-danger">Quit Job</button>
         </div>
       </div>
 
@@ -128,7 +128,7 @@
         </div>
         <div class="actions">
           <button :disabled="busy || status.employed" @click="doHire(j.id)">Apply</button>
-          <button class="btn-secondary" @click="viewJob = viewJob === j.id ? null : j.id">
+          <button class="btn btn-secondary" @click="viewJob = viewJob === j.id ? null : j.id">
             {{ viewJob === j.id ? 'Hide Ranks' : 'View Ranks' }}
           </button>
         </div>
@@ -234,7 +234,11 @@ async function loadData() {
       api.get('/job/city-jobs'), api.get('/job/companies'),
     ])
     cityJobs.value = cj.data; companies.value = co.data
-  } catch {}
+  } catch (e) {
+    cityJobs.value = []
+    companies.value = []
+    toast.error(e?.response?.data?.error || e?.message || 'Failed to load jobs')
+  }
   try {
     const { data } = await api.get('/job/status')
     status.value = data
@@ -309,37 +313,9 @@ onUnmounted(() => { if (cooldownTimer) clearInterval(cooldownTimer) })
 <style scoped>
 .job-page { max-width: 840px; }
 
-/* Tabs */
-.tabs { display: flex; gap: 4px; margin-bottom: 12px; flex-wrap: wrap; }
-.tabs button { background: var(--panel); border: 1px solid var(--border); padding: 6px 14px; cursor: pointer; color: var(--text); font-size: .85rem; }
-.tabs button.active { border-color: var(--accent); color: var(--accent); }
-
-/* Messages */
-.msg { padding: 6px 10px; border-radius: 2px; margin-bottom: 8px; font-size: .85rem; }
-.msg.err { background: rgba(220,50,50,.12); color: var(--danger); border: 1px solid var(--danger); }
-.msg.ok  { background: rgba(50,180,50,.12); color: var(--ok);     border: 1px solid var(--ok); }
-
-/* Cards */
-.card { background: var(--panel); border: 1px solid var(--border); border-radius: 2px; padding: 14px; margin-bottom: 10px; color: var(--text); }
-.card h3 { margin: 0 0 6px; font-size: 1rem; }
-.card h4 { margin: 0 0 6px; font-size: .9rem; color: var(--text-strong); }
-
 /* Job header */
 .job-header { display: flex; align-items: center; gap: 10px; }
 .icon { font-size: 1.5rem; }
-
-/* Stat grid */
-.stat-grid { display: flex; flex-wrap: wrap; gap: 12px; }
-.stat-item { display: flex; flex-direction: column; min-width: 80px; }
-.stat-item .lbl { font-size: .7rem; text-transform: uppercase; color: var(--muted); letter-spacing: .5px; }
-.stat-item .val { font-size: .95rem; font-weight: 600; }
-
-/* Actions */
-.actions { display: flex; gap: 6px; flex-wrap: wrap; }
-.btn-secondary { background: transparent; border: 1px solid var(--border); color: var(--text); }
-.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
-.btn-danger { background: transparent; border: 1px solid var(--danger); color: var(--danger); }
-.btn-danger:hover { background: rgba(220,50,50,.15); }
 
 /* Promo box */
 .promo-box { background: rgba(255,255,255,.03); border: 1px dashed var(--border); padding: 10px; display: flex; flex-wrap: wrap; gap: 12px; font-size: .85rem; }

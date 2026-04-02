@@ -8,7 +8,7 @@
       <div class="owned-grid u-mt-4">
         <div class="owned-card" v-for="o in ownedSummary" :key="o.id">
           <div class="owned-media">
-            <img v-if="imageOkMap[o.id]" :src="imageUrl(o.id)" :alt="o.name" @error="() => (imageOkMap[o.id] = false)" />
+            <img v-if="imageOkMap[o.id]" :src="imageUrl(o.id)" :alt="o.name" loading="lazy" decoding="async" @error="() => (imageOkMap[o.id] = false)" />
             <div v-else class="card__placeholder">{{ o.name }}</div>
             <div class="owned-badge" v-if="o.count>1">×{{ o.count }}</div>
           </div>
@@ -26,7 +26,7 @@
     <div v-else class="prop">
       <div class="card">
         <div class="card__media">
-          <img v-if="imageOk && home?.image" :src="home.image" :alt="home?.name || 'Home'" @error="imageOk=false" />
+          <img v-if="imageOk && home?.image" :src="home.image" :alt="home?.name || 'Home'" loading="lazy" decoding="async" @error="imageOk=false" />
           <div v-else class="card__placeholder">{{ home?.name || home?.id || 'Home' }}</div>
         </div>
         <div class="card__body">
@@ -165,23 +165,9 @@ watch(() => store.player?.user, async (v, ov) => { if (v && v !== ov) { await lo
 
 <style scoped>
 .prop { margin-top: 10px; }
-.card__media { width: 100%; max-width: 720px; margin: 0 auto; aspect-ratio: 16/9; background: var(--bg-alt); border-radius: 2px; overflow: hidden; }
-.card__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.card__placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 12px; }
-.card__body { padding: 10px; display: flex; flex-direction: column; gap: 6px; }
-.card__row { display: flex; justify-content: space-between; align-items: baseline; font-size: 12px; }
-.card__title { font-weight: 600; }
+.card__media { max-width: 720px; margin: 0 auto; }
 .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; margin-top: 6px; }
-.panel--soft { background: var(--bg-alt); }
 .panel__title { font-weight: 600; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.03em; }
 .kv__row { display: flex; justify-content: space-between; font-size: 12px; }
 .chip--ok::before { content: '[OK]'; color: var(--ok); font-weight: 700; font-size: 10px; }
-.owned-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; }
-.owned-card { border: 1px solid var(--border); border-radius: 2px; background: var(--panel); overflow: hidden; }
-.owned-media { position: relative; width: 100%; aspect-ratio: 16/9; background: var(--bg-alt); }
-.owned-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.owned-badge { position: absolute; right: 6px; top: 6px; background: var(--panel); color: var(--text); padding: 1px 6px; border-radius: 2px; font-size: 11px; border: 1px solid var(--border); }
-.owned-body { padding: 6px; }
-.owned-title { font-weight: 600; font-size: 12px; }
-.owned-meta { font-size: 11px; color: var(--muted); }
 </style>

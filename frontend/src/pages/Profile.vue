@@ -34,7 +34,7 @@
             class="profile__image-link"
             :title="`Open image ${idx + 1}`"
           >
-            <img :src="img" :alt="`Profile image ${idx + 1}`" @error="onGalleryImgErr($event)" />
+            <img :src="img" :alt="`Profile image ${idx + 1}`" loading="lazy" decoding="async" @error="onGalleryImgErr($event)" />
           </a>
         </div>
       </div>
@@ -58,7 +58,7 @@
           <div v-if="petLoading" class="muted">Loading…</div>
           <div v-else-if="!pet?.pet" class="muted">No pet owned.</div>
           <div v-else class="pet-owned">
-            <img class="pet-img" :src="petImage(pet.pet)" alt="Pet" @error="onImgErr($event)"/>
+            <img class="pet-img" :src="petImage(pet.pet)" alt="Pet" loading="lazy" decoding="async" @error="onImgErr($event)"/>
             <div>
               <div class="pet-title"><strong>{{ pet.pet.name }}</strong> <span class="muted">({{ pet.pet.type }})</span></div>
               <div class="pet-tags">
