@@ -11,6 +11,8 @@ const Education = () => import('../pages/Education.vue')
 const Stocks = () => import('../pages/Stocks.vue')
 const Crimes = () => import('../pages/Crimes.vue')
 const CrimeSearchForCash = () => import('../pages/crime/SearchForCash.vue')
+const CrimePickpocket = () => import('../pages/crime/Pickpocket.vue')
+const Jail = () => import('../pages/Jail.vue')
 const Property = () => import('../pages/Property.vue')
 const Bank = () => import('../pages/Bank.vue')
 const Profile = () => import('../pages/Profile.vue')
@@ -50,6 +52,8 @@ const routes = [
   { path: '/stocks', name: 'stocks', component: Stocks, meta: { section: 'Economy', title: 'Stocks' } },
   { path: '/crimes', name: 'crimes', component: Crimes, meta: { section: 'Crime', title: 'Crimes' } },
   { path: '/crimes/search-for-cash', name: 'crime-search-for-cash', component: CrimeSearchForCash, meta: { section: 'Crime', title: 'Search for Cash' } },
+  { path: '/crimes/pickpocket', name: 'crime-pickpocket', component: CrimePickpocket, meta: { section: 'Crime', title: 'Pickpocket' } },
+  { path: '/jail', name: 'jail', component: Jail, meta: { section: 'Penalty', title: 'Jail' } },
   { path: '/property', name: 'property', component: Property, meta: { section: 'Economy', title: 'Property' } },
   { path: '/bank', name: 'bank', component: Bank, meta: { section: 'Economy', title: 'Bank' } },
   { path: '/profile', name: 'profile', component: Profile, meta: { section: 'Social', title: 'Profile' } },
@@ -77,6 +81,17 @@ router.beforeEach((to) => {
   if (to.meta?.public) return true
   const token = typeof localStorage !== 'undefined' ? localStorage.getItem('nc_token') : null
   if (!token) return { name: 'login', query: { next: to.fullPath } }
+
+  try {
+    const cached = JSON.parse(localStorage.getItem('nc_player') || 'null')
+    const jailed = !!cached?.jailed && Number(cached?.jailTime || 0) > 0
+    if (jailed && to.name !== 'jail') {
+      return { name: 'jail' }
+    }
+  } catch {
+    // ignore malformed cache
+  }
+
   return true
 })
 

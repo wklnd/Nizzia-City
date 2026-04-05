@@ -1,0 +1,84 @@
+{
+  "LOCATION": {
+    "Pickpocket_Downtown": {
+      "id": "downtown",
+      "name": "Downtown Crowds",
+      "requirements": { "none": true },
+      "narration": {
+        "success": "You glide through foot traffic and lift a wallet cleanly.",
+        "minor_fail": "You fumble the timing and abort before contact.",
+        "critical_fail": "Your mark grabs your wrist and calls for police."
+      },
+      "CriticalFailChance": 10,
+      "MinorFailChance": 25,
+      "jailChance": 18,
+      "jailTimeSeconds": 1200,
+      "rewardMultiplier": 1,
+      "loot": [
+        { "type": "money", "min": 20, "max": 80, "chance": 55 },
+        { "type": "item", "value": "62", "chance": 16 },
+        { "type": "item", "value": "52", "chance": 24 },
+        { "type": "item", "value": "101", "chance": 8 },
+        { "type": "item", "value": "102", "chance": 10 }
+      ],
+      "PopularityAt": { "morning": 35, "afternoon": 45, "evening": 15, "night": 5 }
+    },
+    "Pickpocket_Nightlife": {
+      "id": "nightlife",
+      "name": "Nightlife Strip",
+      "requirements": { "none": true },
+      "narration": {
+        "success": "Neon chaos covers your move and you leave richer.",
+        "minor_fail": "You shadow a target but lose the clean opening.",
+        "critical_fail": "Bouncers see the attempt and hand you over."
+      },
+      "CriticalFailChance": 12,
+      "MinorFailChance": 24,
+      "jailChance": 22,
+      "jailTimeSeconds": 1500,
+      "rewardMultiplier": 1.2,
+      "loot": [
+        { "type": "money", "min": 30, "max": 120, "chance": 60 },
+        { "type": "item", "value": "62", "chance": 20 },
+        { "type": "item", "value": "9", "chance": 10 },
+        { "type": "item", "value": "41", "chance": 12 },
+        { "type": "item", "value": "52", "chance": 7 }
+      ],
+      "PopularityAt": { "morning": 5, "afternoon": 10, "evening": 45, "night": 40 }
+    },
+    "Pickpocket_Market": {
+      "id": "market",
+      "name": "Open Market",
+      "requirements": { "none": true },
+      "narration": {
+        "success": "You move between stalls and disappear with quick cash.",
+        "minor_fail": "A vendor stares you down and you pull back.",
+        "critical_fail": "A plainclothes cop corners you mid-attempt."
+      },
+      "CriticalFailChance": 14,
+      "MinorFailChance": 22,
+      "jailChance": 28,
+      "jailTimeSeconds": 1800,
+      "rewardMultiplier": 1.35,
+      "loot": [
+        { "type": "money", "min": 35, "max": 140, "chance": 58 },
+        { "type": "item", "value": "62", "chance": 22 },
+        { "type": "item", "value": "101", "chance": 14 },
+        { "type": "item", "value": "102", "chance": 14 },
+        { "type": "item", "value": "9", "chance": 9 },
+        { "type": "item", "value": "52", "chance": 6 }
+      ],
+      "PopularityAt": { "morning": 25, "afternoon": 40, "evening": 25, "night": 10 }
+    }
+  },
+  "CRIMES": {
+    "pickpocket": {
+      "id": "pickpocket",
+      "name": "Pickpocket",
+      "location": ["downtown", "nightlife", "market"],
+      "nerveCost": 2,
+      "expPerSuccess": 14,
+      "expPerFail": 2
+    }
+  }
+}

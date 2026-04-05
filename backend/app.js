@@ -11,6 +11,7 @@ const notFound = require('./middleware/notFound');
 const errorHandler = require('./middleware/errorHandler');
 const requestLogger = require('./middleware/requestLogger');
 const { attachAuth } = require('./middleware/authUser');
+const jailGate = require('./middleware/jailGate');
 
 
 // Crons
@@ -58,6 +59,7 @@ app.use(cors(corsOptions));
 app.options(/.*/, cors(corsOptions));
 app.use(express.json());
 app.use(attachAuth);
+app.use(jailGate);
 app.use(requestLogger());
 
 // Routes

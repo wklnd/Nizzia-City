@@ -7,7 +7,7 @@
         <span>Search for Cash</span>
       </button>
       <button class="crime-btn" disabled title="Coming soon">Bootlegging</button>
-      <button class="crime-btn" disabled title="Coming soon">Pickpocket</button>
+      <button class="crime-btn" @click="openPickpocket">Pickpocket</button>
       <button class="crime-btn" disabled title="Coming soon">Burglary</button>
       <button class="crime-btn" disabled title="Coming soon">Car Theft</button>
       <button class="crime-btn" disabled title="Coming soon">Hustling</button>
@@ -34,6 +34,10 @@ const router = useRouter()
 
 async function openSearchForCash(){
   await router.push({ name: 'crime-search-for-cash' })
+}
+
+async function openPickpocket(){
+  await router.push({ name: 'crime-pickpocket' })
 }
 </script>
 

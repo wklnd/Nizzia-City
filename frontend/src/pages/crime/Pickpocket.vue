@@ -1,13 +1,13 @@
 <template>
-  <section class="crime-sfc">
-    <h2>Search for Cash</h2>
+  <section class="crime-pickpocket">
+    <h2>Pickpocket</h2>
 
     <div class="card">
       <div class="row">
         <div class="stat">Money: ${{ fmt(store.player?.money) }}</div>
         <div class="stat">Nerve: {{ store.player?.nerveStats?.nerve ?? 0 }}</div>
       </div>
-      <div class="muted">Choose a location below and try your luck.</div>
+      <div class="muted">Choose a hotspot, scan likely targets, and attempt a clean lift.</div>
 
       <div class="locations">
         <button
@@ -15,7 +15,7 @@
           :key="l.id"
           class="loc"
           :class="{ active: l.id===selLoc }"
-          @click="selLoc = l.id">
+          @click="selectLocation(l.id)">
           <div class="loc__name">{{ l.name }}</div>
           <div class="pop">
             <div class="pop__bar" :style="{ width: (Math.round((l.popularity||0)*100)) + '%' }"></div>
@@ -23,21 +23,25 @@
         </button>
       </div>
 
+      <div v-if="targets.length" class="targets muted">
+        Targets in area: {{ targets.map(t => t.name + (t.isPolice ? ' (cop)' : '')).join(', ') }}
+      </div>
+
       <button
-        :disabled="busy || !store.player?.user || (store.player?.nerveStats?.nerve ?? 0) < 2 || !selLoc"
+        :disabled="busy || !store.player?.user || (store.player?.nerveStats?.nerve ?? 0) < 3 || !selLoc"
         @click="act()">
-        Search
+        Pickpocket
       </button>
 
       <div v-if="last" class="result">
         <div v-if="last.error" class="error">{{ last.error }}</div>
         <template v-else>
           <div>Outcome: <strong>{{ last.outcome }}</strong></div>
+          <div v-if="last.target">Target: {{ last.target.name }} <span v-if="last.target.isPolice" class="error">(Police)</span></div>
           <div v-if="last.narration" class="muted">{{ last.narration }}</div>
-          <div v-if="last.awarded?.money">Found ${{ fmt(last.awarded.money) }}</div>
-          <div v-if="last.awarded?.items?.length">Found items: {{ last.awarded.items.join(', ') }}</div>
-          <div v-if="last.jail?.triggered" class="error">Caught by police. Jail time: {{ last.jail.seconds }}s</div>
-          <div v-if="last.outcome!=='success' && !last.awarded?.items?.length && !last.awarded?.money">No loot.</div>
+          <div v-if="last.awarded?.money">Stolen ${{ fmt(last.awarded.money) }}</div>
+          <div v-if="last.jail?.triggered" class="error">Arrested. Jail time: {{ last.jail.seconds }}s</div>
+          <div v-if="last.outcome!=='success' && !last.awarded?.money">No payout.</div>
         </template>
       </div>
     </div>
@@ -56,21 +60,44 @@ const toast = useToast()
 const busy = ref(false)
 const last = ref(null)
 const locations = ref([])
+const targets = ref([])
 const selLoc = ref('')
 
 async function loadLocations(){
   try {
-    const { data } = await api.get('/crime/locations', { params: { crimeId: 'search_for_cash' } })
+    const { data } = await api.get('/crime/locations', { params: { crimeId: 'pickpocket' } })
     locations.value = data?.locations || []
-    if (locations.value.length && !selLoc.value) selLoc.value = locations.value[0].id
-  } catch { locations.value = [] }
+    if (locations.value.length && !selLoc.value) {
+      await selectLocation(locations.value[0].id)
+    }
+  } catch {
+    locations.value = []
+  }
+}
+
+async function loadTargets(locationId){
+  if (!locationId) {
+    targets.value = []
+    return
+  }
+  try {
+    const { data } = await api.get('/crime/pickpocket/targets', { params: { locationId } })
+    targets.value = data?.targets || []
+  } catch {
+    targets.value = []
+  }
+}
+
+async function selectLocation(locationId){
+  selLoc.value = locationId
+  await loadTargets(locationId)
 }
 
 async function act(){
   if (!store.player?.user) return
   busy.value = true
   try {
-    const { data } = await api.post('/crime/search-for-cash', { locationId: selLoc.value })
+    const { data } = await api.post('/crime/pickpocket', { locationId: selLoc.value })
     last.value = data
     store.mergePartial({ money: data.money, jailed: data.jailed, jailTime: data.jailTime })
     if (store.player.nerveStats) store.player.nerveStats.nerve = data.nerve
@@ -86,7 +113,7 @@ onMounted(async () => { await ensurePlayer(); await loadLocations() })
 </script>
 
 <style scoped>
-.crime-sfc { max-width: 800px; margin: 16px auto; padding: 0 16px; }
+.crime-pickpocket { max-width: 800px; margin: 16px auto; padding: 0 16px; }
 .row { display: flex; gap: 12px; margin: 6px 0; color: var(--muted); }
 .stat { font-size: 11px; }
 .locations { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; margin: 10px 0; }
@@ -96,5 +123,6 @@ onMounted(async () => { await ensurePlayer(); await loadLocations() })
 .loc__name { font-weight: 600; margin-bottom: 4px; }
 .pop { background: var(--bar-track); border: 1px solid var(--border); border-radius: 2px; height: 6px; overflow: hidden; }
 .pop__bar { background: var(--accent); height: 100%; width: 0%; transition: width 0.2s ease; }
+.targets { margin: 8px 0; font-size: 12px; }
 .result { margin-top: 8px; font-size: 13px; }
 </style>
